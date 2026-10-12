@@ -1,63 +1,94 @@
 # 北京市第一六六中学（非正式网站）
 
-纯静态资料整理站点（HTML + CSS + 原生 JS），无构建步骤，可直接部署到 GitHub Pages。
+基于 **Next.js (App Router) + TypeScript** 构建的北京市第一六六中学非官方资料整理站点。
 
-> 本站为非官方网站，不代表北京市第一六六中学或任何教育行政部门。页面内容仅整理自公开资料，发布日期和来源均以“资料来源”标注；不得将本站当作校务通知、招生公告或联系方式的官方发布渠道。
+站点运行在私有云虚拟机 `debian-web2`，通过 FRP 加密穿透隧道至边缘中转网关 `los-vps2`，配合 Cloudflare 灰云解析与 Let's Encrypt / ZeroSSL 自动化证书管理，由 GitHub Actions 驱动全自动 CI/CD 生产发布。
 
-## 目录结构
+> **免责声明**：本站为非官方网站，不代表北京市第一六六中学或任何教育行政部门。页面内容仅整理自公开资料，发布日期和来源均已明确标注；不得将本站当作校务通知、招生公告或联系方式的官方发布渠道。
+
+---
+
+## 架构与基础设施拓扑
 
 ```
-├── index.html          首页（轮播、通知公告跑马灯、三栏、图片新闻）
-├── about.html          学校概况（简介、办学情况、领导班子、机构设置）
-├── news.html           新闻中心（列表页）
-├── news-1.html ~ news-8.html   8篇新闻详情
-├── policy.html         教育方针
-├── disclosure.html     信息公示（收费、招生、校务公开、食谱）
-├── culture.html        校园文化（校史、一训三风、校园风光）
-├── contact.html        联系我们
-├── styles.css          全站样式（保留政企布局，改为“一六六蓝”蓝白主题）
-├── main.js             轮播 / 日期 / 搜索演示
-├── images/             10 张随压缩包提供的 AI 示意图 + school-emblem.jpg 公开校徽图样
-├── sources.html        页面资料来源、核验日期与使用边界（GitHub Pages 可直接打开）
-└── SOURCES.md          同步保留的 Markdown 来源清单
+       [ 公网访客浏览器 ]
+               │
+               ▼ (HTTPS 443 / 域名: bj166zx.cn & www.bj166zx.cn)
+     [ Cloudflare DNS ] (灰云 DNS-Only，指向 los-vps2: 23.185.168.190)
+               │
+               ▼
+    [ 边缘网关: los-vps2 ] ─── 仅作【内网穿透中转】与【反向代理】
+               │ 运行: Docker Caddy (监听 80/443 管理证书) + frps (端口 7000/22222)
+               │ 严禁在此运行网站业务、Node 运行时或代码！
+               ▼ (FRP 安全加密隧道穿透)
+  [ 核心服务节点: debian-web2 ] ─── 真正的【网站运行主机】(PVE VM 121, 192.168.5.81)
+               │ 运行: frpc (localPort: 3000 <-> remotePort: 13000)
+               │ 运行: Next.js Standalone 生产容器 (127.0.0.1:3000)
+               │ 目录: /opt/bj166-site/ (docker-compose.yml 托管)
 ```
 
-## 部署到 GitHub Pages
+---
 
-方式一：仓库根目录部署（推荐）
+## 项目结构
 
-1. 在 GitHub 新建公开仓库，例如 `bj166-demo`。
-2. 将本目录中**所有内容**（含 index.html、images 等，不要多套一层文件夹）推送到 `main` 分支：
+```
+├── .github/workflows/
+│   └── deploy.yml              GitHub Actions 全自动构建、推送 GHCR 与远程部署流水线
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx          全局布局（含页眉、页脚及全局样式注入）
+│   │   ├── page.tsx            首页（头条新闻、轮播图、三栏索引、图片新闻、友情链接）
+│   │   ├── globals.css         全站蓝白政企风格样式
+│   │   ├── about/              学校概况
+│   │   ├── news/               新闻中心列表页
+│   │   │   └── [id]/           新闻详情页（支持静态动态路由渲染与上一篇/下一篇）
+│   │   ├── policy/             教育方针与政策索引
+│   │   ├── disclosure/         信息公示与公开范围
+│   │   ├── culture/            校园文化与校史时间轴
+│   │   ├── contact/            联系方式说明与交通指引
+│   │   └── sources/            资料公开来源清单与核验边界
+│   ├── components/
+│   │   ├── Header.tsx          顶部工具条、校徽站头与主导航
+│   │   ├── Footer.tsx          底部版权声明与栏目快速通道
+│   │   └── Carousel.tsx        首页大图轮播组件
+│   └── data/
+│       └── news.ts             8篇既有公开报道结构化数据源
+├── public/
+│   └── images/                 公开校徽与示意图片资源
+├── Dockerfile                  Next.js Standalone 多阶段轻量镜像构建定义
+├── docker-compose.yml          生产容器编排文件
+├── next.config.mjs             Next.js 运行时配置
+├── tsconfig.json               TypeScript 配置
+└── AGENTS.md                   服务器职责边界与团队规范（AI 必读）
+```
 
+---
+
+## 本地开发
+
+1. **安装依赖**：
    ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: school website demo"
-   git branch -M main
-   git remote add origin https://github.com/<你的用户名>/bj166-demo.git
-   git push -u origin main
+   npm install
    ```
 
-3. 仓库页面 → **Settings → Pages** → Source 选择 **Deploy from a branch** → Branch 选 `main` / 目录选 `/(root)` → Save。
-4. 等待约 1 分钟，访问 `https://<你的用户名>.github.io/bj166-demo/`。
+2. **启动本地开发服务器**：
+   ```bash
+   npm run dev
+   ```
+   浏览器打开 [http://localhost:3000](http://localhost:3000) 即可实时预览。
 
-方式二：使用 `<你的用户名>.github.io` 主页仓库
+3. **生产构建与验证**：
+   ```bash
+   npm run build
+   ```
 
-- 仓库名必须正好为 `<你的用户名>.github.io`，同样把文件推到根目录，无需额外设置，访问 `https://<你的用户名>.github.io/` 即可。
+---
 
-## 本地预览
+## 团队自动化部署（CI/CD）
 
-直接双击 `index.html` 即可；或起一个本地服务：
-
-```bash
-npx serve .
-# 或
-python -m http.server 8000
-```
-
-## 说明
-
-- 公开政务地图可核验灯市口校区地址、邮编、电话和 1864 年创办日期；2024 年度决算材料还披露了年末学生人数、教职工编制和两个校址。页面只使用这些带日期的公开记录，不自行推算当前规模。
-- 百度百科关联的百度图片结果中可见蓝银色圆形校徽，本次已将公开图片作为页首图样，并据其蓝色调整站点主题；该图片仅作非官方网站的资料展示，正式校务或品牌使用仍应取得学校授权。
-- 近期动态采用东教印象、北京市政府网站、首都教育等公开报道的摘要，避免把同学原稿中的虚构姓名、通知、统计数字当作事实。
-- 图片为压缩包随附的 AI 生成示意图（PNG 内容、`.jpg` 扩展名），不得用于暗示官方摄影或官方授权。
+本项目配置了完整的 GitHub Actions 流水线（`.github/workflows/deploy.yml`）：
+- 只要将代码合并至 `main` 分支，GitHub Actions 将会自动：
+  1. 通过 Docker Buildx 进行跨平台多阶段构建；
+  2. 推送容器镜像到 GitHub Packages：`ghcr.io/ibb-official/bj166-school-site:latest`；
+  3. 经由安全 SSH 隧道连接至 `debian-web2`，自动执行 `docker compose pull && docker compose up -d` 滚动更新；
+  4. 触发本地健康检查探针，验证响应码 `200` 完成上线。

@@ -5,7 +5,7 @@ body {
   font-family: "SimSun", "宋体", "NSimSun", serif;
   font-size: 14px;
   color: #333;
-  background: #ececec url("") repeat;
+  background: #ececec none repeat;
   line-height: 1.6;
 }
 img { border: 0; max-width: 100%; display: block; }
@@ -557,7 +557,7 @@ a:hover { color: var(--school-blue); }
   height: 62px;
   border: 0;
   border-radius: 50%;
-  background: #fff url("images/school-emblem.jpg") center / contain no-repeat;
+  background: #fff url("/images/school-emblem.jpg") center / contain no-repeat;
   box-shadow: 0 0 0 3px #fff, 0 1px 5px rgba(16,54,111,.2);
 }
 .header .logo { flex: 1 1 auto; }

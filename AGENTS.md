@@ -1,49 +1,81 @@
-# 校园网站（bj166-school-site）· 项目 Agent 规范
+# 校园网站（bj166-school-site）· 项目规范与架构守则
 
-> 只写本仓库与设备级规范的差异。Git 纪律、worktree、冲突处理见 `~/.qoder/coder-rules/global-rules.md`。
+> 本文件是所有参与本仓库的协作者与 AI 智能体必须遵守的系统架构规范与操作纪律。
+> 设备级通用 Git 规范见 `~/.qoder/coder-rules/global-rules.md`。
 
 Collaboration: collaborative
 Baseline: main
 Default branch: main
-Release: GitHub Pages（main 分支根目录自动化部署）
-Validation: 纯静态资源完整性检查（无死链、图片与脚本引用正确、凭据泄漏扫描）
+Release: Docker / GitHub Packages (GHCR) -> debian-web2 生产自动化部署
+Validation: npm run build & Dockerfile 容器化检查
 Worktree: `~/项目/.wt/校园网站/<slug>`
 
-## 这是什么
+---
 
-北京市第一六六中学非官方静态资料整理站点（HTML + CSS + 原生 JS），无构建步骤，通过 GitHub Pages 根目录直接部署展示。
+## ⚠️ 核心服务器职责与边界规范（严禁混淆！）
 
-## 页面与资源结构
+本站点采用**内网安全托管 + 边缘网关中转穿透**的生产拓扑。所有协作者及 AI 必须彻底理清两台服务器的分工：
+
+### 1. 边缘节点 `los-vps2` (公网 IP: 23.185.168.190)
+- **唯一角色**：**内网穿透中转站与反向代理网关**。
+- **运行组件**：`frps`（监听 7000 服务端端口，接收 debian-web2 连接）+ `api-direct-caddy`（Docker Caddy，监听 80/443，负责 `bj166zx.cn` 的反向代理与 TLS 终结）。
+- **【严禁操作】**：
+  - ❌ **绝对禁止在 `los-vps2` 上运行 Next.js 站点、Node.js 运行时或前端应用服务！**
+  - ❌ **绝对禁止将本站点的业务代码、构建产物、Node 依赖放置在 `los-vps2` 上！**
+  - ❌ **绝对禁止改动 `los-vps2` 上共用的 new-api / 账号池相关配置文件！**
+  - `los-vps2` 上的 `Caddyfile` 仅允许添加/修改 `bj166zx.cn` 的 `reverse_proxy` 转发规则（指向内网穿透映射端口 `172.18.0.1:13000`）。
+
+### 2. 实际业务主机 `debian-web2` (PVE VM 121, 内网 IP: 192.168.5.81)
+- **唯一角色**：**站点的真正运行服务器**。
+- **运行组件**：
+  - `Docker` & `docker compose`：运行 Next.js 生产容器 `bj166-web`（绑定在 `127.0.0.1:3000`）。
+  - `frpc`（systemd 守护进程）：通过 TLS 穿透连接到 `los-vps2:7000`，并将 `127.0.0.1:3000` 映射至 `los-vps2` 的 `13000` 端口。
+- **应用部署目录**：`/opt/bj166-site/`（存放 `docker-compose.yml`）。
+- **日常运维**：
+  - 查看站点运行状态：`docker ps` / `docker logs -f bj166-web`
+  - 检查本地健康响应：`curl -I http://127.0.0.1:3000`
+  - 重启穿透服务：`systemctl restart frpc`
+
+---
+
+## 网络链路与流量拓扑
 
 ```
-├── index.html                  首页（轮播、公告跑马灯、三栏、图片新闻）
-├── about.html                  学校概况（简介、办学情况、领导班子、机构设置）
-├── news.html                   新闻中心（列表页）
-├── news-1.html ~ news-8.html   8 篇新闻详情页
-├── policy.html                 教育方针
-├── disclosure.html             信息公示（收费、招生、校务公开、食谱）
-├── culture.html                校园文化（校史、一训三风、校园风光）
-├── contact.html                联系我们
-├── sources.html / SOURCES.md   页面资料公开来源、核验日期与使用边界说明
-├── styles.css                  全站主样式表（蓝白主题）
-├── main.js                     轮播 / 日期 / 搜索演示脚本
-└── images/                     图片静态资源
+[ 客户端浏览器 ]
+       │
+       ▼ (HTTPS 443 / 域名解析: bj166zx.cn)
+[ Cloudflare DNS ] (灰云 DNS-Only，指向 los-vps2: 23.185.168.190)
+       │
+       ▼
+[ los-vps2 (中转站) ]
+       │ 运行: Docker Caddy (监听 443 / SSL 证书终结)
+       │ Caddyfile 规则: reverse_proxy 172.18.0.1:13000
+       ▼ (通过 FRP 安全隧道加密传输)
+[ debian-web2 (应用服务器) ]
+       │ 运行: frpc (localPort: 3000 <-> remotePort: 13000)
+       │ 运行: Next.js Standalone 生产容器 (127.0.0.1:3000)
 ```
 
-## 验证与检查说明
+---
 
-- **静态无编译**：本项目无 Node/Rust 构建流水线。提交前需确保所有 HTML/JS/CSS 语法正确，没有无效的相对路径死链。
-- **改动范围校验**：提交前核对 `git status` 与 `git diff`，严禁将操作系统临时文件、编辑器配置或个人凭据加入版本控制。
-- **凭据扫描**：确保无私钥、Token 或敏感 API Key 泄漏。
+## 团队自动化部署（GitHub Actions）
 
-## 项目特殊限制
+所有团队成员对 `main` 分支的提交或合并，均会自动触发部署流水线 `.github/workflows/deploy.yml`：
+1. **GitHub Runner** 构建 Next.js Docker 镜像（多阶段构建，Standalone 运行时）。
+2. 将最新镜像推送到 **GitHub Packages (ghcr.io/ibb-official/bj166-school-site:latest)**。
+3. 通过预配置的 SSH Secret 连接到 `debian-web2`，自动执行：
+   ```bash
+   cd /opt/bj166-site
+   docker compose pull
+   docker compose up -d --remove-orphans
+   ```
+4. 执行本地探针健康检查，状态码 200 判定部署成功。
 
-- 本项目为非官方资料整理站点，内容均整理自公开资料，必须遵守法律法规及版权要求，不得假冒官方权威发布渠道。
-- 静态资源控制体积，图片素材注意压缩与格式规范，禁止提交无意义的超大未压缩原始文件。
-- **主目录不存代码**：主目录（`~/项目/校园网站`）仅作 `.git` 元数据锚点（停留在 `_anchor` 分支），日常开发一律走 `wt new 校园网站 <slug>` 在 `~/项目/.wt/校园网站/<slug>` 中进行。
+---
 
-## 集成流程
+## 本地开发与代码规范
 
-- 严格遵守 `collaborative` 协作出口：所有改动走 PR（Pull Request），不得直推受保护的 `main` 分支（受设备级 pre-push 守卫保护）。
-- 新任务开工前基线对齐：`git fetch origin --prune`，分支从最新的 `origin/main` 切出。
-- PR 创建后按规定流程进行代码 review 与合并。
+- **框架**：Next.js (App Router) + TypeScript + 原生 CSS / Tailwind。
+- **页面与数据分离**：文章数据位于 `src/data/news.ts`，方便快速增删公开报道。
+- **静态资源规范**：所有图片放入 `public/images/`，不得提交超大未压缩原始文件。
+- **合规说明**：本项目为非官方资料整理站点，内容均整理自公开资料，必须遵守法律法规及版权要求，不得假冒官方权威发布渠道。

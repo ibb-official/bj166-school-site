@@ -51,7 +51,7 @@ export default async function NewsPage({ searchParams }: {
         ))}
       </ul>
       {results.length === 0 && <div className="empty-results">暂未收录匹配报道，可调整关键词或选择其他类别。</div>}
-      <div className="source-note">学校公众号近期推送标题另见<Link href="/sources#wechat">公众号动态索引</Link>，仅核对到标题的推送不混入正文报道。</div>
+      <div className="source-note">学校公众号历史推送另见<Link href="/wechat">按月整理的公众号档案</Link>，仅核对到标题的推送不混入正文报道。</div>
     </PageLayout>
   );
 }

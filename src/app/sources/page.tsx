@@ -22,7 +22,7 @@ export default function SourcesPage() {
 
       <h3 className="block-t" id="wechat">学校微信公众号</h3>
       <AccountUpdates />
-      <p className="noindent small-note">账号简介：{schoolAccount.introduction} 核对范围为认证资料和本次保留的{accountUpdates.length}条推送标题，未取得全部历史文章正文。没有可核验的文章链接时，仅展示标题，不制作替代链接或二维码。</p>
+      <p className="noindent small-note">账号简介：{schoolAccount.introduction} 本次回溯至2026年1月1日，保留{accountUpdates.length}条历史推送标题。完整月份目录见<Link href="/wechat">公众号档案</Link>。这些条目未核读完整正文，不制作未经核验的文章链接或二维码。</p>
       <p className="noindent">另有可公开阅读的学校公众号转载：<Link href="/news/9">“美境行动”全国特等奖报道</Link>，可由转载页阅读相关信息。</p>
 
       <h3 className="block-t">报道与公开文件原文（{sortedNews.length}条）</h3>

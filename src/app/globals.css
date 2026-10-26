@@ -680,7 +680,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .account-name .source-tag { margin-left: 12px; }
 .account-description, .page-main p.account-description { font-size: 13px; color: #526e83; text-indent: 0; margin-bottom: 8px; }
 .account-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 18px; border-bottom: 1px dotted #ccd8e1; padding: 9px 2px; line-height: 1.8; }
-.account-date { flex: 0 0 65px; text-align: right; color: #778c9c; font-size: 12px; }
+.account-date { flex: 0 0 82px; text-align: right; color: #778c9c; font-size: 12px; white-space: nowrap; }
+.archive-intro { padding: 18px; border: 1px solid #c8daea; background: #f2f7fc; margin-bottom: 18px; }
+.archive-intro h3 { color: var(--school-blue-deep); font-size: 20px; margin-bottom: 8px; }
+.archive-stats { display: flex; flex-wrap: wrap; gap: 12px 24px; color: #678096; font-size: 12px; }
+.archive-stats strong { color: var(--school-blue); font-size: 22px; margin-right: 5px; }
+.archive-month-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 24px; }
+.archive-month-links a { padding: 4px 10px; border: 1px solid #c9dbea; color: var(--school-blue-dark); background: #f7faff; font-size: 12px; }
+.archive-month-links a[aria-current="page"] { background: var(--school-blue); color: white; }
+.archive-month { margin: 22px 0; }
+.archive-month h3 span { font-size: 12px; font-weight: normal; color: #71879a; margin-left: 12px; }
+.archive-entries li { display: flex; gap: 14px; padding: 12px 3px; border-bottom: 1px dotted #c6d6e3; line-height: 1.9; }
+.archive-entries time { flex: 0 0 42px; font-size: 12px; color: #75899a; padding-top: 2px; }
+.archive-entries span { min-width: 0; }
 .account-note, .page-main p.account-note { text-indent: 0; color: #6b8295; font-size: 12px; line-height: 1.8; margin: 10px 0 0; }
 .news-search { display: flex; gap: 8px; margin: 18px 0 10px; }
 .news-search input, .news-search select { border: 1px solid #b8cddf; min-height: 36px; padding: 6px 9px; background: #fff; color: #24445d; min-width: 0; }
@@ -751,7 +763,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .pic-row .item { flex: 0 0 calc(50% - 5px); }
   .pic-row .item img { height: 120px; }
   .account-list li { gap: 10px; font-size: 13px; }
-  .account-date { flex-basis: 58px; }
   .account-name .source-tag { margin: 6px 0 0 8px; font-size: 10px; }
   .news-search { flex-wrap: wrap; }
   .news-search input { flex-basis: 100%; }

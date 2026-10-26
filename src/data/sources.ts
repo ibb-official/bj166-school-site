@@ -1,3 +1,5 @@
+import accountArchive from './wechat-2026.json';
+
 export const schoolMap = {
   title: '北京市第一六六中学（灯市口校区）',
   url: 'https://map.beijing.gov.cn/place?categoryId=zx&placeId=684a86b0f8f52a79c0ac892c',
@@ -12,45 +14,15 @@ export const schoolAccount = {
   checkedAt: '2026-10-26'
 };
 
-// 原样保留微信显示时间。星期和“今天”均以 checkedAt 为参照，不推断具体发布时间。
-export const accountUpdates = [
-  {
-    "displayDate": "今天",
-    "title": "教育共同体资源进校园，“做中学”里探真知——初一年级“探秘传染病”STEM挑战赛收官"
-  },
-  {
-    "displayDate": "星期四",
-    "title": "星光聚声，薪火相传！一六六中学高中星光男声合唱团亮相北京市第二十九届学生艺术节合唱展演"
-  },
-  {
-    "displayDate": "星期二",
-    "title": "学研同行，师生共进！毕业年级校区“学研共同体”系列旗前讲话（1）"
-  },
-  {
-    "displayDate": "10月15日",
-    "title": "以笔墨致敬长征，用丹青书写新篇！北京市第一六六中学教育集团学生书画展开幕"
-  },
-  {
-    "displayDate": "10月13日",
-    "title": "国旗交接，使命传承——北京市第一六六中学举行国旗班交接仪式"
-  },
-  {
-    "displayDate": "10月12日",
-    "title": "奔跑吧，少年！一六六中学举行2026年秋季运动会"
-  },
-  {
-    "displayDate": "10月9日",
-    "title": "直播预告∣拼搏正青春！2026年秋季运动会邀您见证！"
-  },
-  {
-    "displayDate": "10月8日",
-    "title": "她书写的校牌，挂在了一六六中学校门口"
-  },
-  {
-    "displayDate": "9月30日",
-    "title": "当“推普”遇上语文课，一六六中学的同学们这样“答卷”"
-  }
-];
+export interface AccountUpdate {
+  date: string;
+  displayDate: string;
+  title: string;
+}
+
+// 日期据2026-10-26核对的微信历史目录整理，原始时间显示另保留供核查。
+export const accountUpdates: AccountUpdate[] = [...accountArchive].sort((a, b) => b.date.localeCompare(a.date));
+export const accountMonths = [...new Set(accountUpdates.map((item) => item.date.slice(0, 7)))].sort().reverse();
 
 export const policySources = [
   {

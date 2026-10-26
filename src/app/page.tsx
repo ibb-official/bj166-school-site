@@ -13,7 +13,7 @@ export default function HomePage() {
     <>
       <div className="notice-bar">
         <span className="label">资料更新</span>
-        <div className="notice-links"><Link href="/sources">公开资料核对至 {contentCheckedAt}</Link><Link href="/sources#wechat">学校公众号近期推送标题已收录</Link></div>
+        <div className="notice-links"><Link href="/sources">公开资料核对至 {contentCheckedAt}</Link><Link href="/wechat">学校公众号历史推送目录已更新</Link></div>
       </div>
       <main className="main">
         <div className="wrap">
@@ -56,7 +56,7 @@ export default function HomePage() {
             <aside className="col-side">
               <div className="side-box">
                 <div className="hd">快速通道</div>
-                <div className="bd quick-links"><Link href="/sources#wechat">学校公众号动态</Link><Link href="/news?category=科学教育">科学教育报道</Link><Link href="/news?category=校园文化">文化艺术活动</Link><Link href="/policy">政策文件选读</Link></div>
+                <div className="bd quick-links"><Link href="/wechat">学校公众号档案</Link><Link href="/news?category=科学教育">科学教育报道</Link><Link href="/news?category=校园文化">文化艺术活动</Link><Link href="/policy">政策文件选读</Link></div>
               </div>
               <div className="side-box">
                 <div className="hd">学校信息</div>
@@ -91,7 +91,7 @@ export default function HomePage() {
           </section>
 
           <section className="account-section" id="wechat">
-            <div className="sec-title"><h3>公众号动态</h3><Link className="more" href="/sources#wechat">查看{accountUpdates.length}条标题&gt;&gt;</Link></div>
+            <div className="sec-title"><h3>公众号动态</h3><Link className="more" href="/wechat">按月查阅{accountUpdates.length}条标题&gt;&gt;</Link></div>
             <AccountUpdates compact />
           </section>
 

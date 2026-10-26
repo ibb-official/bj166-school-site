@@ -25,7 +25,7 @@ export default function PageLayout({ title, english, children, sidebar }: {
               <div className="side-box">
                 <div className="hd">资料导航</div>
                 <div className="bd quick-links">
-                  <Link href="/sources#wechat">学校公众号动态</Link>
+                  <Link href="/wechat">学校公众号档案</Link>
                   <Link href="/disclosure">公开文件目录</Link>
                   <Link href="/sources">报道来源清单</Link>
                 </div>

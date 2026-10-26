@@ -25,7 +25,7 @@ export default function Header() {
   return (
     <>
       <div className="topbar">
-        <div className="wrap"><span>{dateText}</span><span><Link href="/sources">公开资料整理</Link><span className="sep">|</span><Link href="/contact">关于本站</Link></span></div>
+        <div className="wrap"><span>{dateText}</span><span><Link href="/wechat">公众号档案</Link><span className="sep">|</span><Link href="/sources">公开资料整理</Link><span className="sep">|</span><Link href="/contact">关于本站</Link></span></div>
       </div>
       <header className="header wrap">
         <div className="logo">

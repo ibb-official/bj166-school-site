@@ -1,7 +1,8 @@
-import { accountUpdates, schoolAccount } from '@/data/sources';
+import Link from 'next/link';
+import { accountMonths, accountUpdates, schoolAccount } from '@/data/sources';
 
 export default function AccountUpdates({ compact = false }: { compact?: boolean }) {
-  const entries = compact ? accountUpdates.slice(0, 4) : accountUpdates;
+  const entries = accountUpdates.slice(0, compact ? 4 : 8);
   return (
     <div className="account-updates">
       <div className="account-name">{schoolAccount.name}<span className="source-tag">已核对认证主体</span></div>
@@ -12,14 +13,15 @@ export default function AccountUpdates({ compact = false }: { compact?: boolean 
         {entries.map((item) => (
           <li key={item.title}>
             <span>{item.title}</span>
-            <span className="account-date">{item.displayDate}</span>
+            <time className="account-date" dateTime={item.date}>{item.date}</time>
           </li>
         ))}
       </ul>
       <p className="account-note">
-        {schoolAccount.checkedAt}核对可见推送列表，仅收录标题，尚未核读正文。
-        时间保留微信当时显示；“今天”指10月26日，星期显示也以该日为参照。
+        {schoolAccount.checkedAt}核对公众号历史目录，收录{accountMonths.length}个月的推送标题，尚未核读完整正文。
+        日期按核对时的微信显示整理。
       </p>
+      {!compact && <p className="account-note"><Link href="/wechat">按月份查阅全部{accountUpdates.length}条标题 &gt;</Link></p>}
     </div>
   );
 }

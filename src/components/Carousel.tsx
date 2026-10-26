@@ -1,64 +1,39 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { getNews } from '@/data/news';
 
-const slidesData = [
-  {
-    src: '/images/campus.jpg',
-    alt: '校园风貌AI示意',
-    caption: '校园风貌（AI生成示意图，非学校实景）'
-  },
-  {
-    src: '/images/opening.jpg',
-    alt: '开学典礼AI示意',
-    caption: '开学典礼活动（AI生成示意图，非学校实景）'
-  },
-  {
-    src: '/images/sports.jpg',
-    alt: '秋季运动会AI示意',
-    caption: '阳光体育与田径运动会（AI生成示意图）'
-  },
-  {
-    src: '/images/teachers-day.jpg',
-    alt: '教师节主题活动AI示意',
-    caption: '教师节庆祝大会（AI生成示意图）'
-  },
-  {
-    src: '/images/military-training.jpg',
-    alt: '高一学农军训AI示意',
-    caption: '高一年级国防教育实践活动（AI生成示意图）'
-  }
-];
+const slides = [getNews(1)!, getNews(3)!, getNews(4)!];
 
 export default function Carousel() {
-  const [idx, setIdx] = useState(0);
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setIdx((prev) => (prev + 1) % slidesData.length);
-    }, 5000);
+    if (paused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const timer = setInterval(() => setIndex((previous) => (previous + 1) % slides.length), 7000);
     return () => clearInterval(timer);
-  }, []);
+  }, [paused]);
 
   return (
-    <div className="carousel" id="carousel">
-      {slidesData.map((slide, i) => (
-        <div key={slide.src} className={`slide ${i === idx ? 'on' : ''}`}>
-          <img src={slide.src} alt={slide.alt} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+    <section className="carousel" aria-label="图片报道" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)} onBlurCapture={() => setPaused(false)}>
+      {slides.map((item, position) => (
+        <div key={item.id} className={`slide ${position === index ? 'on' : ''}`} aria-hidden={position !== index}>
+          <Link href={`/news/${item.id}`} tabIndex={position === index ? 0 : -1}>
+            <img src={item.image!.src} alt={item.image!.alt} />
+          </Link>
         </div>
       ))}
-      <div className="caption">{slidesData[idx].caption}</div>
+      <div className="caption">
+        <Link href={`/news/${slides[index].id}`}>{slides[index].title}</Link>
+        <span>{slides[index].image!.credit}</span>
+      </div>
       <div className="dots">
-        {slidesData.map((_, i) => (
-          <span
-            key={i}
-            className={i === idx ? 'on' : ''}
-            onClick={() => setIdx(i)}
-          >
-            {i + 1}
-          </span>
+        {slides.map((item, position) => (
+          <button key={item.id} type="button" className={position === index ? 'on' : ''} onClick={() => setIndex(position)} aria-label={`显示第${position + 1}张：${item.title}`} aria-pressed={position === index}>{position + 1}</button>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

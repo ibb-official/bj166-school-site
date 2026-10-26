@@ -1,88 +1,35 @@
-import React from 'react';
 import Link from 'next/link';
+import PageLayout from '@/components/PageLayout';
+import ReportPhoto from '@/components/ReportPhoto';
+import { getNews } from '@/data/news';
 
 export const metadata = {
   title: '校园文化 - 北京市第一六六中学（非正式网站）',
-  description: '校史沿革、一训三风、校园风光与品牌文化活动。',
+  description: '校训、百年老校资料，以及阅读、戏剧与科学设计中的校园文化。'
 };
 
 export default function CulturePage() {
   return (
-    <>
-      <div className="page-head">
-        <div className="wrap">
-          <h2>校园文化</h2>
-          <p>CAMPUS CULTURE</p>
-        </div>
-      </div>
+    <PageLayout title="校园文化" english="CAMPUS CULTURE">
+      <h3 className="block-t">敬业乐群　求实进取</h3>
+      <p className="school-motto noindent">敬业 · 乐群 · 求实 · 进取</p>
+      <p>2026年东城区“1+3”培养实验学校简介，介绍了学校1864年的创办历史，以及贝满女中、北京市第十二女子中学等历史名称。东教印象“百年老校”专题则从博雅教育出发，呈现科技、人文、健康、艺术交融的校园文化。</p>
+      <p className="source-note">校史与校训依据：<Link href="/news/13">2026年学校简介</Link>、<Link href="/news/8">2023年“百年老校”专题</Link>。更完整的沿革可查阅学校正式校史资料。</p>
 
-      <div className="main">
-        <div className="wrap">
-          <div className="crumb">
-            当前位置：<Link href="/">首页</Link> &gt; 校园文化
-          </div>
+      <h3 className="block-t">从近期报道走近校园</h3>
+      <ul className="timeline">
+        <li><strong>2025年4月</strong><Link href="/news/9">“美境行动”获奖报道</Link>：以碳中和主题花园设计，将生态知识转化为可展示的模型。</li>
+        <li><strong>2026年6月</strong><Link href="/news/3">科技史探究实践交流</Link>：在科学发展的历史线索中，讨论智慧农业、医疗、通信和地球演化。</li>
+        <li><strong>2026年9月</strong><Link href="/news/6">学生艺术节戏剧展演</Link>：剧目《高地前的抉择》登上东城区金帆专场舞台。</li>
+        <li><strong>2026年10月</strong><Link href="/news/16">长征主题读书成果展演</Link>：学生分享经典作品的阅读体会。</li>
+      </ul>
 
-          <div className="page-cols">
-            <div className="page-main">
-              <h3 className="block-t">校史沿革</h3>
-              <ul className="timeline">
-                <li><strong>1864年</strong>学校前身贝满女塾创办，成为北京近代女子教育的重要起点。</li>
-                <li><strong>1895年</strong>学校开设四年制女子中学，后逐步发展为完整的女子教育体系。</li>
-                <li><strong>1952年</strong>学校更名为北京市第十二女子中学。</li>
-                <li><strong>1968年</strong>北京市第十二女子中学更名为红卫中学。</li>
-                <li><strong>1971年</strong>学校定名为北京市第一六六中学，校名沿用至今。</li>
-                <li><strong>2003年</strong>东四六条校址的原128中学并入学校，成为东校区；学校形成多校址办学格局。</li>
-                <li><strong>2022年</strong>学校开始使用在校生题写的校牌，并定期更换不同学生书写的校牌。</li>
-                <li><strong>2024年</strong>学校迎来建校160周年，公开报道提到校庆视觉使用“一六六蓝”。</li>
-              </ul>
-              <p className="source-note">
-                校史依据东教印象公开报道、北京市第一六六中学公开资料和公开百科的交叉核对；详情请以学校及东城区教育部门发布的正式校史资料为准。
-              </p>
+      <h3 className="block-t">设计里的生态思考</h3>
+      <ReportPhoto article={getNews(9)!} />
+      <p>上图是学生设计模型。相关报道介绍了水资源利用、藻类花园与碳循环展示等设计要素，将科学知识放进具体空间方案中。</p>
 
-              <h3 className="block-t">一训三风</h3>
-              <p><strong>校训：</strong>敬业乐群、求实进取——公开教育资料中反复出现的学校文化表述。</p>
-              <p><strong>文化线索：</strong>百年校史、博雅教育、科技与人文融合。</p>
-              <p><strong>公开报道中的实践：</strong>生命科学实验班、金鹏科技团、管乐与戏剧教育等。</p>
-              <p><strong>使用边界：</strong>不将非官方整理页包装成学校官方宣传材料。</p>
-
-              <h3 className="block-t">校园风光</h3>
-              <div className="center-pic"><img src="/images/gate.jpg" alt="校门" /><span>灯市口大街校门</span></div>
-              <div className="center-pic"><img src="/images/campus.jpg" alt="校园全景" /><span>明德楼与运动场</span></div>
-              <div className="center-pic"><img src="/images/library.jpg" alt="图书馆" /><span>图书馆阅览室</span></div>
-
-              <h3 className="block-t">品牌文化活动</h3>
-              <p>
-                公开报道呈现的校园文化活动包括生命科学实践、科技史探究、车辆模型竞赛、戏剧展演与高校通识课程等。它们共同指向“做中学”、跨学科实践和学生综合素养，而不是一份固定不变的活动清单。
-              </p>
-              <p>
-                社团数量、活动安排和获奖情况会随学年变化，本页不自行填写未经核实的数字；需要报名或查询具体活动时，请以学校官方渠道发布的信息为准。
-              </p>
-            </div>
-
-            <div className="page-side">
-              <div className="side-box">
-                <div className="hd">文化活动动态</div>
-                <div className="bd">
-                  <ul className="news-list">
-                    <li className="top"><span className="t"><Link href="/news/6">戏剧艺术节展演</Link></span><span className="d">09-23</span></li>
-                    <li><span className="t"><Link href="/news/2">车辆模型竞赛</Link></span><span className="d">08-19</span></li>
-                    <li><span className="t"><Link href="/news/1">清华课堂与生命科学</Link></span><span className="d">09-18</span></li>
-                    <li><span className="t"><Link href="/news/3">科技史探究实践</Link></span><span className="d">06-29</span></li>
-                  </ul>
-                </div>
-              </div>
-              <div className="side-box">
-                <div className="hd">校训</div>
-                <div className="bd" style={{ textAlign: 'center', padding: '18px 10px' }}>
-                  <p style={{ fontFamily: '"KaiTi", "STKaiti", "楷体", serif', fontSize: '26px', color: '#155b96', letterSpacing: '6px', lineHeight: 2 }}>
-                    敬业 乐群<br />求实 进取
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+      <h3 className="block-t">公众号中的文化活动线索</h3>
+      <p>本次核对的公众号推送标题还涉及星光男声合唱团展演、学生书画展、秋季运动会、国旗班交接和学生书写校牌等主题。标题列表与核对范围详见<Link href="/sources#wechat">学校公众号动态</Link>；活动详情请在微信中阅读学校原文。</p>
+    </PageLayout>
   );
 }

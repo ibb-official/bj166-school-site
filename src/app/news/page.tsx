@@ -1,48 +1,49 @@
-import React from 'react';
 import Link from 'next/link';
-import { newsList } from '@/data/news';
+import PageLayout from '@/components/PageLayout';
+import { contentCheckedAt, newsCategories, sortedNews } from '@/data/news';
 
 export const metadata = {
   title: '新闻中心 - 北京市第一六六中学（非正式网站）',
-  description: '北京市第一六六中学公开报道、科学教育与校园文化活动。',
+  description: '科学教育、校园文化、思政实践、集团动态及政府公开文件的有来源摘要。'
 };
 
-export default function NewsPage() {
+export default async function NewsPage({ searchParams }: {
+  searchParams: Promise<{ q?: string | string[]; category?: string | string[] }>;
+}) {
+  const params = await searchParams;
+  const query = (typeof params.q === 'string' ? params.q : '').trim().slice(0, 100);
+  const category = typeof params.category === 'string' ? params.category : '';
+  const activeCategory = newsCategories.find((item) => item === category) ?? '';
+  const results = sortedNews.filter((item) =>
+    (!activeCategory || item.category === activeCategory) &&
+    (!query || `${item.title} ${item.summary} ${item.source} ${item.paragraphs.join(' ')}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
+  );
   return (
-    <>
-      <div className="page-head">
-        <div className="wrap">
-          <h2>新闻中心</h2>
-          <p>NEWS CENTER</p>
-        </div>
-      </div>
-
-      <div className="main">
-        <div className="wrap">
-          <div className="crumb">
-            当前位置：<Link href="/">首页</Link> &gt; 新闻中心
-          </div>
-
-          <div className="content-card">
-            <div className="source-note" style={{ marginBottom: '20px' }}>
-              说明：本栏目收录东教印象、首都教育等公开媒体关于北京市第一六六中学的公开报道摘要与学习资料整理。
-            </div>
-
-            <ul className="news-list" style={{ fontSize: '15px', lineHeight: '2.4' }}>
-              {newsList.map((item) => (
-                <li key={item.id} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed #e0e0e0', padding: '6px 0' }}>
-                  <span className="t">
-                    <Link href={`/news/${item.id}`} style={{ color: '#222' }}>
-                      【{item.source}】{item.title}
-                    </Link>
-                  </span>
-                  <span className="d" style={{ color: '#888' }}>{item.date}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </>
+    <PageLayout title="新闻中心" english="NEWS CENTER">
+      <p className="noindent small-note">按原文发布日期排序 · 共{sortedNews.length}条公开报道与文件 · 核对至{contentCheckedAt}</p>
+      <form className="news-search" action="/news" method="get">
+        <label className="visually-hidden" htmlFor="news-query">关键词</label>
+        <input id="news-query" name="q" defaultValue={query} placeholder="搜索标题、内容或来源" maxLength={100} type="search" />
+        <label className="visually-hidden" htmlFor="news-category">报道类别</label>
+        <select id="news-category" name="category" defaultValue={activeCategory}>
+          <option value="">全部类别</option>
+          {newsCategories.map((item) => <option key={item} value={item}>{item}</option>)}
+        </select>
+        <button type="submit">查找</button>
+      </form>
+      <p className="noindent result-count">找到{results.length}条{query ? `，关键词：“${query}”` : ''}{activeCategory ? ` · ${activeCategory}` : ''}。{(query || activeCategory) && <Link href="/news">查看全部</Link>}</p>
+      <ul className="report-list">
+        {results.map((item) => (
+          <li key={item.id}>
+            <div className="report-meta"><span className="source-tag">{item.category}</span><time dateTime={item.date}>{item.date}</time><span>{item.source}</span></div>
+            <h3><Link href={`/news/${item.id}`}>{item.title}</Link></h3>
+            <p>{item.summary}</p>
+            <Link className="read-link" href={`/news/${item.id}`}>查看摘要与原文来源 &gt;</Link>
+          </li>
+        ))}
+      </ul>
+      {results.length === 0 && <div className="empty-results">暂未收录匹配报道，可调整关键词或选择其他类别。</div>}
+      <div className="source-note">学校公众号近期推送标题另见<Link href="/sources#wechat">公众号动态索引</Link>，仅核对到标题的推送不混入正文报道。</div>
+    </PageLayout>
   );
 }

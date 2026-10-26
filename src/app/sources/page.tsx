@@ -1,84 +1,52 @@
-import React from 'react';
 import Link from 'next/link';
+import PageLayout from '@/components/PageLayout';
+import AccountUpdates from '@/components/AccountUpdates';
+import { contentCheckedAt, photoNews, sortedNews } from '@/data/news';
+import { policySources, schoolAccount, schoolMap } from '@/data/sources';
 
 export const metadata = {
   title: '资料来源 - 北京市第一六六中学（非正式网站）',
-  description: '页面资料公开来源、核验日期与使用边界说明。',
+  description: '公开报道原文、政府文件、真实配图出处及学校认证公众号近期推送标题。'
 };
 
 export default function SourcesPage() {
   return (
-    <>
-      <div className="page-head">
-        <div className="wrap">
-          <h2>资料来源</h2>
-          <p>SOURCES &amp; BOUNDARIES</p>
-        </div>
-      </div>
+    <PageLayout title="资料来源" english="PUBLIC SOURCES">
+      <p className="noindent">本次资料核对日期：<strong>{contentCheckedAt}</strong>。报道摘要保留原文标题、发布者、发布日期和可访问的来源链接。</p>
+      <h3 className="block-t">学校基本资料</h3>
+      <ul className="source-directory">
+        <li><a href={schoolMap.url} target="_blank" rel="noreferrer">{schoolMap.publisher}：{schoolMap.title} ↗</a><span>{schoolMap.date} · 名称、创办日期、学校类型、地址、电话和邮编。</span></li>
+        <li><Link href="/news/12">东城区政府：学校2026年部门预算</Link><span>2026-02-12 · 单位职责、学校性质与机构情况。</span></li>
+        <li><Link href="/news/13">东教印象：2026年“1+3”培养实验学校简介</Link><span>2026-07-20 · 创办年份、历史名称、校训及课程介绍。</span></li>
+      </ul>
 
-      <div className="main">
-        <div className="wrap">
-          <div className="crumb">
-            <Link href="/">首页</Link> &gt; 资料来源
-          </div>
-          <div className="content-card">
-            <div className="source-note">
-              本页列出页面整理时访问的公开来源。链接内容的发布日期、文字和可访问性可能变化；本站只做摘要，不代表任何来源的官方发布。
-            </div>
+      <h3 className="block-t" id="wechat">学校微信公众号</h3>
+      <AccountUpdates />
+      <p className="noindent small-note">账号简介：{schoolAccount.introduction} 核对范围为认证资料和当时可见的10条推送标题，未取得全部历史文章正文。没有可核验的文章链接时，仅展示标题，不制作替代链接或二维码。</p>
+      <p className="noindent">另有可公开阅读的学校公众号转载：<Link href="/news/9">“美境行动”全国特等奖报道</Link>，可由转载页阅读相关信息。</p>
 
-            <h3 className="block-t">学校基本信息</h3>
-            <ul>
-              <li style={{ padding: '6px 0', borderBottom: '1px dashed #eee' }}>
-                <a href="https://map.beijing.gov.cn/place?categoryId=zx&amp;placeId=684a86b0f8f52a79c0ac892c" target="_blank" rel="noreferrer" style={{ color: '#155b96', fontWeight: 'bold' }}>
-                  北京市政务地图：北京市第一六六中学（灯市口校区）
-                </a>
-                ：用于核对学校正式名称、公开地址、邮编、电话、完全中学类型和 1864 年创办日期。
-              </li>
-              <li style={{ padding: '6px 0', borderBottom: '1px dashed #eee' }}>
-                <a href="https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmjsgkzl/2024njs/qzf2024js/202507/P020250724571914169011.pdf" target="_blank" rel="noreferrer" style={{ color: '#155b96', fontWeight: 'bold' }}>
-                  东城区人民政府 2024 年度决算说明
-                </a>
-                ：用于核对学校性质、两个校址、2024 年末学生人数和教职工编制口径。
-              </li>
-            </ul>
+      <h3 className="block-t">报道与公开文件原文（{sortedNews.length}条）</h3>
+      <ul className="source-directory">
+        {sortedNews.map((item) => (
+          <li key={item.id}>
+            <a href={item.sourceUrl} target="_blank" rel="noreferrer">{item.sourceTitle} ↗</a>
+            <span>{item.source} · {item.date} · {item.category}</span>
+            <Link className="read-link" href={`/news/${item.id}`}>本站事实摘要</Link>
+          </li>
+        ))}
+      </ul>
 
-            <h3 className="block-t">校史与文化</h3>
-            <ul>
-              <li style={{ padding: '6px 0', borderBottom: '1px dashed #eee' }}>
-                <a href="https://m.bjnews.com.cn/detail/168450907614302.html" target="_blank" rel="noreferrer" style={{ color: '#155b96', fontWeight: 'bold' }}>
-                  东教印象《跨越三个世纪的北京市第一六六中学》
-                </a>
-                ：用于校史时间线、贝满女塾前身和“跨越三个世纪”的公开叙述。
-              </li>
-              <li style={{ padding: '6px 0', borderBottom: '1px dashed #eee' }}>
-                <a href="https://www.sohu.com/a/799656239_163278" target="_blank" rel="noreferrer" style={{ color: '#155b96', fontWeight: 'bold' }}>
-                  北京日报相关报道转载
-                </a>
-                ：用于“一六六蓝”作为校庆视觉辅助色的公开线索；本站据此调整色系，不把它当作完整视觉识别规范。
-              </li>
-            </ul>
+      <h3 className="block-t">教育政策文件</h3>
+      <ul className="source-directory">
+        {policySources.map((item) => <li key={item.url}><a href={item.url} target="_blank" rel="noreferrer">{item.title} ↗</a><span>{item.publisher} · {item.date}</span></li>)}
+      </ul>
 
-            <h3 className="block-t">近期公开报道</h3>
-            <ul>
-              <li style={{ padding: '4px 0' }}><a href="https://www.cspa-bs.com/nd.jsp?_ngc=-1&amp;fromColId=-1&amp;id=3731" target="_blank" rel="noreferrer" style={{ color: '#155b96' }}>首都教育转载：中小学生走进清华课堂</a></li>
-              <li style={{ padding: '4px 0' }}><a href="https://www.bjnews.com.cn/detail/1787108610019978.html" target="_blank" rel="noreferrer" style={{ color: '#155b96' }}>车辆模型教育竞赛报道</a></li>
-              <li style={{ padding: '4px 0' }}><a href="https://www.bjnews.com.cn/detail/1782725964019667.html" target="_blank" rel="noreferrer" style={{ color: '#155b96' }}>“繁星计划”科技史探究实践交流活动</a></li>
-              <li style={{ padding: '4px 0' }}><a href="https://www.bjnews.com.cn/detail/1783433554019999.html" target="_blank" rel="noreferrer" style={{ color: '#155b96' }}>生命科学实验班公开报道</a></li>
-              <li style={{ padding: '4px 0' }}><a href="https://www.bjnews.com.cn/detail/1788789665019559.html" target="_blank" rel="noreferrer" style={{ color: '#155b96' }}>教育共同体成立相关报道</a></li>
-              <li style={{ padding: '4px 0' }}><a href="https://www.bjnews.com.cn/detail/1790085938019654.html" target="_blank" rel="noreferrer" style={{ color: '#155b96' }}>东城区学生艺术节戏剧展演报道</a></li>
-              <li style={{ padding: '4px 0' }}><a href="https://www.bjnews.com.cn/detail/1776259162019623.html" target="_blank" rel="noreferrer" style={{ color: '#155b96' }}>国家安全教育主题报道</a></li>
-            </ul>
-
-            <h3 className="block-t">公众号与校徽说明</h3>
-            <p>
-              公开转载文章注明内容转自“北京市第一六六中学”微信公众号，但本次整理没有找到可核验的公众号主页 URL、账号 ID 或官方二维码，因此页面不放未经确认的二维码或账号信息。
-            </p>
-            <p>
-              百度百科关联的百度图片结果中可见蓝银色圆形校徽图样，本站已将公开图片作为页首图样。它仅用于非官方网站的资料展示，不代表学校授权；如用于正式校务、招生或品牌宣传，应先取得学校授权的高清原图。
-            </p>
-          </div>
-        </div>
-      </div>
-    </>
+      <h3 className="block-t">图片来源</h3>
+      <p>本次展示的四张报道图片均取自对应原文，保留原始画幅。设计模型单独标注，避免与已建成校园景观混淆。</p>
+      <ul className="source-directory">
+        {photoNews.map((item) => <li key={item.id}><Link href={`/news/${item.id}`}>{item.image!.caption}</Link><span>{item.image!.credit}</span><a className="read-link" href={item.image!.originalUrl} target="_blank" rel="noreferrer">原图地址 ↗</a></li>)}
+      </ul>
+      <p className="noindent small-note">校徽使用既有项目图片，仅用于学校资料识别。本站为非正式网站，不代表学校授权发布；报道及图片版权归相应权利人。</p>
+    </PageLayout>
   );
 }

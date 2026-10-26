@@ -1,102 +1,58 @@
-import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { newsList } from '@/data/news';
+import ReportPhoto from '@/components/ReportPhoto';
+import { contentCheckedAt, getNews, newsList, sortedNews } from '@/data/news';
 
-interface Props {
-  params: Promise<{ id: string }>;
+interface Props { params: Promise<{ id: string }> }
+function findArticle(id: string) {
+  return /^\d+$/.test(id) ? getNews(Number(id)) : undefined;
 }
-
-export async function generateStaticParams() {
-  return newsList.map((item) => ({
-    id: item.id.toString(),
-  }));
+export function generateStaticParams() {
+  return newsList.map((item) => ({ id: String(item.id) }));
 }
-
 export async function generateMetadata({ params }: Props) {
-  const { id } = await params;
-  const numId = parseInt(id, 10);
-  const article = newsList.find((n) => n.id === numId);
-  if (!article) return { title: '新闻未找到' };
-  return {
-    title: `${article.title} - 北京市第一六六中学（非正式网站）`,
-    description: article.summary,
-  };
+  const article = findArticle((await params).id);
+  return article ? { title: `${article.title} - 北京市第一六六中学（非正式网站）`, description: article.summary } : { title: '报道未找到' };
 }
-
 export default async function NewsDetailPage({ params }: Props) {
-  const { id } = await params;
-  const numId = parseInt(id, 10);
-  const article = newsList.find((n) => n.id === numId);
-
-  if (!article) {
-    notFound();
-  }
-
-  const prevArticle = newsList.find((n) => n.id === (numId === 1 ? 8 : numId - 1));
-  const nextArticle = newsList.find((n) => n.id === (numId === 8 ? 1 : numId + 1));
-
+  const article = findArticle((await params).id);
+  if (!article) notFound();
+  const position = sortedNews.findIndex((item) => item.id === article.id);
+  const newer = sortedNews[position - 1];
+  const older = sortedNews[position + 1];
   return (
     <>
-      <div className="page-head">
+      <div className="page-head"><div className="wrap"><h2>新闻中心</h2><p>NEWS CENTER</p></div></div>
+      <main className="main">
         <div className="wrap">
-          <h2>新闻中心</h2>
-          <p>NEWS CENTER</p>
-        </div>
-      </div>
-
-      <div className="main">
-        <div className="wrap">
-          <div className="crumb">
-            当前位置：<Link href="/">首页</Link> &gt; <Link href="/news">新闻中心</Link> &gt; 正文
-          </div>
-
-          <div className="content-card article">
+          <div className="crumb">当前位置：<Link href="/">首页</Link> &gt; <Link href="/news">新闻中心</Link> &gt; 报道摘要</div>
+          <article className="content-card article">
+            <div className="article-category">{article.category}</div>
             <h1>{article.title}</h1>
             <div className="meta">
-              <span>公开报道时间：{article.date}</span>
-              <span>资料来源：{article.source}</span>
-              <span>整理：非官方网站</span>
+              <span>原文发布：<time dateTime={article.date}>{article.date}</time></span>
+              {article.eventDate && <span>活动日期：{article.eventDate}</span>}
+              <span>来源：{article.source}</span>
             </div>
-
             <div className="body">
-              {article.paragraphs.map((p, idx) => (
-                <p key={idx}>{p}</p>
-              ))}
-
-              {article.image && (
-                <div className="pic">
-                  <img src={article.image.src} alt={article.image.alt} />
-                  <span>{article.image.caption}</span>
-                </div>
-              )}
-
-              {article.sourceUrl && (
-                <p className="source-note">
-                  原文：
-                  <a href={article.sourceUrl} target="_blank" rel="noreferrer">
-                    {article.sourceTitle || article.sourceUrl}
-                  </a>
-                  。本文为摘要，图片为 AI 示意。
-                </p>
-              )}
+              {article.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              <ReportPhoto article={article} />
             </div>
-
-            <div className="pager">
-              {prevArticle && (
-                <p>
-                  上一篇：<Link href={`/news/${prevArticle.id}`}>{prevArticle.title}</Link>
-                </p>
-              )}
-              {nextArticle && (
-                <p>
-                  下一篇：<Link href={`/news/${nextArticle.id}`}>{nextArticle.title}</Link>
-                </p>
-              )}
+            <div className="article-source">
+              <strong>原文入口</strong>
+              <a href={article.sourceUrl} target="_blank" rel="noreferrer">{article.sourceTitle} ↗</a>
+              <span>{article.source} · {article.date}</span>
+              {article.relatedSources?.map((source) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer">相关资料：{source.title} ↗</a>)}
+              <p>本文为有出处的事实摘要，由同学维护的非正式网站整理；核对日期：{contentCheckedAt}。</p>
             </div>
-          </div>
+            <nav className="pager" aria-label="相邻报道">
+              {newer && <p>较新报道：<Link href={`/news/${newer.id}`}>{newer.title}</Link></p>}
+              {older && <p>较早报道：<Link href={`/news/${older.id}`}>{older.title}</Link></p>}
+              <p><Link href="/news">返回新闻中心</Link></p>
+            </nav>
+          </article>
         </div>
-      </div>
+      </main>
     </>
   );
 }

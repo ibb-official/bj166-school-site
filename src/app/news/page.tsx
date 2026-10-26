@@ -8,14 +8,17 @@ export const metadata = {
 };
 
 export default async function NewsPage({ searchParams }: {
-  searchParams: Promise<{ q?: string | string[]; category?: string | string[] }>;
+  searchParams: Promise<{ q?: string | string[]; category?: string | string[]; year?: string | string[] }>;
 }) {
   const params = await searchParams;
   const query = (typeof params.q === 'string' ? params.q : '').trim().slice(0, 100);
   const category = typeof params.category === 'string' ? params.category : '';
   const activeCategory = newsCategories.find((item) => item === category) ?? '';
+  const years = [...new Set(sortedNews.map((item) => item.date.slice(0, 4)))];
+  const activeYear = typeof params.year === 'string' && years.includes(params.year) ? params.year : '';
   const results = sortedNews.filter((item) =>
     (!activeCategory || item.category === activeCategory) &&
+    (!activeYear || item.date.startsWith(activeYear)) &&
     (!query || `${item.title} ${item.summary} ${item.source} ${item.paragraphs.join(' ')}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
   );
   return (
@@ -29,9 +32,14 @@ export default async function NewsPage({ searchParams }: {
           <option value="">全部类别</option>
           {newsCategories.map((item) => <option key={item} value={item}>{item}</option>)}
         </select>
+        <label className="visually-hidden" htmlFor="news-year">报道年份</label>
+        <select id="news-year" name="year" defaultValue={activeYear}>
+          <option value="">全部年份</option>
+          {years.map((year) => <option key={year} value={year}>{year}年</option>)}
+        </select>
         <button type="submit">查找</button>
       </form>
-      <p className="noindent result-count">找到{results.length}条{query ? `，关键词：“${query}”` : ''}{activeCategory ? ` · ${activeCategory}` : ''}。{(query || activeCategory) && <Link href="/news">查看全部</Link>}</p>
+      <p className="noindent result-count">找到{results.length}条{query ? `，关键词：“${query}”` : ''}{activeCategory ? ` · ${activeCategory}` : ''}{activeYear ? ` · ${activeYear}年` : ''}。{(query || activeCategory || activeYear) && <Link href="/news">查看全部</Link>}</p>
       <ul className="report-list">
         {results.map((item) => (
           <li key={item.id}>

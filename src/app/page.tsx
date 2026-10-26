@@ -3,7 +3,7 @@ import Carousel from '@/components/Carousel';
 import NewsLinks from '@/components/NewsLinks';
 import AccountUpdates from '@/components/AccountUpdates';
 import { contentCheckedAt, getNews, photoNews, sortedNews } from '@/data/news';
-import { schoolMap } from '@/data/sources';
+import { accountUpdates, schoolMap } from '@/data/sources';
 
 export default function HomePage() {
   const lead = sortedNews[0];
@@ -36,7 +36,7 @@ export default function HomePage() {
                 <li><span className="t"><Link href="/about">学校基本情况与办学特色</Link></span></li>
                 <li><span className="t"><Link href="/culture">校史、校训与校园文化</Link></span></li>
                 <li><span className="t"><Link href="/policy">教育方针与课程政策</Link></span></li>
-                <li><span className="t"><Link href="/contact">公开地址、电话与公众号</Link></span></li>
+                <li><span className="t"><Link href="/contact">本站说明与资料维护</Link></span></li>
               </ul>
               <p className="small-note">文件按原发布年度归档。招生安排请查当年官方公告。</p>
             </section>
@@ -64,16 +64,34 @@ export default function HomePage() {
                   <p><strong>校训：</strong>敬业乐群、求实进取</p>
                   <p><strong>类型：</strong>完全中学</p>
                   <p><strong>创办：</strong>1864年</p>
-                  <p><strong>地址：</strong>{schoolMap.address}</p>
-                  <p><strong>公开电话：</strong>{schoolMap.telephone}</p>
-                  <a className="small-note" href={schoolMap.url} target="_blank" rel="noreferrer">地址、电话据政务地图（2025-06-12）</a>
+                  <a className="small-note" href={schoolMap.url} target="_blank" rel="noreferrer">学校基本类型据政务地图（2025-06-12）</a>
                 </div>
               </div>
             </aside>
           </div>
 
+          <section className="topic-section">
+            <div className="sec-title"><h3>专题资料</h3><Link className="more" href="/news">全部报道&gt;&gt;</Link></div>
+            <div className="topic-grid">
+              {[
+                { title: '书香与学科', ids: [19, 24, 16] },
+                { title: '音乐与舞台', ids: [18, 21, 22] },
+                { title: '校史与校牌', ids: [20, 17, 25] },
+                { title: '科学与实践', ids: [1, 3, 9] }
+              ].map((topic) => (
+                <div className="topic-card" key={topic.title}>
+                  <h4>{topic.title}</h4>
+                  <ul>{topic.ids.map((id) => {
+                    const item = getNews(id)!;
+                    return <li key={id}><Link href={`/news/${id}`}>{item.title}</Link><time dateTime={item.date}>{item.date}</time></li>;
+                  })}</ul>
+                </div>
+              ))}
+            </div>
+          </section>
+
           <section className="account-section" id="wechat">
-            <div className="sec-title"><h3>公众号动态</h3><Link className="more" href="/sources#wechat">查看10条标题&gt;&gt;</Link></div>
+            <div className="sec-title"><h3>公众号动态</h3><Link className="more" href="/sources#wechat">查看{accountUpdates.length}条标题&gt;&gt;</Link></div>
             <AccountUpdates compact />
           </section>
 

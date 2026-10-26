@@ -2,10 +2,7 @@ export const schoolMap = {
   title: '北京市第一六六中学（灯市口校区）',
   url: 'https://map.beijing.gov.cn/place?categoryId=zx&placeId=684a86b0f8f52a79c0ac892c',
   publisher: '北京12345服务导图·市教委数据',
-  date: '2025-06-12',
-  address: '北京市东城区同福夹道3号',
-  telephone: '010-65253226',
-  postcode: '100006'
+  date: '2025-06-12'
 };
 
 export const schoolAccount = {
@@ -24,10 +21,6 @@ export const accountUpdates = [
   {
     "displayDate": "星期四",
     "title": "星光聚声，薪火相传！一六六中学高中星光男声合唱团亮相北京市第二十九届学生艺术节合唱展演"
-  },
-  {
-    "displayDate": "星期三",
-    "title": "以梦为翼，翱翔苍穹！一六六中学子王绍钧全国夺冠，下一站为国出征"
   },
   {
     "displayDate": "星期二",
@@ -80,5 +73,19 @@ export const policySources = [
     date: '2026-08-04',
     url: 'https://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/202608/t20260804_1446039.html',
     summary: '关注科学探究与实践活动，为阅读学校科学教育报道提供政策背景。'
+  },
+  {
+    title: '“做中学”京版方案发布 科学教育贯通培养可向高中阶段延伸',
+    publisher: '首都之窗·北京日报',
+    date: '2026-09-19',
+    url: 'https://www.beijing.gov.cn/fuwu/bmfw/sy/jrts/202609/t20260919_4871059.html',
+    summary: '北京市科学教育“做中学”的政策背景，适用范围为全市，不作为学校实施细则。'
+  },
+  {
+    title: '全链条培育科学少年！东城发布2026年科学教育任务清单',
+    publisher: '东城区人民政府',
+    date: '2026-03-25',
+    url: 'https://www.bjdch.gov.cn/ywdt/dcyw/202603/t20260325_4565931.html',
+    summary: '东城区2026年科学教育工作的公开部署，供了解区域教育背景。'
   }
 ];

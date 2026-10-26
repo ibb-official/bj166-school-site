@@ -18,14 +18,14 @@ export default function Header() {
     { name: '教育方针', path: '/policy' },
     { name: '信息公示', path: '/disclosure' },
     { name: '校园文化', path: '/culture' },
-    { name: '联系我们', path: '/contact' },
+    { name: '关于本站', path: '/contact' },
     { name: '资料来源', path: '/sources' }
   ];
 
   return (
     <>
       <div className="topbar">
-        <div className="wrap"><span>{dateText}</span><span><Link href="/sources">公开资料整理</Link><span className="sep">|</span><Link href="/contact">联系方式说明</Link></span></div>
+        <div className="wrap"><span>{dateText}</span><span><Link href="/sources">公开资料整理</Link><span className="sep">|</span><Link href="/contact">关于本站</Link></span></div>
       </div>
       <header className="header wrap">
         <div className="logo">

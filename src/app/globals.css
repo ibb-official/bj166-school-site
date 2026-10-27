@@ -318,8 +318,8 @@ ul, ol { list-style: none; }
 
 /* ---------- 图片新闻行 ---------- */
 .pic-row { margin-top: 14px; background: #fff; border: 1px solid #ddd; padding: 14px; }
-.pic-row .items { display: flex; gap: 14px; }
-.pic-row .item { flex: 1; }
+.pic-row .items { display: flex; flex-wrap: wrap; gap: 14px; }
+.pic-row .item { flex: 0 0 calc((100% - 42px) / 4); }
 .pic-row .item img { width: 100%; height: 150px; object-fit: cover; border: 1px solid #ddd; padding: 3px; background: #fff; }
 .pic-row .item p {
   text-align: center;

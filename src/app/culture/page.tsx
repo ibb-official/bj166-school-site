@@ -24,10 +24,12 @@ export default function CulturePage() {
       <h3 className="block-t">从好书小报到校园书市</h3>
       <p>2024年世界读书日前后，学校举办英文原版好书推荐小报大赛，学生将阅读理解与英文表达、图文设计结合。第二届博雅书市邀请书店走进校园；各学科的主题阅读任务，则把阅读放入日常学习。</p>
       <p className="noindent"><Link href="/news/19">查看校园阅读活动</Link>　｜　<Link href="/news/16">长征主题读书分享</Link></p>
+      <ReportPhoto article={getNews(19)!} />
 
       <h3 className="block-t">管乐与合唱，走上音乐厅舞台</h3>
       <p>2023年11月，金帆管乐团在北京音乐厅举行专场音乐会，首演《缤纷幻想曲》。2024年5月，星光高中男声合唱团携手一贯制及高中女子合唱团，在中山公园音乐堂举办“青春之歌，唱给你听”音乐会。</p>
       <ReportPhoto article={getNews(18)!} />
+      <ReportPhoto article={getNews(21)!} />
       <p className="noindent"><Link href="/news/18">管乐专场报道</Link>　｜　<Link href="/news/21">合唱专场报道</Link></p>
 
       <h3 className="block-t">用戏剧理解故事与历史</h3>
@@ -41,6 +43,7 @@ export default function CulturePage() {
       <h3 className="block-t">知识、游戏与动手设计</h3>
       <p>首届数学节将魔方、数独、折纸和数学史展板带入校园；碳中和主题花园设计则把生态知识转化为模型。这些报道提供了观察学科活动与校园文化的不同角度。</p>
       <p className="noindent"><Link href="/news/24">首届数学节</Link>　｜　<Link href="/news/9">碳中和主题花园设计</Link></p>
+      <ReportPhoto article={getNews(24)!} />
       <p className="source-note">更多近期线索见<Link href="/sources#wechat">学校公众号标题索引</Link>。未核读正文的推送仅列标题，不据此补写活动详情。</p>
     </PageLayout>
   );

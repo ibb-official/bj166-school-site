@@ -10,6 +10,7 @@ export interface ReportImage {
   caption: string;
   credit: string;
   originalUrl: string;
+  sourceUrl?: string;
 }
 
 export interface NewsItem {
@@ -374,7 +375,14 @@ export const newsList: NewsItem[] = [
     "paragraphs": [
       "首都文明网转载北京日报客户端报道，一六六中学举办首届英文原版好书推荐小报大赛，面向四个非毕业年级开展。学生将书籍理解用英文和图片组合呈现。",
       "同期举办的第二届博雅书市邀请王府井书店、商务印书馆涵芬楼书店进校园。报道还介绍了各学科围绕主题开展阅读任务的做法。"
-    ]
+    ],
+    "image": {
+      "src": "/images/reports/reading-fair-20240423.webp",
+      "alt": "身着一六六中学校服的学生在校园书市的书摊旁翻阅图书",
+      "caption": "2024年校园书市现场，原图刊于世界读书日活动报道。",
+      "credit": "首都文明网／北京日报客户端（原文配图）",
+      "originalUrl": "http://images.wenming.cn/web_bj/dc/wcnr/202404/W020240423565620538040.jpg"
+    }
   },
   {
     "id": 20,
@@ -448,7 +456,14 @@ export const newsList: NewsItem[] = [
     "paragraphs": [
       "2024年5月21日，一六六中学在中山公园音乐堂举办“青春之歌，唱给你听”合唱专场音乐会。这是学校160周年校庆系列演出的首场。",
       "星光高中男声合唱团演唱《莫尼山》《城南送别》等作品，一贯制及高中女子合唱团参与演出。报道介绍，参演学生均为非特长生，部分往届毕业生也回到团队同台演唱。"
-    ]
+    ],
+    "image": {
+      "src": "/images/reports/choir-stage-20240521.webp",
+      "alt": "中山公园音乐堂舞台上的学校男声合唱团，横幅写有青春之歌唱给你听及学校名称",
+      "caption": "2024年5月21日，“青春之歌，唱给你听”合唱专场音乐会现场。",
+      "credit": "现代教育报／北京号（原文配图）",
+      "originalUrl": "https://static.bjd.com.cn/dams-res/editing/image/202405/22/664df4cbefa22536a5e5b0b6.jpeg"
+    }
   },
   {
     "id": 22,
@@ -491,6 +506,24 @@ export const newsList: NewsItem[] = [
     "paragraphs": [
       "2024年3月14日国际数学日，一六六中学首届数学节开幕。活动包括魔方竞速、数独、数字谜题、折纸、鲁班锁等项目，组成竞技、体验和灯谜等区域。",
       "数学技能活动按不同年级设置应用、画图、阅读、推理等主题。文化展示还介绍《九章算术》《几何原本》和数学史，展出学生的数学史小论文及数学节徽标设计。"
+    ],
+    "image": {
+      "src": "/images/reports/math-festival-20240314.webp",
+      "alt": "一六六中学学生围在活动桌旁，手持彩色拼搭材料参加数学节活动",
+      "caption": "首届数学节活动照片，刊于《新东城报》2024年3月19日第2版。",
+      "credit": "北京市第一六六中学供图／新东城报",
+      "originalUrl": "https://www.bjdch.gov.cn/ywdt/xdcb/202403/P020240322469872308792.pdf",
+      "sourceUrl": "https://www.bjdch.gov.cn/ywdt/xdcb/202403/P020240322469872308792.pdf"
+    },
+    "relatedSources": [
+      {
+        "title": "新东城报2024年3月19日第2版：感受数学魅力（学校供图）",
+        "url": "https://www.bjdch.gov.cn/ywdt/xdcb/202403/P020240322469872308792.pdf"
+      },
+      {
+        "title": "北青网：首届数学节活动报道（公开转载）",
+        "url": "https://www.sohu.com/a/764120259_255783"
+      }
     ]
   },
   {

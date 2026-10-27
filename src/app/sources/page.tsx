@@ -44,7 +44,7 @@ export default function SourcesPage() {
       <h3 className="block-t">图片来源</h3>
       <p>本次展示的{reportPhotos.length}幅报道配图均取自对应原文，保留原始画幅与水印。图片资料核对：{photosCheckedAt}。设计模型与历史活动分别说明，可在<Link href="/photos">校园影像</Link>集中查阅。</p>
       <ul className="source-directory">
-        {reportPhotos.map(({ article, photo }) => <li key={photo.src}><Link href={`/news/${article.id}`}>{photo.caption}</Link><span>{photo.credit}</span><a className="read-link" href={photo.originalUrl} target="_blank" rel="noreferrer">原图地址 ↗</a></li>)}
+        {reportPhotos.map(({ article, photo }) => <li key={photo.src}><Link href={`/news/${article.id}`}>{photo.caption}</Link><span>{photo.credit}</span><a className="read-link" href={photo.originalUrl} target="_blank" rel="noreferrer">原始图片或刊载文件 ↗</a></li>)}
       </ul>
       <p className="noindent small-note">校徽使用既有项目图片，仅用于学校资料识别。本站为非正式网站，不代表学校授权发布；报道及图片版权归相应权利人。</p>
     </PageLayout>

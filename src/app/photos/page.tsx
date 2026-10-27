@@ -9,8 +9,9 @@ export const metadata = {
 
 const collections = [
   { id: 'campus', title: '校园与校庆', description: '2024年建校160周年报道中的校园留影。', articleIds: [20] },
-  { id: 'science', title: '课程与科学实践', description: '大学课堂、实验操作、交流活动及学生设计模型。', articleIds: [1, 3, 4, 9] },
-  { id: 'arts', title: '艺术与舞台', description: '学校金帆管乐团2023年专场音乐会。', articleIds: [18] }
+  { id: 'science', title: '课程与科学实践', description: '大学课堂、实验操作、交流活动、数学节及学生设计模型。', articleIds: [1, 3, 4, 9, 24] },
+  { id: 'reading', title: '书香与阅读', description: '2024年世界读书日活动报道中的校园书市。', articleIds: [19] },
+  { id: 'arts', title: '艺术与舞台', description: '2023年管乐与2024年合唱专场音乐会。', articleIds: [18, 21] }
 ];
 
 export default function PhotosPage() {
@@ -33,7 +34,7 @@ export default function PhotosPage() {
                 <figcaption>
                   <p>{photo.caption}</p>
                   <span>报道发布：<time dateTime={article.date}>{article.date}</time></span>
-                  <a className="photo-source-link" href={article.sourceUrl} target="_blank" rel="noreferrer">图片来源：{photo.credit} ↗</a>
+                  <a className="photo-source-link" href={photo.sourceUrl ?? article.sourceUrl} target="_blank" rel="noreferrer">图片来源：{photo.credit} ↗</a>
                   <Link className="photo-story-link" href={`/news/${article.id}`}>查看相关报道 &gt;</Link>
                 </figcaption>
               </figure>

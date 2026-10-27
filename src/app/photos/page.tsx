@@ -8,10 +8,11 @@ export const metadata = {
 };
 
 const collections = [
-  { id: 'campus', title: '校园与校庆', description: '2024年建校160周年报道中的校园留影。', articleIds: [20] },
-  { id: 'science', title: '课程与科学实践', description: '大学课堂、实验操作、交流活动、数学节及学生设计模型。', articleIds: [1, 3, 4, 9, 24] },
-  { id: 'reading', title: '书香与阅读', description: '2024年世界读书日活动报道中的校园书市。', articleIds: [19] },
-  { id: 'arts', title: '艺术与舞台', description: '2023年管乐与2024年合唱专场音乐会。', articleIds: [18, 21] }
+  { id: 'campus', title: '校园与校庆', description: '历史校门资料图与2024年建校160周年报道中的校园留影。', articleIds: [8, 20] },
+  { id: 'science', title: '课程与科学实践', description: '大学课堂、实验操作、车辆模型竞赛、数学节及学生设计模型。', articleIds: [1, 2, 3, 4, 9, 24] },
+  { id: 'reading', title: '书香与阅读', description: '校园书市、附属小学阅读日与区级读书成果展演。', articleIds: [14, 16, 19] },
+  { id: 'arts', title: '艺术与舞台', description: '管乐、合唱音乐会及《高地前的抉择》《百合花颂》戏剧展演。', articleIds: [6, 18, 21, 22] },
+  { id: 'education', title: '主题教育与协同育人', description: '国家安全主题宣讲与教育共同体成立仪式。', articleIds: [5, 7] }
 ];
 
 export default function PhotosPage() {

@@ -35,6 +35,7 @@ export default function CulturePage() {
       <h3 className="block-t">用戏剧理解故事与历史</h3>
       <p>2023年上演的原创话剧《百合花颂》，从学校历史中取材，将不同年代的故事搬上舞台。2026年，《高地前的抉择》参加东城区第二十九届学生艺术节金帆专场。两则报道分别记录了原创校史剧与艺术节演出的不同实践。</p>
       <p className="noindent"><Link href="/news/22">《百合花颂》原创话剧</Link>　｜　<Link href="/news/6">《高地前的抉择》展演</Link></p>
+      <ReportPhoto article={getNews(6)!} />
 
       <h3 className="block-t">校史学习的两种记录方式</h3>
       <p>2024年的女性校友事迹专题展，以展板呈现学校历史中的成长故事。同年校庆期间，学生分组采访校友并形成访谈记录。这里保留活动经过，个人事迹与完整访谈请查阅原报道。</p>

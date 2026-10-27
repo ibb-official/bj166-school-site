@@ -186,7 +186,7 @@
 
 ## 报道配图
 
-截至2026-10-27，以下16幅图片来自对应公开报道，保留原始画幅与水印。模型与活动现场分别注明，权利归相应权利人，不声称获得学校或媒体授权。集中展示入口为 `/photos`。
+截至2026-10-27，共26幅配图，来自对应公开报道及其公开回顾视频，保留原始画幅与水印。视频画面、历史图片与设计模型分别注明，权利归相应权利人，不声称获得学校或媒体授权。图片直接放入相关报道正文，集中展示入口为 `/photos`。
 
 - `/images/reports/tsinghua-20260916.jpg`：一六六中学学生参加清华大学《疫苗的力量》课程。 来源：北京日报客户端／牛伟坤；[原报道](https://news.bjd.com.cn/2026/09/16/11960460.shtml)；[原图](https://static.bjd.com.cn/dams-res/editing/image/202609/16/qlmbtlinacmxxmkokwz9598f.jpg)。
 - `/images/reports/science-20260629.jpg`：2026年6月26日，科技史融入前沿科技探究实践交流活动现场。 来源：东教印象（新京号原文配图）；[原报道](https://www.bjnews.com.cn/detail/1782725964019667.html)；[原图](https://mposs.bjnews.com.cn/2026/06/29/3517827253145990009_42fd78e6cd644f015ccc6a50856244ea.jpg)。
@@ -198,7 +198,7 @@
 
 ### 2026-10-27图片补充
 
-本轮共新增11幅。微信窗口画面与控件信息不一致，恢复后仍有窗口激活与前台进程识别错误，未能可靠提取电脑公众号正文图片；取图改用已经公开发布的学校供稿、东教印象转载及媒体原报道。没有为84条标题目录批量配入未经核对的图片。
+首批新增11幅。微信窗口画面与控件信息不一致，恢复后仍有窗口激活与前台进程识别错误，未能可靠提取电脑公众号正文图片；取图改用已经公开发布的学校供稿、东教印象转载及媒体原报道。没有为84条标题目录批量配入未经核对的图片。
 
 校庆报道原文明确写有“转自：‘北京市第166中学’微信公众号”。以下6幅逐张核对后取用，均为2024年历史图片，未作为2026年新拍校园照片展示。可从[160周年校庆原报道](https://m.bjnews.com.cn/detail/172959693119416.html)查阅完整上下文：
 
@@ -221,6 +221,22 @@
 - `/images/reports/reading-fair-20240423.webp`：2024年校园书市，学生在书摊旁翻阅图书；[首都文明网原报道](https://bj.wenming.cn/dc/wcnr/202404/t20240423_6767517.shtml)；[原图](http://images.wenming.cn/web_bj/dc/wcnr/202404/W020240423565620538040.jpg)。原文来源为北京日报客户端。资源原站为HTTP，本站使用本地WebP副本。
 - `/images/reports/choir-stage-20240521.webp`：2024年5月21日合唱专场，舞台横幅可核对学校名称及演出主题；[现代教育报北京号原报道](https://peking.bjd.com.cn/content/s664df4c4e4b064178156ad1c.html)；[原图](https://static.bjd.com.cn/dams-res/editing/image/202405/22/664df4cbefa22536a5e5b0b6.jpeg)。
 - `/images/reports/math-festival-20240314.webp`：《新东城报》2024年3月19日第2版“感受数学魅力”配图；[东城区政府发布的报纸原文件](https://www.bjdch.gov.cn/ywdt/xdcb/202403/P020240322469872308792.pdf)。图注明确注明北京市第一六六中学供图；通过PDFium解码原嵌入图像颜色，保留643×429像素完整画幅。没有截图裁切整版，也没有取用同版其他活动图片。照片的拍摄日未单独注明，页面图注使用刊载日期，关联2024年首届数学节报道。
+
+### 缺图新闻逐篇补充（2026-10-27）
+
+本次向8篇新闻正文补入10幅配图，累计26幅。以下来源与对应关系逐项核对：
+
+- 新闻2 `/images/reports/vehicle-20260819.webp`：2026年车辆模型竞赛现场两名参赛学生合影。来自[原报道](https://www.bjnews.com.cn/detail/1787108610019978.html)中“参赛学生合影”段；[原图](https://mposs.bjnews.com.cn/2026/08/19/3517871084166510009_051a2dffef6446dfd3414ea11ef4e546.jpg)。未使用证书姓名特写或居家训练照片。
+- 新闻5 `/images/reports/community-20260907.webp`：[2026年9月7日周报](https://www.bjnews.com.cn/detail/1788789665019559.html)“北京市第一六六中学／汇聚合力 同心育人”条目下的成立仪式照片；[原图](https://mposs.bjnews.com.cn/2026/09/07/3517887893105440003_5bb759f84bdd134c7db32ad896f690cb.jpg)。按报道日期归档，不推断仪式日期。
+- 新闻6 `/images/reports/drama-20260910.webp`：已核对《高地前的抉择》剧照，来自[本届戏剧展演原报道](https://www.bjnews.com.cn/detail/1790085938019654.html)金帆专场段最后一幅照片；[原图](https://mposs.bjnews.com.cn/2026/09/22/3517900593335980005_a5bbafa6db1b714cd1ab9aa93fbb0f25.jpg)。
+- 新闻6 `/images/reports/drama-review-20260910.webp`：[同篇公开回顾视频](https://mposs.bjnews.com.cn/video/2026/09/22/3517900593335980005_59a8545ec420b40241ac0e7c150abc61.mp4)约2分19秒的舞台画面。视频约2分18秒起为军装剧目片段，约2分28秒的采访字幕明确标注“北京市第一六六中学”；演员、服装和舞台与剧照相互对应，结合原文剧目说明核验。页面单独标注视频画面，不作摄影原图。
+- 新闻7 `/images/reports/security-20260415.webp`：[国家安全教育日专题](https://www.bjnews.com.cn/detail/1776259162019623.html)“主题宣讲 青年当守家国安”与“@北京市第一六六中学”之间的照片；原图保留学校公众号水印。[原图](https://mposs.bjnews.com.cn/2026/04/15/3517762588656660005_d153a2608d5519669f1c17be6b1bfbb9.jpg)。
+- 新闻8 `/images/reports/school-history-20230520.webp`：[2023年百年老校专题](https://m.bjnews.com.cn/detail/168450907614302.html)旧校门黑白资料图；[原图](https://mposs.bjnews.com.cn/2023/05/19/3516845087514870013_273c36eaeb4d3b5136bb37279d7ba29b.jpg)。原文未注明拍摄年份，已明确其为历史资料图。
+- 新闻14 `/images/reports/primary-reading-20260422.webp`：[首都之窗／北京日报原报道](https://www.beijing.gov.cn/fuwu/bmfw/sy/jrts/202604/t20260422_4603068.html)书市照片；[原图](https://www.beijing.gov.cn/fuwu/bmfw/sy/jrts/202604/W020260422584904527957.jpg)。注明活动主体为附属校尉胡同小学。
+- 新闻16 `/images/reports/reading-stage-20261023.webp`：[读书成果展演原报道](https://www.bjnews.com.cn/detail/1792805614019785.html)学生分享段的电台背景画面；[原图](https://mposs.bjnews.com.cn/2026/10/24/3517928054017490021_cf5a85ae73a34973613383567db1653f.jpg)。图注保持区级展演场景说明，明确场地为北京市第五十五中学。
+- 新闻22 `/images/reports/lily-drama-20231109.webp`、`/images/reports/lily-drama-scene-20231109.webp`：北青网[2023年11月9日报道](https://www.sohu.com/a/735056971_255783)前两幅剧照，摄影李娜；[原图一](https://p0.itc.cn/q_70/images03/20231109/932c49caa7254458bbc291c8b204dd7f.jpeg)、[原图二](https://p5.itc.cn/q_70/images03/20231109/a5b2a7b527624ff5a0dd86801d3f1f5e.jpeg)。未混用2024年同剧演出的照片。
+
+政策名单、预算文件与过期招生资料不为装饰强配活动照片。其余未取得可确认对应图片的报道继续保留原文入口，后续核验到匹配图再补充。
 
 ## 本次清理与维护
 

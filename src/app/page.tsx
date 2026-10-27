@@ -9,6 +9,7 @@ export default function HomePage() {
   const lead = sortedNews[0];
   const biology = getNews(4)!;
   const publicFiles = sortedNews.filter((item) => item.category === '信息公示');
+  const featuredPhotos = [...photoNews].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 8);
   return (
     <>
       <div className="notice-bar">
@@ -98,7 +99,7 @@ export default function HomePage() {
           <section className="pic-row">
             <div className="sec-title"><h3>图片报道</h3><Link className="more" href="/photos">校园影像&gt;&gt;</Link></div>
             <div className="items">
-              {photoNews.map((item) => (
+              {featuredPhotos.map((item) => (
                 <div className="item" key={item.id}>
                   <Link href={`/news/${item.id}`}>
                     <img src={item.image!.src} alt={item.image!.alt} loading="lazy" />

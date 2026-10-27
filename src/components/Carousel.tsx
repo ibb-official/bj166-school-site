@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getNews } from '@/data/news';
 
-const slides = [getNews(1)!, getNews(3)!, getNews(4)!];
+const slides = [getNews(20)!, getNews(1)!, getNews(3)!, getNews(4)!];
 
 export default function Carousel() {
   const [index, setIndex] = useState(0);
@@ -27,7 +27,7 @@ export default function Carousel() {
       ))}
       <div className="caption">
         <Link href={`/news/${slides[index].id}`}>{slides[index].title}</Link>
-        <span>{slides[index].image!.credit}</span>
+        <span>{slides[index].date} · {slides[index].image!.credit}</span>
       </div>
       <div className="dots">
         {slides.map((item, position) => (

@@ -37,6 +37,7 @@ export default async function NewsDetailPage({ params }: Props) {
             <div className="body">
               {article.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               <ReportPhoto article={article} />
+              {article.gallery && <div className="report-gallery" aria-label="报道配图">{article.gallery.map((photo) => <ReportPhoto key={photo.src} article={article} photo={photo} />)}</div>}
             </div>
             <div className="article-source">
               <strong>原文入口</strong>

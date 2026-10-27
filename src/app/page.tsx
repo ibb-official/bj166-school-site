@@ -56,7 +56,7 @@ export default function HomePage() {
             <aside className="col-side">
               <div className="side-box">
                 <div className="hd">快速通道</div>
-                <div className="bd quick-links"><Link href="/wechat">学校公众号档案</Link><Link href="/news?category=科学教育">科学教育报道</Link><Link href="/news?category=校园文化">文化艺术活动</Link><Link href="/policy">政策文件选读</Link></div>
+                <div className="bd quick-links"><Link href="/photos">校园影像</Link><Link href="/wechat">学校公众号档案</Link><Link href="/news?category=科学教育">科学教育报道</Link><Link href="/news?category=校园文化">文化艺术活动</Link><Link href="/policy">政策文件选读</Link></div>
               </div>
               <div className="side-box">
                 <div className="hd">学校信息</div>
@@ -96,7 +96,7 @@ export default function HomePage() {
           </section>
 
           <section className="pic-row">
-            <div className="sec-title"><h3>图片报道</h3><Link className="more" href="/news">更多&gt;&gt;</Link></div>
+            <div className="sec-title"><h3>图片报道</h3><Link className="more" href="/photos">校园影像&gt;&gt;</Link></div>
             <div className="items">
               {photoNews.map((item) => (
                 <div className="item" key={item.id}>
@@ -104,7 +104,7 @@ export default function HomePage() {
                     <img src={item.image!.src} alt={item.image!.alt} loading="lazy" />
                     <p>{item.title}</p>
                   </Link>
-                  <div className="photo-credit">{item.image!.credit}</div>
+                  <div className="photo-credit">{item.date} · {item.image!.credit}</div>
                 </div>
               ))}
             </div>

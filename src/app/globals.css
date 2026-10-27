@@ -714,6 +714,21 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .report-photo img { width: auto; max-width: 100%; max-height: 650px; margin: 0 auto; height: auto; border: 1px solid #d5e0e9; }
 .report-photo figcaption { color: #6c8293; font-size: 12px; line-height: 1.8; margin-top: 8px; }
 .report-photo figcaption a { color: #426f94; text-decoration: underline; }
+.report-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; max-width: 900px; margin: 24px auto; }
+.report-gallery .report-photo { margin: 0; min-width: 0; }
+.report-gallery .report-photo img { width: 100%; height: 300px; max-height: none; object-fit: contain; background: #f1f5f9; }
+.photo-collection-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 28px; }
+.photo-collection-links a { border: 1px solid #c9dbea; padding: 6px 16px; color: var(--school-blue-dark); background: #f4f8fc; }
+.photo-collection { margin: 28px 0 36px; scroll-margin-top: 20px; }
+.photo-archive-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.photo-archive-card { margin: 0; border: 1px solid #d5e0e9; background: #fff; min-width: 0; }
+.photo-archive-image { display: flex; align-items: center; justify-content: center; height: 230px; background: #edf3f8; }
+.photo-archive-image img { width: 100%; height: 100%; object-fit: contain; }
+.photo-archive-card figcaption { padding: 12px 14px; font-size: 12px; color: #6c8293; line-height: 1.8; }
+.page-main .photo-archive-card p { text-indent: 0; font-size: 14px; line-height: 1.8; color: #284c68; margin: 0 0 7px; }
+.photo-source-link, .photo-story-link { display: block; margin-top: 5px; }
+.photo-source-link { text-decoration: underline; }
+.photo-story-link { color: var(--school-blue-dark); }
 .article-source { background: #f2f7fc; border-left: 3px solid var(--school-blue); padding: 16px 20px; margin: 26px auto 0; max-width: 820px; overflow-wrap: anywhere; }
 .article-source strong, .article-source > a, .article-source > span { display: block; margin-bottom: 6px; }
 .article-source > a { color: var(--school-blue-dark); }
@@ -768,6 +783,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .news-search input { flex-basis: 100%; }
   .news-search select { flex: 1; }
   .report-list h3 { font-size: 17px; }
+  .report-gallery, .photo-archive-grid { grid-template-columns: 1fr; }
+  .report-gallery .report-photo img { height: auto; max-height: 480px; }
+  .photo-archive-image { height: 240px; }
   .article-source { padding: 12px; }
   .article .meta span { display: inline-block; margin: 0 6px; }
   .page-main p.school-motto { font-size: 22px; letter-spacing: 1px; }

@@ -186,7 +186,7 @@
 
 ## 报道配图
 
-以下5张图片来自对应公开报道，保留原始画幅与水印。模型与活动现场分别注明，权利归相应权利人，不声称获得学校或媒体授权。
+截至2026-10-27，以下13幅图片来自对应公开报道，保留原始画幅与水印。模型与活动现场分别注明，权利归相应权利人，不声称获得学校或媒体授权。集中展示入口为 `/photos`。
 
 - `/images/reports/tsinghua-20260916.jpg`：一六六中学学生参加清华大学《疫苗的力量》课程。 来源：北京日报客户端／牛伟坤；[原报道](https://news.bjd.com.cn/2026/09/16/11960460.shtml)；[原图](https://static.bjd.com.cn/dams-res/editing/image/202609/16/qlmbtlinacmxxmkokwz9598f.jpg)。
 - `/images/reports/science-20260629.jpg`：2026年6月26日，科技史融入前沿科技探究实践交流活动现场。 来源：东教印象（新京号原文配图）；[原报道](https://www.bjnews.com.cn/detail/1782725964019667.html)；[原图](https://mposs.bjnews.com.cn/2026/06/29/3517827253145990009_42fd78e6cd644f015ccc6a50856244ea.jpg)。
@@ -195,6 +195,26 @@
 - `/images/reports/concert-20231122.png`：“缤纷幻想”金帆管乐团2023年专场音乐会现场。 来源：北京日报客户端（原文配图）；[原报道](https://xinwen.bjd.com.cn/content/s655db699e4b0ec2b81cf9c7e.html)；[原图](https://static.bjd.com.cn/dams-res/editing/image/202312/21/6583a97e3f6248ae97521549.png)。
 
 既有校徽文件 `public/images/school-emblem.jpg` 用于学校资料识别。旧AI场景资源保留在项目历史和资源目录，页面不再引用，不用作校园实景。
+
+### 2026-10-27图片补充
+
+本轮新增8幅。微信窗口画面与控件信息不一致，未继续自动操作公众号正文；取图改用已经公开发布的东教印象转载或学校供稿专题。没有为84条标题目录批量配入未经核对的图片。
+
+校庆报道原文明确写有“转自：‘北京市第166中学’微信公众号”。以下6幅逐张核对后取用，均为2024年历史图片，未作为2026年新拍校园照片展示。可从[160周年校庆原报道](https://m.bjnews.com.cn/detail/172959693119416.html)查阅完整上下文：
+
+- `/images/reports/anniversary-campus-20241019.webp`：校园教学楼与坡道；[原图](https://mposs.bjnews.com.cn/2024/10/22/3517295966105210004_2ed047abcbfa5cabfd4be7cde70030dd.jpg)。
+- `/images/reports/anniversary-motto-20241019.webp`：校训石与校庆旗帜；[原图](https://mposs.bjnews.com.cn/2024/10/22/3517295966105210004_a93bb87e9cacf77b90069c2ffc25b3d7.jpg)。
+- `/images/reports/anniversary-stairway-20241019.webp`：教学楼外校庆布置；[原图](https://mposs.bjnews.com.cn/2024/10/22/3517295966105210004_35c49b452a86bd2a2f59ea3ae518ae0e.jpg)。
+- `/images/reports/anniversary-return-20241019.webp`：“归来仍是少年”标牌；[原图](https://mposs.bjnews.com.cn/2024/10/22/3517295966105210004_42f82410a32dbad39b60a366c884a363.jpg)。
+- `/images/reports/anniversary-courtyard-20241019.webp`：校园建筑与校庆条幅；[原图](https://mposs.bjnews.com.cn/2024/10/22/3517295966105210004_d364542deffa2e83193aa755f15b5feb.jpg)。
+- `/images/reports/anniversary-flowers-20241019.webp`：校园花木；[原图](https://mposs.bjnews.com.cn/2024/10/22/3517295966105210004_2f427ffa75679f8ee3b3673f32fdae69.jpg)。
+
+另两幅来自学校参与供稿的东教印象专题：
+
+- `/images/reports/science-meeting-20260626.webp`：报告厅交流活动现场；[原报道](https://www.bjnews.com.cn/detail/1782725964019667.html)；[原图](https://mposs.bjnews.com.cn/2026/06/29/3517827253145990009_43bb22dcddd7aa479e06257b2a17adb2.jpg)。原文素材来源列区教科院、学校，不推断具体摄影者。
+- `/images/reports/biology-group-20260707.webp`：生科班集体合影；[原报道](https://www.bjnews.com.cn/detail/1783433554019999.html)；[原图](https://mposs.bjnews.com.cn/2026/07/07/3517834333416310000_fed383afa6dd956bb0e8169ef7441a3b.jpg)。原文未逐张说明拍摄地点与日期，仅以2026年7月的报道日期归档。
+
+新增图片仅转码为WebP以控制页面体积，不生成、修补、换脸或重构场景，不裁切水印。没有使用二维码海报、证书姓名特写、居家训练照，也没有把多校活动中未注明学校的舞台照归为一六六中学。
 
 ## 本次清理与维护
 

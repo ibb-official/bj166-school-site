@@ -16,6 +16,7 @@ export default function AboutPage() {
       <p>北京市第一六六中学位于北京市东城区，是一所完全中学。学校创办于1864年，办学历史中曾使用贝满女中、北京市第十二女子中学等名称。学校校训为“敬业乐群、求实进取”。</p>
       <p>学校2026年部门预算说明，其为东城区教育委员会所属全额拨款事业单位。历史与学校类型信息可结合下列原始资料查阅。</p>
       <p className="source-note">资料依据：<a href={schoolMap.url} target="_blank" rel="noreferrer">市教委政务地图</a>、<Link href="/news/12">2026年部门预算</Link>及<Link href="/news/13">2026年“1+3”学校简介</Link>。</p>
+      <ReportPhoto article={getNews(20)!} />
 
       <h3 className="block-t">基本情况</h3>
       <table className="pub">
@@ -35,7 +36,7 @@ export default function AboutPage() {
       <p><strong>人文与艺术：</strong>学校学生参加戏剧展演、主题阅读等活动。“1+3”培养实验的公开简介介绍了博雅“人文+X”课程。<Link href="/culture">校园文化资料</Link></p>
 
       <h3 className="block-t">关于本网站</h3>
-      <p>本站由同学协作建设，整理学校相关公开资料。新闻有原文入口，照片有出处；学校现行课程、招生和校务安排，以学校及教育部门最新发布为准。</p>
+      <p>本站由同学协作建设，整理学校相关公开资料。新闻有原文入口，照片有出处；更多校园与活动照片见<Link href="/photos">校园影像</Link>。学校现行课程、招生和校务安排，以学校及教育部门最新发布为准。</p>
     </PageLayout>
   );
 }

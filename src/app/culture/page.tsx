@@ -15,6 +15,7 @@ export default function CulturePage() {
       <p className="school-motto noindent">敬业 · 乐群 · 求实 · 进取</p>
       <p>学校创办于1864年。2024年的160周年校庆报道，回顾了贝满女中、女十二中及一六六中学等历史阶段，也记录了学生通过校史讲解和校友访谈参与校庆的经历。</p>
       <p className="source-note">校史资料见<Link href="/news/20">160周年校庆报道</Link>与<Link href="/news/8">“百年老校”专题</Link>。本栏目记录报道当年的活动，不列现任教师、校友个人介绍或联络信息。</p>
+      <ReportPhoto article={getNews(20)!} photo={getNews(20)!.gallery![0]} />
 
       <h3 className="block-t">书写校牌，让作品进入校园</h3>
       <p>2022年春季，学校首次换上由在校学生书写的校牌。此后，这项活动持续开展；北京青年报2024年9月的报道记录了第10次换新，新一版作品采用魏碑体。书法学习由练习纸走向校门，也让学生参与校园公共空间的建设。</p>

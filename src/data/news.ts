@@ -1,4 +1,5 @@
 export const contentCheckedAt = '2026-10-26';
+export const photosCheckedAt = '2026-10-27';
 
 export const newsCategories = ['科学教育', '校园文化', '协同育人', '思政教育', '信息公示', '学校历史', '阅读活动', '集团动态', '周边环境'] as const;
 export type NewsCategory = typeof newsCategories[number];
@@ -23,6 +24,7 @@ export interface NewsItem {
   summary: string;
   paragraphs: string[];
   image?: ReportImage;
+  gallery?: ReportImage[];
   relatedSources?: { title: string; url: string }[];
 }
 
@@ -85,6 +87,15 @@ export const newsList: NewsItem[] = [
       "credit": "东教印象（新京号原文配图）",
       "originalUrl": "https://mposs.bjnews.com.cn/2026/06/29/3517827253145990009_42fd78e6cd644f015ccc6a50856244ea.jpg"
     },
+    "gallery": [
+      {
+        "src": "/images/reports/science-meeting-20260626.webp",
+        "alt": "一六六中学报告厅内的科技史探究实践交流活动，参会人员面向讲台听讲",
+        "caption": "2026年6月26日，科技史融入前沿科技探究实践交流活动报告厅现场。",
+        "credit": "东教印象（原文配图）",
+        "originalUrl": "https://mposs.bjnews.com.cn/2026/06/29/3517827253145990009_43bb22dcddd7aa479e06257b2a17adb2.jpg"
+      }
+    ],
     "relatedSources": [
       {
         "title": "北京教育科学研究院：活动报道及研究课介绍",
@@ -111,7 +122,16 @@ export const newsList: NewsItem[] = [
       "caption": "生命科学实验班实践活动，图片见毕业班级专题报道。",
       "credit": "东教印象（新京号原文配图）",
       "originalUrl": "https://mposs.bjnews.com.cn/2026/07/07/3517834333416310000_387d3cc56d69469fedb00ddccff6522b.jpg"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/reports/biology-group-20260707.webp",
+        "alt": "身着蓝白校服的生科班学生在室外合影",
+        "caption": "生科班毕业专题中的集体合影。原文发表于2026年7月，未单独注明这张照片的拍摄日期与地点。",
+        "credit": "东教印象（学校毕业班级专题配图）",
+        "originalUrl": "https://mposs.bjnews.com.cn/2026/07/07/3517834333416310000_fed383afa6dd956bb0e8169ef7441a3b.jpg"
+      }
+    ]
   },
   {
     "id": 5,
@@ -369,6 +389,50 @@ export const newsList: NewsItem[] = [
     "paragraphs": [
       "东教印象转载学校公众号报道，2024年10月19日，一六六中学举办建校160周年校友返校活动。校友、离退休教职工和在校师生代表在校园相聚。",
       "学校当年开展“寻找身边的一六六中人”活动，组织学生分组采访160位校友，完成160篇访谈录。返校活动还包括校史馆讲解、校友交流和校园纪念活动。"
+    ],
+    "image": {
+      "src": "/images/reports/anniversary-campus-20241019.webp",
+      "alt": "校园教学楼与坡道，建筑外悬挂建校160周年1864至2024的红色布置",
+      "caption": "建校160周年校友返校活动期间的校园，2024年10月。",
+      "credit": "北京市第166中学微信公众号／东教印象转载",
+      "originalUrl": "https://mposs.bjnews.com.cn/2024/10/22/3517295966105210004_2ed047abcbfa5cabfd4be7cde70030dd.jpg"
+    },
+    "gallery": [
+      {
+        "src": "/images/reports/anniversary-motto-20241019.webp",
+        "alt": "校园中的校训石与校庆旗帜，石上可见红色校训字样",
+        "caption": "校训石与校庆旗帜，2024年校庆报道配图。",
+        "credit": "北京市第166中学微信公众号／东教印象转载",
+        "originalUrl": "https://mposs.bjnews.com.cn/2024/10/22/3517295966105210004_a93bb87e9cacf77b90069c2ffc25b3d7.jpg"
+      },
+      {
+        "src": "/images/reports/anniversary-stairway-20241019.webp",
+        "alt": "教学楼外的楼梯与建校160周年布置",
+        "caption": "教学楼外的校庆布置，2024年。",
+        "credit": "北京市第166中学微信公众号／东教印象转载",
+        "originalUrl": "https://mposs.bjnews.com.cn/2024/10/22/3517295966105210004_35c49b452a86bd2a2f59ea3ae518ae0e.jpg"
+      },
+      {
+        "src": "/images/reports/anniversary-return-20241019.webp",
+        "alt": "校友返校活动现场，前景是归来仍是少年的蓝白色标牌",
+        "caption": "校友返校日的“归来仍是少年”标牌，2024年10月。",
+        "credit": "北京市第166中学微信公众号／东教印象转载",
+        "originalUrl": "https://mposs.bjnews.com.cn/2024/10/22/3517295966105210004_42f82410a32dbad39b60a366c884a363.jpg"
+      },
+      {
+        "src": "/images/reports/anniversary-courtyard-20241019.webp",
+        "alt": "校园围栏、教学楼与红色校庆条幅",
+        "caption": "校庆期间的校园一角，2024年。",
+        "credit": "北京市第166中学微信公众号／东教印象转载",
+        "originalUrl": "https://mposs.bjnews.com.cn/2024/10/22/3517295966105210004_d364542deffa2e83193aa755f15b5feb.jpg"
+      },
+      {
+        "src": "/images/reports/anniversary-flowers-20241019.webp",
+        "alt": "校园建筑前盛开的红色月季花",
+        "caption": "2024年校庆报道中的校园花木。",
+        "credit": "北京市第166中学微信公众号／东教印象转载",
+        "originalUrl": "https://mposs.bjnews.com.cn/2024/10/22/3517295966105210004_2f427ffa75679f8ee3b3673f32fdae69.jpg"
+      }
     ]
   },
   {
@@ -447,6 +511,9 @@ export const newsList: NewsItem[] = [
 
 export const sortedNews = [...newsList].sort((a, b) => b.date.localeCompare(a.date));
 export const photoNews = newsList.filter((item) => item.image);
+export const reportPhotos = newsList.flatMap((article) =>
+  [...(article.image ? [article.image] : []), ...(article.gallery ?? [])].map((photo) => ({ article, photo }))
+);
 
 export function getNews(id: number) {
   return newsList.find((item) => item.id === id);

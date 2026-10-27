@@ -29,6 +29,7 @@ export default async function WechatArchivePage({ searchParams }: {
           <span><strong>{accountMonths.length}</strong>个月份</span>
           <span>核对日期：{schoolAccount.checkedAt}</span>
         </div>
+        <p className="account-note"><Link href="/photos">校园影像：查看已核对出处的校园与活动配图 &gt;</Link></p>
       </div>
       <form className="news-search" action="/wechat" method="get">
         <label className="visually-hidden" htmlFor="wechat-query">搜索公众号标题</label>

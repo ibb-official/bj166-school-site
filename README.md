@@ -2,7 +2,7 @@
 
 基于 **Next.js (App Router) + TypeScript** 构建的北京市第一六六中学非官方资料整理站点。
 
-站点运行在私有云虚拟机 `debian-web2`，通过 FRP 加密穿透隧道至边缘中转网关 `los-vps2`，配合 Cloudflare 灰云解析与 Let's Encrypt / ZeroSSL 自动化证书管理，由 GitHub Actions 驱动全自动 CI/CD 生产发布。
+站点运行在公网 VPS `sofia-vps`（hostname `r-server89187-mls`，IP `108.165.233.143`），由同机的 `edge-caddy` 承担反向代理与 TLS 终结，配合 Cloudflare 灰云解析与 Let's Encrypt / ZeroSSL 自动化证书管理，由 GitHub Actions 驱动全自动 CI/CD 生产发布。
 
 > **免责声明**：本站为非官方网站，不代表北京市第一六六中学或任何教育行政部门。页面内容仅整理自公开资料，发布日期和来源均已明确标注；不得将本站当作校务通知、招生公告或联系方式的官方发布渠道。
 
@@ -14,18 +14,16 @@
        [ 公网访客浏览器 ]
                │
                ▼ (HTTPS 443 / 域名: bj166zx.cn & www.bj166zx.cn)
-     [ Cloudflare DNS ] (灰云 DNS-Only，指向 los-vps2: 23.185.168.190)
+     [ Cloudflare DNS ] (灰云 DNS-Only，指向 sofia-vps: 108.165.233.143)
                │
                ▼
-    [ 边缘网关: los-vps2 ] ─── 仅作【内网穿透中转】与【反向代理】
-               │ 运行: Docker Caddy (监听 80/443 管理证书) + frps (端口 7000/22222)
-               │ 严禁在此运行网站业务、Node 运行时或代码！
-               ▼ (FRP 安全加密隧道穿透)
-  [ 核心服务节点: debian-web2 ] ─── 真正的【网站运行主机】(PVE VM 121, 192.168.5.81)
-               │ 运行: frpc (localPort: 3000 <-> remotePort: 13000)
-               │ 运行: Next.js Standalone 生产容器 (127.0.0.1:3000)
+  [ 核心服务节点: sofia-vps ] ─── 网站运行主机 + 流量入口 (hostname r-server89187-mls)
+               │ 运行: Docker edge-caddy (监听 80/443，管理证书，reverse_proxy 127.0.0.1:3000)
+               │ 运行: Next.js Standalone 生产容器 bj166-web (127.0.0.1:3000)
                │ 目录: /opt/bj166-site/ (docker-compose.yml 托管)
 ```
+
+> 2026-10-30 之前的旧链路为 `debian-web2`（PVE VM 121）经 FRP 穿透到 `los-vps2` 反代，该虚拟机已销毁，链路已停用。
 
 ---
 
@@ -111,5 +109,5 @@
 - 只要将代码合并至 `main` 分支，GitHub Actions 将会自动：
   1. 通过 Docker Buildx 进行跨平台多阶段构建；
   2. 推送容器镜像到 GitHub Packages：`ghcr.io/ibb-official/bj166-school-site:latest`；
-  3. 经由安全 SSH 隧道连接至 `debian-web2`，自动执行 `docker compose pull && docker compose up -d` 滚动更新；
+  3. 直连部署目标 `sofia-vps`（流水线会先校验目标机 `hostname` 为 `r-server89187-mls`，机器不符直接失败），自动执行 `docker compose pull && docker compose up -d` 滚动更新；
   4. 触发本地健康检查探针，验证响应码 `200` 完成上线。

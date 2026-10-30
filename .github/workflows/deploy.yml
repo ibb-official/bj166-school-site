@@ -1,4 +1,4 @@
-name: Build and Deploy Next.js to debian-web2
+name: Build and Deploy Next.js to sofia-vps
 
 on:
   push:
@@ -52,11 +52,11 @@ jobs:
           cache-to: type=gha,mode=max
 
   deploy-to-vm:
-    name: Deploy to debian-web2 (via FRP / Jump Host)
+    name: Deploy to sofia-vps (direct SSH)
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy container on debian-web2
+      - name: Deploy container on sofia-vps
         uses: appleboy/ssh-action@v1.2.0
         env:
           GH_ACTOR: ${{ github.actor }}
@@ -69,9 +69,21 @@ jobs:
           envs: GH_ACTOR,GH_TOKEN
           script: |
             set -e
-            echo "==> Authenticating to GHCR on debian-web2..."
+            EXPECTED_HOSTNAME="r-server89187-mls"
+            ACTUAL_HOSTNAME="$(hostname)"
+            echo "==> Deployment target: $ACTUAL_HOSTNAME (machine-id $(cut -c1-12 /etc/machine-id))"
+            if [ "$ACTUAL_HOSTNAME" != "$EXPECTED_HOSTNAME" ]; then
+              echo "!! Refusing to deploy: SSH landed on '$ACTUAL_HOSTNAME', expected '$EXPECTED_HOSTNAME'."
+              echo "!! Verify the VM_SSH_HOST / VM_SSH_PORT / VM_SSH_USER / VM_SSH_KEY secrets."
+              exit 1
+            fi
+            if [ ! -f /opt/bj166-site/docker-compose.yml ]; then
+              echo "!! /opt/bj166-site/docker-compose.yml is missing on the target. Aborting before pull."
+              exit 1
+            fi
+            echo "==> Authenticating to GHCR on sofia-vps..."
             echo "$GH_TOKEN" | docker login ghcr.io -u "$GH_ACTOR" --password-stdin
-            echo "==> Pulling latest image on debian-web2..."
+            echo "==> Pulling latest image on sofia-vps..."
             cd /opt/bj166-site
             docker compose pull || docker-compose pull
             echo "==> Restarting site container..."
@@ -81,6 +93,7 @@ jobs:
             HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3000/)
             if [ "$HTTP_CODE" -eq 200 ]; then
               echo "Deployment succeeded! HTTP 200 received."
+              docker inspect bj166-web --format 'image={{.Config.Image}} container={{.Image}} created={{.Created}}'
             else
               echo "Healthcheck failed with status code $HTTP_CODE!"
               docker logs --tail 50 bj166-web

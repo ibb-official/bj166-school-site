@@ -6,35 +6,34 @@
 Collaboration: collaborative
 Baseline: main
 Default branch: main
-Release: Docker / GitHub Packages (GHCR) -> debian-web2 生产自动化部署
+Release: Docker / GitHub Packages (GHCR) -> sofia-vps 生产自动化部署
 Validation: npm run build & Dockerfile 容器化检查
 Worktree: `~/项目/.wt/校园网站/<slug>`
 
 ---
 
-## ⚠️ 核心服务器职责与边界规范（严禁混淆！）
+## ⚠️ 生产主机职责与边界规范（严禁混淆！）
 
-本站点采用**内网安全托管 + 边缘网关中转穿透**的生产拓扑。所有协作者及 AI 必须彻底理清两台服务器的分工：
+本站点自 **2026-10-30** 起改为**单主机部署**：应用容器、反向代理与 TLS 终结全部落在同一台公网 VPS 上，不再经过内网穿透中转。
 
-### 1. 边缘节点 `los-vps2` (公网 IP: 23.185.168.190)
-- **唯一角色**：**内网穿透中转站与反向代理网关**。
-- **运行组件**：`frps`（监听 7000 服务端端口，接收 debian-web2 连接）+ `api-direct-caddy`（Docker Caddy，监听 80/443，负责 `bj166zx.cn` 的反向代理与 TLS 终结）。
-- **【严禁操作】**：
-  - ❌ **绝对禁止在 `los-vps2` 上运行 Next.js 站点、Node.js 运行时或前端应用服务！**
-  - ❌ **绝对禁止将本站点的业务代码、构建产物、Node 依赖放置在 `los-vps2` 上！**
-  - ❌ **绝对禁止改动 `los-vps2` 上共用的 new-api / 账号池相关配置文件！**
-  - `los-vps2` 上的 `Caddyfile` 仅允许添加/修改 `bj166zx.cn` 的 `reverse_proxy` 转发规则（指向内网穿透映射端口 `172.18.0.1:13000`）。
-
-### 2. 实际业务主机 `debian-web2` (PVE VM 121, 内网 IP: 192.168.5.81)
-- **唯一角色**：**站点的真正运行服务器**。
+### 生产主机 `sofia-vps` (hostname `r-server89187-mls`，公网 IP: 108.165.233.143)
+- **唯一角色**：**站点的运行服务器与流量入口**。
 - **运行组件**：
-  - `Docker` & `docker compose`：运行 Next.js 生产容器 `bj166-web`（绑定在 `127.0.0.1:3000`）。
-  - `frpc`（systemd 守护进程）：通过 TLS 穿透连接到 `los-vps2:7000`，并将 `127.0.0.1:3000` 映射至 `los-vps2` 的 `13000` 端口。
-- **应用部署目录**：`/opt/bj166-site/`（存放 `docker-compose.yml`）。
+  - `Docker` & `docker compose`：运行 Next.js 生产容器 `bj166-web`（绑定在 `127.0.0.1:3000`，固定网络 `bj166-site_default` / `172.20.1.0/24`）。
+  - `edge-caddy`（Docker Caddy，监听 80/443）：负责 `bj166zx.cn` 与 `www.bj166zx.cn` 的反向代理与证书签发，规则为 `reverse_proxy 127.0.0.1:3000`。
+- **应用部署目录**：`/opt/bj166-site/`（存放 `docker-compose.yml`；`docker-compose.yml.bak-pre-netfix` 是改网段前的留档）。
 - **日常运维**：
   - 查看站点运行状态：`docker ps` / `docker logs -f bj166-web`
   - 检查本地健康响应：`curl -I http://127.0.0.1:3000`
-  - 重启穿透服务：`systemctl restart frpc`
+  - 重载反向代理：`docker exec edge-caddy caddy reload --config /etc/caddy/Caddyfile`
+- **【严禁操作】**：
+  - ❌ **禁止把 `bj166-web` 的 3000 端口绑定到公网**，对外只能经 Caddy 的 443；容器端口映射必须保持 `127.0.0.1:3000:3000`。
+  - ❌ **禁止把本站点的业务代码、构建产物放到其它主机上运行**；`los-vps2` 与其它 VPS 均不是部署目标。
+  - ❌ **禁止改动 `sofia-vps` 上共用的 new-api / 账号池相关配置文件**。
+
+### 历史拓扑（已废弃，2026-10-30 起不再适用）
+- `debian-web2`（PVE VM 121，内网 IP 192.168.5.81）：已于 2026-10-30 在 pve1 上 `qm destroy 121 --purge` 销毁，VMID 与 IP 均不再存在，**不得再作为部署目标、不得复用 VMID 121**。销毁前该容器被 Next.js Server Actions 反序列化 RCE 植入过（`/var/tmp/.guard` 回连 `85.121.176.90`）。
+- `los-vps2`（23.185.168.190）：曾承担 `frps` 中转与 `api-direct-caddy` 反代；本站点已退出该链路，其 `Caddyfile` 中残留的 `bj166zx.cn` → `172.18.0.1:13000` 规则属于待清理项。
 
 ---
 
@@ -43,17 +42,14 @@ Worktree: `~/项目/.wt/校园网站/<slug>`
 ```
 [ 客户端浏览器 ]
        │
-       ▼ (HTTPS 443 / 域名解析: bj166zx.cn)
-[ Cloudflare DNS ] (灰云 DNS-Only，指向 los-vps2: 23.185.168.190)
+       ▼ (HTTPS 443 / 域名解析: bj166zx.cn & www.bj166zx.cn)
+[ Cloudflare DNS ] (灰云 DNS-Only，指向 sofia-vps: 108.165.233.143)
        │
        ▼
-[ los-vps2 (中转站) ]
-       │ 运行: Docker Caddy (监听 443 / SSL 证书终结)
-       │ Caddyfile 规则: reverse_proxy 172.18.0.1:13000
-       ▼ (通过 FRP 安全隧道加密传输)
-[ debian-web2 (应用服务器) ]
-       │ 运行: frpc (localPort: 3000 <-> remotePort: 13000)
-       │ 运行: Next.js Standalone 生产容器 (127.0.0.1:3000)
+[ sofia-vps (应用服务器 + 流量入口) ]
+       │ 运行: edge-caddy (监听 80/443 / TLS 证书终结)
+       │ Caddyfile 规则: reverse_proxy 127.0.0.1:3000
+       │ 运行: Next.js Standalone 生产容器 bj166-web (127.0.0.1:3000)
 ```
 
 ---
@@ -63,7 +59,7 @@ Worktree: `~/项目/.wt/校园网站/<slug>`
 所有团队成员对 `main` 分支的提交或合并，均会自动触发部署流水线 `.github/workflows/deploy.yml`：
 1. **GitHub Runner** 构建 Next.js Docker 镜像（多阶段构建，Standalone 运行时）。
 2. 将最新镜像推送到 **GitHub Packages (ghcr.io/ibb-official/bj166-school-site:latest)**。
-3. 通过预配置的 SSH Secret 连接到 `debian-web2`，自动执行：
+3. 通过预配置的 SSH Secret（`VM_SSH_HOST` / `VM_SSH_PORT` / `VM_SSH_USER` / `VM_SSH_KEY`）直连 `sofia-vps`。流水线会先校验目标机 `hostname` 是否为 `r-server89187-mls`，机器不对就直接失败，随后自动执行：
    ```bash
    cd /opt/bj166-site
    docker compose pull

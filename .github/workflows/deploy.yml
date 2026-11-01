@@ -14,6 +14,7 @@ permissions:
   contents: read
   packages: write
   statuses: write
+  checks: write
 
 env:
   REGISTRY: ghcr.io
@@ -74,25 +75,27 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
+          RC=9
+          OUT=""
+          ERR=""
           if [ -z "$SSH_HOST" ] || [ -z "$SSH_KEY" ]; then
-            RC=9; OUT="missing-secrets"; ERR="host=${SSH_HOST:-EMPTY} keylen=${#SSH_KEY}"
+            ERR="missing-secrets host=${SSH_HOST:-EMPTY} keylen=${#SSH_KEY}"
           else
-            OUT=$(ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o ConnectTimeout=15 -p "${SSH_PORT:-22}" "${SSH_USER:-root}@${SSH_HOST}" 'hostname; whoami; test -f /opt/bj166-site/docker-compose.yml && echo COMPOSE_OK || echo COMPOSE_MISSING' 2>/tmp/ssh_err)
+            OUT=$(ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o ConnectTimeout=15 -o LogLevel=ERROR -p "${SSH_PORT:-22}" "${SSH_USER:-root}@${SSH_HOST}" 'hostname; whoami; test -f /opt/bj166-site/docker-compose.yml && echo COMPOSE_OK || echo COMPOSE_MISSING' 2>/tmp/ssh_err)
             RC=$?
-            ERR=$(grep -v -e 'sofia-vps' -e 'Warning: Permanently' -e '运维规范真源' /tmp/ssh_err | tr '\n' '|' | cut -c1-90)
+            ERR=$(cat /tmp/ssh_err)
           fi
-          {
-            echo "### SSH 诊断"
-            echo '```'
-            echo "rc=$RC"
-            echo "stdout: $OUT"
-            echo "stderr: $ERR"
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
-          MSG="rc=$RC $(printf '%s' "$OUT" | paste -sd, - | cut -c1-40) | $(printf '%s' "$ERR" | cut -c1-60)"
-          STATE=$([ "$RC" -eq 0 ] && echo success || echo failure)
-          gh api -X POST "repos/${{ github.repository }}/statuses/${{ github.sha }}" \
-            -f state="$STATE" -f context="deploy-diag" -f description="$MSG" || true
+          BODY="rc=$RC
+          --- stdout ---
+          $OUT
+          --- stderr ---
+          $ERR"
+          echo "$BODY" >> "$GITHUB_STEP_SUMMARY"
+          gh api -X POST "repos/${{ github.repository }}/check-runs" \
+            -f name="ssh-diag" -f head_sha="${{ github.sha }}" \
+            -f status=completed -f conclusion=success \
+            -f "output[title]=ssh-diag rc=$RC" \
+            -f "output[summary]=$BODY" > /dev/null 2>&1 || true
 
       - name: Deploy container on sofia-vps
         uses: appleboy/ssh-action@v1.2.0

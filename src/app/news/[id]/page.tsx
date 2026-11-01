@@ -11,8 +11,29 @@ export function generateStaticParams() {
   return newsList.map((item) => ({ id: String(item.id) }));
 }
 export async function generateMetadata({ params }: Props) {
-  const article = findArticle((await params).id);
-  return article ? { title: `${article.title} - 北京市第一六六中学（非正式网站）`, description: article.summary } : { title: '报道未找到' };
+  const id = (await params).id;
+  const article = findArticle(id);
+  if (!article) return { title: '报道未找到' };
+  const image = article.image?.src ?? '/images/school-emblem.jpg';
+  return {
+    title: `${article.title} - 北京市第一六六中学（非正式网站）`,
+    description: article.summary,
+    alternates: { canonical: `/news/${article.id}` },
+    openGraph: {
+      type: 'article',
+      title: article.title,
+      description: article.summary,
+      url: `/news/${article.id}`,
+      publishedTime: `${article.date}T00:00:00+08:00`,
+      locale: 'zh_CN',
+      images: [{ url: image, alt: article.image?.alt ?? '北京市第一六六中学' }]
+    },
+    twitter: {
+      card: 'summary',
+      title: article.title,
+      description: article.summary
+    }
+  };
 }
 export default async function NewsDetailPage({ params }: Props) {
   const article = findArticle((await params).id);

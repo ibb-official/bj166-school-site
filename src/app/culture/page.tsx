@@ -49,6 +49,24 @@ export default function CulturePage() {
       <p>首届数学节将魔方、数独、折纸和数学史展板带入校园；碳中和主题花园设计则把生态知识转化为模型。这些报道提供了观察学科活动与校园文化的不同角度。</p>
       <p className="noindent"><Link href="/news/24">首届数学节</Link>　｜　<Link href="/news/9">碳中和主题花园设计</Link></p>
       <ReportPhoto article={getNews(24)!} />
+
+      <h3 className="block-t">校史时间轴</h3>
+      <p className="noindent small-note">下列节点均取自已核验的公开报道或政务公开资料，年份与事件按原文记载，不推断未载明的细节。</p>
+      <table className="pub timeline">
+        <tbody>
+          <tr><th scope="col">时间</th><th scope="col">已核验的节点</th><th scope="col">出处</th></tr>
+          <tr><th scope="row">1864年</th><td>学校创办；办学历史中曾使用贝满女中、北京市第十二女子中学等名称。</td><td><Link href="/news/13">2026年学校简介</Link></td></tr>
+          <tr><th scope="row">2018年11月</th><td>与加拿大普林斯顿中学签约建立友好校关系，交流方向包括师生健康素养。</td><td><Link href="/news/30">学校公众号推送</Link></td></tr>
+          <tr><th scope="row">2022年春季</th><td>首次换上由在校学生书写的校牌。</td><td><Link href="/news/17">北京日报报道</Link></td></tr>
+          <tr><th scope="row">2023年5月</th><td>“百年老校”专题报道梳理学校三个世纪的办学历程。</td><td><Link href="/news/8">东教印象专题</Link></td></tr>
+          <tr><th scope="row">2023年11月</th><td>金帆话剧团首部原创校史话剧《百合花颂》上演，献礼160周年校庆。</td><td><Link href="/news/22">北京青年报报道</Link></td></tr>
+          <tr><th scope="row">2024年9月</th><td>学生题写校牌活动延续，校牌第10次换新。</td><td><Link href="/news/25">北京青年报报道</Link></td></tr>
+          <tr><th scope="row">2024年10月</th><td>建校160周年校庆，校友返校参加活动。</td><td><Link href="/news/20">校庆报道</Link></td></tr>
+          <tr><th scope="row">2025年2月</th><td>新学期开学典礼在两校区同步举行，校牌由学生以欧体楷书书写，校铃选用维瓦尔第《四季》之《春》。</td><td><Link href="/news/37">北京时间报道</Link></td></tr>
+          <tr><th scope="row">2025年3月</th><td>教育集团第二届数学节举办，持续两周。</td><td><Link href="/news/38">新华网报道</Link></td></tr>
+        </tbody>
+      </table>
+
       <p className="source-note">更多近期线索见<Link href="/sources#wechat">学校公众号标题索引</Link>。未核读正文的推送仅列标题，不据此补写活动详情。</p>
     </PageLayout>
   );

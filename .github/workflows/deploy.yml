@@ -75,21 +75,16 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          RC=9
-          OUT=""
-          ERR=""
-          if [ -z "$SSH_HOST" ] || [ -z "$SSH_KEY" ]; then
-            ERR="missing-secrets host=${SSH_HOST:-EMPTY} keylen=${#SSH_KEY}"
-          else
-            OUT=$(ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o ConnectTimeout=15 -o LogLevel=ERROR -p "${SSH_PORT:-22}" "${SSH_USER:-root}@${SSH_HOST}" 'hostname; whoami; test -f /opt/bj166-site/docker-compose.yml && echo COMPOSE_OK || echo COMPOSE_MISSING' 2>/tmp/ssh_err)
-            RC=$?
-            ERR=$(cat /tmp/ssh_err)
-          fi
-          BODY="rc=$RC
+          INFO="host=[${SSH_HOST}] len=${#SSH_HOST} port=[${SSH_PORT}] user=[${SSH_USER}] keylen=${#SSH_KEY} keyhead=$(echo "$SSH_KEY" | head -c 40 | tr -d '\n')"
+          OUT=$(ssh -vv -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o ConnectTimeout=15 -p "${SSH_PORT:-22}" "${SSH_USER:-root}@${SSH_HOST}" 'hostname' 2>/tmp/ssh_err)
+          RC=$?
+          VV=$(tail -25 /tmp/ssh_err)
+          BODY="$INFO
+          rc=$RC
           --- stdout ---
           $OUT
-          --- stderr ---
-          $ERR"
+          --- ssh -vv tail ---
+          $VV"
           echo "$BODY" >> "$GITHUB_STEP_SUMMARY"
           gh api -X POST "repos/${{ github.repository }}/check-runs" \
             -f name="ssh-diag" -f head_sha="${{ github.sha }}" \

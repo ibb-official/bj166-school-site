@@ -60,6 +60,33 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
+      - name: SSH diagnostics (writes result to commit status)
+        if: always()
+        env:
+          SSH_HOST: ${{ secrets.VM_SSH_HOST }}
+          SSH_PORT: ${{ secrets.VM_SSH_PORT }}
+          SSH_USER: ${{ secrets.VM_SSH_USER }}
+          SSH_KEY: ${{ secrets.VM_SSH_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          if [ -z "$SSH_HOST" ] || [ -z "$SSH_KEY" ]; then
+            OUT="missing-secrets host=${SSH_HOST:-EMPTY} keylen=${#SSH_KEY}"
+            RC=9
+          else
+            OUT=$(ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=15 -p "${SSH_PORT:-22}" "${SSH_USER:-root}@${SSH_HOST}" 'hostname; whoami; ls -l /opt/bj166-site/docker-compose.yml' 2>&1)
+            RC=$?
+          fi
+          echo "----- diag output -----"
+          echo "$OUT"
+          echo "----- rc=$RC -----"
+          MSG=$(printf '%s' "$OUT" | paste -sd' ' - | cut -c1-130)
+          STATE=$([ "$RC" -eq 0 ] && echo success || echo failure)
+          curl -sS -X POST -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}" -d "{\"state\":\"$STATE\",\"context\":\"deploy-diag\",\"description\":\"$MSG\"}" > /dev/null
+
       - name: Deploy container on sofia-vps
         uses: appleboy/ssh-action@v1.2.0
         env:

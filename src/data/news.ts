@@ -1,4 +1,4 @@
-export const contentCheckedAt = '2026-10-26';
+export const contentCheckedAt = '2026-11-01';
 export const photosCheckedAt = '2026-10-27';
 
 export const newsCategories = ['科学教育', '校园文化', '协同育人', '思政教育', '信息公示', '学校历史', '阅读活动', '集团动态', '周边环境'] as const;

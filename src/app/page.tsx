@@ -75,10 +75,10 @@ export default function HomePage() {
             <div className="sec-title"><h3>专题资料</h3><Link className="more" href="/news">全部报道&gt;&gt;</Link></div>
             <div className="topic-grid">
               {[
-                { title: '书香与学科', ids: [19, 24, 16] },
-                { title: '音乐与舞台', ids: [18, 21, 22] },
-                { title: '校史与校牌', ids: [20, 17, 25] },
-                { title: '科学与实践', ids: [1, 3, 9] }
+                { title: '科学与实践', ids: [26, 36, 39] },
+                { title: '数学与阅读', ids: [38, 24, 19] },
+                { title: '音乐与舞台', ids: [32, 22, 21] },
+                { title: '校史与校牌', ids: [37, 25, 20] }
               ].map((topic) => (
                 <div className="topic-card" key={topic.title}>
                   <h4>{topic.title}</h4>
@@ -92,7 +92,7 @@ export default function HomePage() {
           </section>
 
           <section className="account-section" id="wechat">
-            <div className="sec-title"><h3>公众号动态</h3><Link className="more" href="/wechat">按月查阅{accountUpdates.length}条标题&gt;&gt;</Link></div>
+            <div className="sec-title"><h3>公众号动态</h3><Link className="more" href="/wechat">按年份查阅{accountUpdates.length}条标题&gt;&gt;</Link></div>
             <AccountUpdates compact />
           </section>
 

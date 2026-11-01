@@ -20,6 +20,9 @@ export default async function NewsDetailPage({ params }: Props) {
   const position = sortedNews.findIndex((item) => item.id === article.id);
   const newer = sortedNews[position - 1];
   const older = sortedNews[position + 1];
+  const related = sortedNews
+    .filter((item) => item.category === article.category && item.id !== article.id)
+    .slice(0, 4);
   return (
     <>
       <div className="page-head"><div className="wrap"><h2>新闻中心</h2><p>NEWS CENTER</p></div></div>
@@ -58,6 +61,20 @@ export default async function NewsDetailPage({ params }: Props) {
               {older && <p>较早报道：<Link href={`/news/${older.id}`}>{older.title}</Link></p>}
               <p><Link href="/news">返回新闻中心</Link></p>
             </nav>
+            {related.length > 0 && (
+              <section className="related-block" aria-label="同类别其他报道">
+                <h2>同类报道 · {article.category}</h2>
+                <ul>
+                  {related.map((item) => (
+                    <li key={item.id}>
+                      <Link href={`/news/${item.id}`}>{item.title}</Link>
+                      <time dateTime={item.date}>{item.date}</time>
+                    </li>
+                  ))}
+                </ul>
+                <p className="small-note"><Link href={`/news?category=${encodeURIComponent(article.category)}`}>查看该类别全部报道 &gt;</Link></p>
+              </section>
+            )}
           </article>
         </div>
       </main>

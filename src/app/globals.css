@@ -750,6 +750,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .photo-source-link, .photo-story-link { display: block; margin-top: 5px; }
 .photo-source-link { text-decoration: underline; }
 .photo-story-link { color: var(--school-blue-dark); }
+.related-block { max-width: 820px; margin: 24px auto 0; border: 1px solid #d5e4f1; background: #fbfdff; padding: 16px 20px; }
+.related-block h2 { font-size: 15px; color: var(--school-blue-deep); margin-bottom: 10px; font-weight: bold; }
+.related-block ul { list-style: none; padding: 0; margin: 0; }
+.related-block li { display: flex; gap: 12px; justify-content: space-between; align-items: baseline; padding: 7px 0; border-bottom: 1px dotted #d7e4ef; }
+.related-block li:last-child { border-bottom: none; }
+.related-block li a { color: #24425c; font-size: 14px; line-height: 1.7; }
+.related-block li a:hover { color: var(--school-blue); }
+.related-block time { flex: 0 0 auto; font-size: 12px; color: #7f94a6; }
+.related-block .small-note { margin-top: 10px; }
+.related-block .small-note a { color: var(--school-blue-dark); font-size: 12px; }
 .article-source { background: #f2f7fc; border-left: 3px solid var(--school-blue); padding: 16px 20px; margin: 26px auto 0; max-width: 820px; overflow-wrap: anywhere; }
 .article-source strong, .article-source > a, .article-source > span { display: block; margin-bottom: 6px; }
 .article-source > a { color: var(--school-blue-dark); }

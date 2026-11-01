@@ -103,11 +103,12 @@
 
 ---
 
-## 团队自动化部署（CI/CD）
+## 团队自动化部署与协作（CI/CD）
 
-本项目配置了完整的 GitHub Actions 流水线（`.github/workflows/deploy.yml`）：
-- 只要将代码合并至 `main` 分支，GitHub Actions 将会自动：
+本项目配置了完整的 GitHub Actions 流水线，面向写作者提供无需手动接触服务器的发布体验：
+- **PR 阶段（代码验证）**：提交 PR 会触发 `.github/workflows/ci.yml` 自动运行 ESLint 静态检查与 Next.js 生产构建，确保内容与格式无误。
+- **main 分支（生产交付）**：代码合入 `main` 后，`.github/workflows/deploy.yml` 自动执行：
   1. 通过 Docker Buildx 进行跨平台多阶段构建；
   2. 推送容器镜像到 GitHub Packages：`ghcr.io/ibb-official/bj166-school-site:latest`；
-  3. 直连部署目标 `sofia-vps`（流水线会先校验目标机 `hostname` 为 `r-server89187-mls`，机器不符直接失败），自动执行 `docker compose pull && docker compose up -d` 滚动更新；
+  3. 直连部署目标 `sofia-vps`（校验目标机 `hostname` 为 `r-server89187-mls`），自动执行 `docker compose pull && docker compose up -d` 滚动更新；
   4. 触发本地健康检查探针，验证响应码 `200` 完成上线。

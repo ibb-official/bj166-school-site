@@ -30,7 +30,11 @@ export default function CulturePage() {
       <p>2023年11月，金帆管乐团在北京音乐厅举行专场音乐会，首演《缤纷幻想曲》。2024年5月，星光高中男声合唱团携手一贯制及高中女子合唱团，在中山公园音乐堂举办“青春之歌，唱给你听”音乐会。</p>
       <ReportPhoto article={getNews(18)!} />
       <ReportPhoto article={getNews(21)!} />
-      <p className="noindent"><Link href="/news/18">管乐专场报道</Link>　｜　<Link href="/news/21">合唱专场报道</Link></p>
+      <p className="noindent"><Link href="/news/18">管乐专场报道</Link>　｜　<Link href="/news/21">合唱专场报道</Link>　｜　<Link href="/news/32">2026年市艺术节合唱展演</Link></p>
+
+      <h3 className="block-t">年级课程与成长仪式</h3>
+      <p>学校在不同年级安排综合实践活动、军训与毕业年级活动。2022年6月，2022届高三年级举行“青春如歌·逐梦未来”盛典，设三个篇章并向学生赠送宪法、博雅风华系列丛书、校名与校训印章等毕业礼物。这类活动与日常课程、校训一起构成校园生活的仪式感。</p>
+      <p className="noindent"><Link href="/news/29">2022届高三年级盛典</Link></p>
 
       <h3 className="block-t">用戏剧理解故事与历史</h3>
       <p>2023年上演的原创话剧《百合花颂》，从学校历史中取材，将不同年代的故事搬上舞台。2026年，《高地前的抉择》参加东城区第二十九届学生艺术节金帆专场。两则报道分别记录了原创校史剧与艺术节演出的不同实践。</p>

@@ -32,8 +32,9 @@ export default function AboutPage() {
       <h3 className="block-t">公开报道中的课程与实践</h3>
       <p><strong>生命科学：</strong>生科班专题记录了大学通识课、实验室学习、湿地调查等实践。2026年9月，又有部分初三学生走进清华大学学习《疫苗的力量》。<Link href="/news/1">查看报道</Link></p>
       <ReportPhoto article={getNews(4)!} />
-      <p><strong>科技探究：</strong>“繁星计划”交流课例、车辆模型竞赛与碳中和花园设计，呈现了从动手实验到工程设计的多种学习场景。<Link href="/news?category=科学教育">科学教育报道</Link></p>
-      <p><strong>人文与艺术：</strong>学校学生参加戏剧展演、主题阅读等活动。“1+3”培养实验的公开简介介绍了博雅“人文+X”课程。<Link href="/culture">校园文化资料</Link></p>
+      <p><strong>科技探究：</strong>“繁星计划”交流课例、车辆模型竞赛与碳中和花园设计，呈现了从动手实验到工程设计的多种学习场景。2026年的公开报道还记录了世界机器人大赛与全国青少年心理成长大赛的四项全国奖项、第45届北京青少年科技创新大赛的获奖项目，以及初一年级“探秘传染病”STEM挑战赛。<Link href="/news/26">机器人赛事</Link>　｜　<Link href="/news/27">科技创新大赛</Link>　｜　<Link href="/news/31">STEM挑战赛</Link>　｜　<Link href="/news?category=科学教育">全部科学教育报道</Link></p>
+      <p><strong>人文与艺术：</strong>学校学生参加戏剧展演、主题阅读等活动。“1+3”培养实验的公开简介介绍了博雅“人文+X”课程。2026年10月，高中星光男声合唱团参加北京市第二十九届学生艺术节合唱展演。<Link href="/news/32">合唱展演报道</Link>　｜　<Link href="/culture">校园文化资料</Link></p>
+      <p><strong>健康教育：</strong>学校设健康副校长与健康中心，开展传染病防控、心理与营养等主题的健康教育；2018年起与加拿大普林斯顿中学建立友好校关系，交流方向包括师生健康素养。<Link href="/news/31">健康主题科创活动</Link>　｜　<Link href="/news/30">中加友好校</Link></p>
 
       <h3 className="block-t">关于本网站</h3>
       <p>本站由同学协作建设，整理学校相关公开资料。新闻有原文入口，照片有出处；更多校园与活动照片见<Link href="/photos">校园影像</Link>。学校现行课程、招生和校务安排，以学校及教育部门最新发布为准。</p>

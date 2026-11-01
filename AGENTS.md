@@ -1,4 +1,4 @@
-<!-- wt anchor 生成，请勿直接编辑。正文逐字来自 origin/main 的 AGENTS.md（sha256 4248d9a9b795）。刷新: wt anchor 校园网站 --run -->
+<!-- wt anchor 生成，请勿直接编辑。正文逐字来自 origin/main 的 AGENTS.md（sha256 15700c8040a2）。刷新: wt anchor 校园网站 --run -->
 
 > **本目录没有代码，这是设计如此（见全局规范 1c）。** 它只是仓库身份锚点：`.git` 完整 + 本文件。
 > 要读代码：`wt view 校园网站`，看完 `wt done 校园网站 _view-<sha>`。要改代码：`wt new 校园网站 <slug>`，只在生成的 `.wt/校园网站/<slug>/` 里动手。
@@ -60,18 +60,24 @@ Worktree: `~/项目/.wt/校园网站/<slug>`
 
 ---
 
-## 团队自动化部署（GitHub Actions）
+## 团队自动化部署（GitHub Actions）与协作流程
 
-所有团队成员对 `main` 分支的提交或合并，均会自动触发部署流水线 `.github/workflows/deploy.yml`：
-1. **GitHub Runner** 构建 Next.js Docker 镜像（多阶段构建，Standalone 运行时）。
-2. 将最新镜像推送到 **GitHub Packages (ghcr.io/ibb-official/bj166-school-site:latest)**。
-3. 通过预配置的 SSH Secret（`VM_SSH_HOST` / `VM_SSH_PORT` / `VM_SSH_USER` / `VM_SSH_KEY`）直连 `sofia-vps`。流水线会先校验目标机 `hostname` 是否为 `r-server89187-mls`，机器不对就直接失败，随后自动执行：
-   ```bash
-   cd /opt/bj166-site
-   docker compose pull
-   docker compose up -d --remove-orphans
-   ```
-4. 执行本地探针健康检查，状态码 200 判定部署成功。
+本项目采用 **PR 自动化校验 + main 分支自动上线** 的协作模式，写作者与协作者无需关心服务器 SSH 凭据或手动运维：
+
+1. **写作者提交流程（PR 校验）**：
+   - 写作者在独立分支修改 `src/data/news.ts` 或静态文件并提交 Pull Request。
+   - GitHub Actions 会自动触发 `.github/workflows/ci.yml`，执行 `npm run lint` 与 `npm run build` 进行代码合规与页面构建测试。
+   - 验证通过后由仓库维护者评审并合并至 `main`。
+
+2. **生产自动交付（main 分支触发）**：
+   - 代码合入 `main` 后，自动触发 `.github/workflows/deploy.yml` 执行生产发布：
+     1. **GitHub Runner** 构建 Next.js Docker 镜像（多阶段构建，Standalone 运行时）。
+     2. 将最新镜像推送到 **GitHub Packages (ghcr.io/ibb-official/bj166-school-site:latest)**。
+     3. 通过预配置的 SSH Secret 直连 `sofia-vps`，校验主机名为 `r-server89187-mls` 后拉取最新镜像、无缝重启容器并执行本地健康检查（200 OK 确认上线）。
+
+3. **权限与边界**：
+   - 生产机 `sofia-vps` 仅允许 GitHub Actions 受控通道直连部署，不向协作者分发个人 SSH 凭据。
+   - 写作者完成内容编辑的标准出口是 **PR 校验通过**，合并即自动上线。
 
 ---
 

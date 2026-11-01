@@ -75,20 +75,21 @@ jobs:
           echo "$SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           if [ -z "$SSH_HOST" ] || [ -z "$SSH_KEY" ]; then
-            OUT="missing-secrets host=${SSH_HOST:-EMPTY} keylen=${#SSH_KEY}"
-            RC=9
+            RC=9; OUT="missing-secrets"; ERR="host=${SSH_HOST:-EMPTY} keylen=${#SSH_KEY}"
           else
-            OUT=$(ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=15 -p "${SSH_PORT:-22}" "${SSH_USER:-root}@${SSH_HOST}" 'hostname; whoami; ls -l /opt/bj166-site/docker-compose.yml; docker ps --format "{{.Names}}:{{.Image}}" | head -5' 2>&1)
+            OUT=$(ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o ConnectTimeout=15 -p "${SSH_PORT:-22}" "${SSH_USER:-root}@${SSH_HOST}" 'hostname; whoami; test -f /opt/bj166-site/docker-compose.yml && echo COMPOSE_OK || echo COMPOSE_MISSING' 2>/tmp/ssh_err)
             RC=$?
+            ERR=$(tr '\n' '|' < /tmp/ssh_err | sed 's/Warning: Permanently added[^|]*|//g' | cut -c1-70)
           fi
           {
             echo "### SSH 诊断"
             echo '```'
             echo "rc=$RC"
-            echo "$OUT"
+            echo "stdout: $OUT"
+            echo "stderr: $ERR"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
-          MSG=$(printf '%s' "$OUT" | paste -sd' ' - | cut -c1-120)
+          MSG="rc=$RC $(printf '%s' "$OUT" | paste -sd, - | cut -c1-40) | $(printf '%s' "$ERR" | cut -c1-60)"
           STATE=$([ "$RC" -eq 0 ] && echo success || echo failure)
           gh api -X POST "repos/${{ github.repository }}/statuses/${{ github.sha }}" \
             -f state="$STATE" -f context="deploy-diag" -f description="$MSG" || true

@@ -46,7 +46,7 @@ export default function HomePage() {
               <div className="sec-title"><h3>学校动态</h3><Link className="more" href="/news">更多&gt;&gt;</Link></div>
               <div className="pic-news">
                 <Link href="/news/4">
-                  <img src={biology.image!.src} alt={biology.image!.alt} />
+                  <img src={biology.image!.src} alt={biology.image!.alt} loading="lazy" decoding="async" />
                 </Link>
                 <div className="txt"><h4><Link href="/news/4">生命科学实验班的学习现场</Link></h4><p>大学课堂、实验操作与湿地调查，走近一届生科班的学习经历。</p></div>
               </div>
@@ -102,7 +102,7 @@ export default function HomePage() {
               {featuredPhotos.map((item) => (
                 <div className="item" key={item.id}>
                   <Link href={`/news/${item.id}`}>
-                    <img src={item.image!.src} alt={item.image!.alt} loading="lazy" />
+                    <img src={item.image!.src} alt={item.image!.alt} loading="lazy" decoding="async" />
                     <p>{item.title}</p>
                   </Link>
                   <div className="photo-credit">{item.date} · {item.image!.credit}</div>

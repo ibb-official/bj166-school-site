@@ -21,7 +21,7 @@ export default function Carousel() {
       {slides.map((item, position) => (
         <div key={item.id} className={`slide ${position === index ? 'on' : ''}`} aria-hidden={position !== index}>
           <Link href={`/news/${item.id}`} tabIndex={position === index ? 0 : -1}>
-            <img src={item.image!.src} alt={item.image!.alt} />
+            <img src={item.image!.src} alt={item.image!.alt} fetchPriority={position === 0 ? "high" : "auto"} decoding="async" />
           </Link>
         </div>
       ))}

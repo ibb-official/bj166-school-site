@@ -30,7 +30,9 @@ export default function SourcesPage() {
       <ul className="source-directory">
         {sortedNews.map((item) => (
           <li key={item.id}>
-            <a href={item.sourceUrl} target="_blank" rel="noreferrer">{item.sourceTitle} ↗</a>
+            {item.sourceOffline
+              ? <span>{item.sourceTitle}（原文分享链接已失效，可按标题在微信内检索）</span>
+              : <a href={item.sourceUrl} target="_blank" rel="noreferrer">{item.sourceTitle} ↗</a>}
             <span>{item.source} · {item.date} · {item.category}</span>
             <Link className="read-link" href={`/news/${item.id}`}>本站事实摘要</Link>
           </li>

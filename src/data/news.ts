@@ -22,6 +22,8 @@ export interface NewsItem {
   source: string;
   sourceUrl: string;
   sourceTitle: string;
+  /** 原文分享链接已失效（微信分享链接有时效），页面改为给出检索指引而不是死链 */
+  sourceOffline?: boolean;
   summary: string;
   paragraphs: string[];
   image?: ReportImage;
@@ -725,6 +727,7 @@ export const newsList: NewsItem[] = [
     "category": "校园文化",
     "source": "北京市第166中学微信公众号",
     "sourceUrl": "https://mp.weixin.qq.com/s?src=11&timestamp=1793507689&ver=7061&signature=Xcy*hljVqWJNuM6QsyvffrWfIvtIR8T2COJSDcZ-IcLnzUj77Yor*u6eRUyqdN8xZk7CsZXRFwkdWu2dVdCP-MBcnHe3XmvMMtrrvCGDXQDFWVreTXiwdGkOmHhoHB&new=1",
+    "sourceOffline": true,
     "sourceTitle": "星光聚声，薪火相传！一六六中学高中星光男声合唱团亮相北京市第二十九届学生艺术节合唱展演（2026-10-22 推送）",
     "summary": "学校高中星光男声合唱团作为市级金奖团队参加北京市第二十九届学生艺术节合唱展演，是本次展演146支团队中唯一一支男声合唱队伍。",
     "paragraphs": [
@@ -774,6 +777,7 @@ export const newsList: NewsItem[] = [
     "category": "协同育人",
     "source": "北京第166中学附属校尉胡同小学微信公众号",
     "sourceUrl": "https://mp.weixin.qq.com/s?src=11&timestamp=1793506970&ver=7061&signature=HiovErLXTlw8PUahnN*4FMsA2pGYOafCOfGhf-Tdl2Uoq1vq8j6eoiD-k8JgxQHKIQkKvssyCRi5oGRqxVCujH3q*yWyV1wFKeatIynffjTqhRGBHx-yrzvnXaD-PGIL&new=1",
+    "sourceOffline": true,
     "sourceTitle": "家长代表入校陪餐｜北京市第166中学附属校尉胡同小学（2023-10-20 推送）",
     "summary": "2023年10月20日，13名家长代表进入附属校尉胡同小学品尝学生餐、填写调研问卷，并与学校就菜品营养搭配与分餐流程交流。",
     "paragraphs": [

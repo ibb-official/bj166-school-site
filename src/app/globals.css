@@ -747,6 +747,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .article-source strong, .article-source > a, .article-source > span { display: block; margin-bottom: 6px; }
 .article-source > a { color: var(--school-blue-dark); }
 .article-source > span, .article-source p { color: #687f91; font-size: 12px; line-height: 1.9; }
+.article-source > em { display: block; font-style: normal; margin-bottom: 6px; padding: 6px 10px; background: #fff7e6; border-left: 3px solid #d9a441; color: #7a5a12; font-size: 12px; line-height: 1.9; }
 .source-directory > li { padding: 14px 0; border-bottom: 1px dotted #c6d5e0; line-height: 1.85; overflow-wrap: anywhere; }
 .source-directory > li > a:first-child { color: var(--school-blue-dark); font-weight: bold; }
 .source-directory > li > span { display: block; font-size: 12px; color: #6d8396; margin-top: 4px; }

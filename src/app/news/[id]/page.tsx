@@ -41,7 +41,14 @@ export default async function NewsDetailPage({ params }: Props) {
             </div>
             <div className="article-source">
               <strong>原文入口</strong>
-              <a href={article.sourceUrl} target="_blank" rel="noreferrer">{article.sourceTitle} ↗</a>
+              {article.sourceOffline ? (
+                <>
+                  <span>{article.sourceTitle}</span>
+                  <em>原文分享链接已失效（微信公众号分享链接有时效）。可按“{article.source}”＋上方标题＋推送日期 {article.date} 在微信内检索原文。</em>
+                </>
+              ) : (
+                <a href={article.sourceUrl} target="_blank" rel="noreferrer">{article.sourceTitle} ↗</a>
+              )}
               <span>{article.source} · {article.date}</span>
               {article.relatedSources?.map((source) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer">相关资料：{source.title} ↗</a>)}
               <p>本文为有出处的事实摘要，由同学维护的非正式网站整理；核对日期：{contentCheckedAt}。</p>

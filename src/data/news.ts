@@ -712,6 +712,7 @@ export const newsList: NewsItem[] = [
     "category": "科学教育",
     "source": "北京市第166中学微信公众号",
     "sourceUrl": "https://mp.weixin.qq.com/s?src=11&timestamp=1793507547&ver=7061&signature=Xcy*hljVqWJNuM6QsyvffrWfIvtIR8T2COJSDcZ-IcIFGJqvlg59W3uSFdTelY6RUefC5Tm-tGl0jYhW8c5CmKatLq6V*IU7IRkaRibsENuGs0mWbwpYEazy1xLdYTS0&new=1",
+    "sourceOffline": true,
     "sourceTitle": "教育共同体资源进校园，“做中学”里探真知——初一年级“探秘传染病”STEM挑战赛收官（2026-10-26 推送）",
     "summary": "学校初一年级以流感、肺结核、诺如病毒、水痘四类常见传染病为题开展STEM挑战赛，经方案评审、实验室探究与决赛汇报评出四类奖项。",
     "paragraphs": [

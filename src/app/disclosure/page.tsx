@@ -5,22 +5,22 @@ import { schoolAccount } from '@/data/sources';
 
 export const metadata = {
   title: '信息公示 - 北京市第一六六中学（非正式网站）',
-  description: '学校2026年部门预算、招生资格和“1+3”培养实验等公开文件的原文索引。'
+  description: '学校部门预算、招生资格、培养实验等公开文件与公开说明的原文索引。'
 };
 
 export default function DisclosurePage() {
   const files = sortedNews.filter((item) => item.category === '信息公示');
   return (
     <PageLayout title="信息公示" english="PUBLIC INFORMATION">
-      <h3 className="block-t">公开文件目录</h3>
-      <p>本栏目整理政府及教育部门公开发布的学校相关文件。每条保留原发布年度，完整内容通过原文入口查阅。</p>
+      <h3 className="block-t">公开文件与公开说明目录</h3>
+      <p>本栏目整理政府及教育部门公开发布的学校相关文件，以及校方在公开场合发布的情况说明。每条保留原发布年度，完整内容通过原文入口查阅；标注“发布会”的条目为公开报道记录，不是文件原文。</p>
       <ul className="report-list">
         {files.map((item) => (
           <li key={item.id}>
             <div className="report-meta"><time dateTime={item.date}>{item.date}</time><span>{item.source}</span></div>
             <h3><Link href={`/news/${item.id}`}>{item.title}</Link></h3>
             <p>{item.summary}</p>
-            <a className="read-link" href={item.sourceUrl} target="_blank" rel="noreferrer">查阅原始文件 ↗</a>
+            <a className="read-link" href={item.sourceUrl} target="_blank" rel="noreferrer">{item.sourceOffline ? '查看本站事实摘要 ↗' : '查阅原文 ↗'}</a>
           </li>
         ))}
       </ul>

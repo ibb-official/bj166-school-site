@@ -688,6 +688,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .archive-month-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 24px; }
 .archive-month-links a { padding: 4px 10px; border: 1px solid #c9dbea; color: var(--school-blue-dark); background: #f7faff; font-size: 12px; }
 .archive-month-links a[aria-current="page"] { background: var(--school-blue); color: white; }
+.archive-year-groups { display: flex; flex-direction: column; gap: 8px; margin: 18px 0 24px; border-top: 1px solid #dbe7f1; padding-top: 14px; }
+.archive-year-group { display: flex; gap: 12px; align-items: flex-start; }
+.archive-year { flex: 0 0 74px; padding: 3px 8px; border: 1px solid #b9cfe4; color: var(--school-blue-dark); background: #eef5fb; font-size: 12px; font-weight: bold; text-align: center; }
+.archive-year[aria-current="page"] { background: var(--school-blue); color: white; border-color: var(--school-blue); }
+.archive-year-months { display: flex; flex-wrap: wrap; gap: 6px; }
+.archive-year-months a { padding: 3px 8px; border: 1px solid #d3e2ef; color: #43647f; background: #fbfdff; font-size: 12px; }
+.archive-year-months a[aria-current="page"] { background: var(--school-blue); color: white; border-color: var(--school-blue); }
+.archive-year-months a:hover { border-color: var(--school-blue); color: var(--school-blue); }
+@media (max-width: 640px) {
+  .archive-year-group { flex-direction: column; gap: 6px; }
+  .archive-year { flex: 0 0 auto; display: inline-block; }
+}
 .archive-month { margin: 22px 0; }
 .archive-month h3 span { font-size: 12px; font-weight: normal; color: #71879a; margin-left: 12px; }
 .archive-entries li { display: flex; gap: 14px; padding: 12px 3px; border-bottom: 1px dotted #c6d6e3; line-height: 1.9; }

@@ -1,4 +1,5 @@
 import accountArchive from './wechat-2026.json';
+import accountArchiveHistory from './wechat-archive.json';
 
 export const schoolMap = {
   title: '北京市第一六六中学（灯市口校区）',
@@ -11,7 +12,9 @@ export const schoolAccount = {
   name: '北京市第166中学',
   certifiedEntity: '北京市第一六六中学',
   introduction: '北京市第166中学微言视角话教育。',
-  checkedAt: '2026-10-26'
+  checkedAt: '2026-11-01',
+  historyFrom: '2016-05',
+  historyCheckedAt: '2026-11-01'
 };
 
 export interface AccountUpdate {
@@ -20,9 +23,12 @@ export interface AccountUpdate {
   title: string;
 }
 
-// 日期据2026-10-26核对的微信历史目录整理，原始时间显示另保留供核查。
-export const accountUpdates: AccountUpdate[] = [...accountArchive].sort((a, b) => b.date.localeCompare(a.date));
+// 2026年条目据2026-10-26核对的微信历史目录整理；2016—2025年条目据2026-11-01搜狗微信公开索引补充，
+// 仅核对标题与推送日期，未核读正文。displayDate 保留微信侧相对时间显示供回查。
+export const accountUpdates: AccountUpdate[] = [...accountArchive, ...accountArchiveHistory]
+  .sort((a, b) => b.date.localeCompare(a.date));
 export const accountMonths = [...new Set(accountUpdates.map((item) => item.date.slice(0, 7)))].sort().reverse();
+export const accountYears = [...new Set(accountUpdates.map((item) => item.date.slice(0, 4)))].sort().reverse();
 
 export const policySources = [
   {

@@ -78,15 +78,20 @@ jobs:
             OUT="missing-secrets host=${SSH_HOST:-EMPTY} keylen=${#SSH_KEY}"
             RC=9
           else
-            OUT=$(ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=15 -p "${SSH_PORT:-22}" "${SSH_USER:-root}@${SSH_HOST}" 'hostname; whoami; ls -l /opt/bj166-site/docker-compose.yml' 2>&1)
+            OUT=$(ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=15 -p "${SSH_PORT:-22}" "${SSH_USER:-root}@${SSH_HOST}" 'hostname; whoami; ls -l /opt/bj166-site/docker-compose.yml; docker ps --format "{{.Names}}:{{.Image}}" | head -5' 2>&1)
             RC=$?
           fi
-          echo "----- diag output -----"
-          echo "$OUT"
-          echo "----- rc=$RC -----"
-          MSG=$(printf '%s' "$OUT" | paste -sd' ' - | cut -c1-130)
+          {
+            echo "### SSH 诊断"
+            echo '```'
+            echo "rc=$RC"
+            echo "$OUT"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          MSG=$(printf '%s' "$OUT" | paste -sd' ' - | cut -c1-120)
           STATE=$([ "$RC" -eq 0 ] && echo success || echo failure)
-          curl -sS -X POST -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}" -d "{\"state\":\"$STATE\",\"context\":\"deploy-diag\",\"description\":\"$MSG\"}" > /dev/null
+          gh api -X POST "repos/${{ github.repository }}/statuses/${{ github.sha }}" \
+            -f state="$STATE" -f context="deploy-diag" -f description="$MSG" || true
 
       - name: Deploy container on sofia-vps
         uses: appleboy/ssh-action@v1.2.0

@@ -705,6 +705,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .archive-entries li { display: flex; gap: 14px; padding: 12px 3px; border-bottom: 1px dotted #c6d6e3; line-height: 1.9; }
 .archive-entries time { flex: 0 0 42px; font-size: 12px; color: #75899a; padding-top: 2px; }
 .archive-entries span { min-width: 0; }
+.archive-entries a { min-width: 0; color: #24425c; text-decoration: none; }
+.archive-entries a:hover { color: var(--school-blue); text-decoration: underline; }
+.archive-entries a em { font-style: normal; margin-left: 8px; font-size: 11px; color: #8aa0b2; white-space: nowrap; }
+.archive-entries a:hover em { color: var(--school-blue); }
 .account-note, .page-main p.account-note { text-indent: 0; color: #6b8295; font-size: 12px; line-height: 1.8; margin: 10px 0 0; }
 .year-index { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0 4px; }
 .year-index-label { font-size: 12px; color: #687f91; }

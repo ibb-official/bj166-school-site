@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import PageLayout from '@/components/PageLayout';
+import { findNewsIdByArchiveTitle, sogouSearchUrl } from '@/data/archive-links';
 import {
   accountMonths, accountUpdates, accountYears, schoolAccount,
   attachedAccount, attachedMonths, attachedUpdates, attachedYears
@@ -75,7 +76,19 @@ export default async function WechatArchivePage({ searchParams }: {
           <section className="archive-month" key={value}>
             <h3 className="block-t">{value.replace('-', '年')}月<span>{items.length}条</span></h3>
             <ul className="archive-entries">
-              {items.map((item) => <li key={item.date + item.title}><time dateTime={item.date}>{item.date.slice(5)}</time><span>{item.title}</span></li>)}
+              {items.map((item) => {
+                const newsId = findNewsIdByArchiveTitle(item.title);
+                return (
+                  <li key={item.date + item.title}>
+                    <time dateTime={item.date}>{item.date.slice(5)}</time>
+                    {newsId ? (
+                      <Link href={`/news/${newsId}`}>{item.title}<em>本站摘要</em></Link>
+                    ) : (
+                      <a href={sogouSearchUrl(item.title)} target="_blank" rel="noreferrer">{item.title}<em>搜原文 ↗</em></a>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </section>
         );
@@ -103,7 +116,19 @@ export default async function WechatArchivePage({ searchParams }: {
           <section className="archive-month" key={`att-sec-${value}`}>
             <h3 className="block-t">{value}年<span>{items.length}条</span></h3>
             <ul className="archive-entries">
-              {items.map((item) => <li key={item.date + item.title}><time dateTime={item.date}>{item.date.slice(5)}</time><span>{item.title}</span></li>)}
+              {items.map((item) => {
+                const newsId = findNewsIdByArchiveTitle(item.title);
+                return (
+                  <li key={item.date + item.title}>
+                    <time dateTime={item.date}>{item.date.slice(5)}</time>
+                    {newsId ? (
+                      <Link href={`/news/${newsId}`}>{item.title}<em>本站摘要</em></Link>
+                    ) : (
+                      <a href={sogouSearchUrl(item.title)} target="_blank" rel="noreferrer">{item.title}<em>搜原文 ↗</em></a>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </section>
         );

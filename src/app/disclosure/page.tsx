@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/Link';
 import PageLayout from '@/components/PageLayout';
 import { sortedNews } from '@/data/news';
 import { schoolAccount } from '@/data/sources';

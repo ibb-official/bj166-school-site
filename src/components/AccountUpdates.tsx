@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/Link';
 import { accountUpdates, accountYears, schoolAccount } from '@/data/sources';
 
 export default function AccountUpdates({ compact = false }: { compact?: boolean }) {

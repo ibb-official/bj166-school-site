@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/Link';
 import { notFound } from 'next/navigation';
 import ReportPhoto from '@/components/ReportPhoto';
 import { contentCheckedAt, getNews, newsList, sortedNews } from '@/data/news';

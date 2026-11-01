@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import Link from '@/components/Link';
 import { usePathname } from 'next/navigation';
 
 export default function Header() {
@@ -25,7 +25,7 @@ export default function Header() {
   return (
     <>
       <div className="topbar">
-        <div className="wrap"><span>{dateText}</span><span><Link href="/photos">校园影像</Link><span className="sep">|</span><Link href="/wechat">公众号档案</Link><span className="sep">|</span><Link href="/sources">公开资料整理</Link><span className="sep">|</span><Link href="/contact">关于本站</Link></span></div>
+        <div className="wrap"><span>{dateText}</span><span><Link href="/history">校史沿革</Link><span className="sep">|</span><Link href="/photos">校园影像</Link><span className="sep">|</span><Link href="/wechat">公众号档案</Link><span className="sep">|</span><Link href="/sources">公开资料整理</Link><span className="sep">|</span><Link href="/contact">关于本站</Link></span></div>
       </div>
       <div className="header-band">
         <header className="header wrap">

@@ -75,9 +75,9 @@ export default function HomePage() {
             <div className="sec-title"><h3>专题资料</h3><Link className="more" href="/news">全部报道&gt;&gt;</Link></div>
             <div className="topic-grid">
               {[
-                { title: '科学与实践', ids: [26, 36, 39] },
+                { title: '科学与实践', ids: [26, 46, 36] },
                 { title: '数学与阅读', ids: [38, 24, 19] },
-                { title: '音乐与舞台', ids: [32, 22, 21] },
+                { title: '音乐与舞台', ids: [32, 41, 22] },
                 { title: '校史与校牌', ids: [37, 25, 20] }
               ].map((topic) => (
                 <div className="topic-card" key={topic.title}>

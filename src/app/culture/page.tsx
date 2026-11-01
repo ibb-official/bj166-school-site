@@ -30,7 +30,7 @@ export default function CulturePage() {
       <p>2023年11月，金帆管乐团在北京音乐厅举行专场音乐会，首演《缤纷幻想曲》。2024年5月，星光高中男声合唱团携手一贯制及高中女子合唱团，在中山公园音乐堂举办“青春之歌，唱给你听”音乐会。</p>
       <ReportPhoto article={getNews(18)!} />
       <ReportPhoto article={getNews(21)!} />
-      <p className="noindent"><Link href="/news/18">管乐专场报道</Link>　｜　<Link href="/news/21">合唱专场报道</Link>　｜　<Link href="/news/32">2026年市艺术节合唱展演</Link></p>
+      <p className="noindent"><Link href="/news/18">管乐专场报道</Link>　｜　<Link href="/news/21">合唱专场报道</Link>　｜　<Link href="/news/32">2026年市艺术节合唱展演</Link>　｜　<Link href="/news/41">2019年新年音乐会</Link></p>
 
       <h3 className="block-t">年级课程与成长仪式</h3>
       <p>学校在不同年级安排综合实践活动、军训与毕业年级活动。2022年6月，2022届高三年级举行“青春如歌·逐梦未来”盛典，设三个篇章并向学生赠送宪法、博雅风华系列丛书、校名与校训印章等毕业礼物。开学典礼也固定设置假期实践分享、学生演讲与教师寄语等环节：2025年2月的开学典礼在两校区同步举行，同期更新了学生书写的校牌与选用维瓦尔第《春》的校铃。这类活动与日常课程、校训一起构成校园生活的仪式感。</p>
@@ -48,6 +48,7 @@ export default function CulturePage() {
       <h3 className="block-t">知识、游戏与动手设计</h3>
       <p>首届数学节将魔方、数独、折纸和数学史展板带入校园；碳中和主题花园设计则把生态知识转化为模型。这些报道提供了观察学科活动与校园文化的不同角度。</p>
       <p className="noindent"><Link href="/news/24">首届数学节</Link>　｜　<Link href="/news/9">碳中和主题花园设计</Link></p>
+      <p>校园里的一草一木也进入学生的画面：2023年美术书法工作室的手绘明信片活动，让学生以慎独石、冰心像、玉兰花、教学楼与百草园为题材作画并写下祝福。<Link href="/news/43">手绘明信片活动</Link></p>
       <ReportPhoto article={getNews(24)!} />
 
       <h3 className="block-t">校史时间轴</h3>

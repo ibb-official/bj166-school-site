@@ -13,8 +13,6 @@ concurrency:
 permissions:
   contents: read
   packages: write
-  statuses: write
-  checks: write
 
 env:
   REGISTRY: ghcr.io
@@ -62,78 +60,11 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      - name: SSH diagnostics (writes result to commit status)
-        if: always()
-        env:
-          SSH_HOST: ${{ secrets.VM_SSH_HOST }}
-          SSH_PORT: ${{ secrets.VM_SSH_PORT }}
-          SSH_USER: ${{ secrets.VM_SSH_USER }}
-          SSH_KEY: ${{ secrets.VM_SSH_KEY }}
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set +e
-          mkdir -p ~/.ssh
-          echo "$SSH_KEY" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          INFO="host=[${SSH_HOST}] len=${#SSH_HOST} port=[${SSH_PORT}] user=[${SSH_USER}] keylen=${#SSH_KEY} keyhead=$(echo "$SSH_KEY" | head -c 40 | tr -d '\n')"
-          OUT=$(ssh -vv -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o ConnectTimeout=15 -p "${SSH_PORT:-22}" "${SSH_USER:-root}@${SSH_HOST}" 'hostname' 2>/tmp/ssh_err)
-          RC=$?
-          VV=$(tail -25 /tmp/ssh_err)
-          BODY="$INFO
-          rc=$RC
-          --- stdout ---
-          $OUT
-          --- ssh -vv tail ---
-          $VV"
-          echo "$BODY" >> "$GITHUB_STEP_SUMMARY"
-          gh api -X POST "repos/${{ github.repository }}/check-runs" \
-            -f name="ssh-diag" -f head_sha="${{ github.sha }}" \
-            -f status=completed -f conclusion=success \
-            -f "output[title]=ssh-diag rc=$RC" \
-            -f "output[summary]=$BODY" > /dev/null 2>&1 || true
-
-      - name: Deploy container on sofia-vps
+      - name: Trigger deployment on sofia-vps
         uses: appleboy/ssh-action@v1.2.0
-        env:
-          GH_ACTOR: ${{ github.actor }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           host: ${{ secrets.VM_SSH_HOST }}
           port: ${{ secrets.VM_SSH_PORT }}
           username: ${{ secrets.VM_SSH_USER }}
           key: ${{ secrets.VM_SSH_KEY }}
-          envs: GH_ACTOR,GH_TOKEN
-          script: |
-            set -e
-            EXPECTED_HOSTNAME="r-server89187-mls"
-            ACTUAL_HOSTNAME="$(hostname)"
-            echo "==> Deployment target: $ACTUAL_HOSTNAME (machine-id $(cut -c1-12 /etc/machine-id))"
-            if [ "$ACTUAL_HOSTNAME" != "$EXPECTED_HOSTNAME" ]; then
-              echo "!! Refusing to deploy: SSH landed on '$ACTUAL_HOSTNAME', expected '$EXPECTED_HOSTNAME'."
-              echo "!! Verify the VM_SSH_HOST / VM_SSH_PORT / VM_SSH_USER / VM_SSH_KEY secrets."
-              exit 1
-            fi
-            if [ ! -f /opt/bj166-site/docker-compose.yml ]; then
-              echo "!! /opt/bj166-site/docker-compose.yml is missing on the target. Aborting before pull."
-              exit 1
-            fi
-            echo "==> Authenticating to GHCR on sofia-vps..."
-            echo "$GH_TOKEN" | docker login ghcr.io -u "$GH_ACTOR" --password-stdin
-            # Do not leave the short-lived GITHUB_TOKEN in /root/.docker/config.json
-            trap 'docker logout ghcr.io >/dev/null 2>&1 || true' EXIT
-            echo "==> Pulling latest image on sofia-vps..."
-            cd /opt/bj166-site
-            docker compose pull || docker-compose pull
-            echo "==> Restarting site container..."
-            docker compose up -d --remove-orphans || docker-compose up -d --remove-orphans
-            echo "==> Running local healthcheck..."
-            sleep 3
-            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3000/)
-            if [ "$HTTP_CODE" -eq 200 ]; then
-              echo "Deployment succeeded! HTTP 200 received."
-              docker inspect bj166-web --format 'image={{.Config.Image}} container={{.Image}} created={{.Created}}'
-            else
-              echo "Healthcheck failed with status code $HTTP_CODE!"
-              docker logs --tail 50 bj166-web
-              exit 1
-            fi
+          script: deploy

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/Link';
 import Carousel from '@/components/Carousel';
 import NewsLinks from '@/components/NewsLinks';
 import AccountUpdates from '@/components/AccountUpdates';
@@ -35,7 +35,8 @@ export default function HomePage() {
               <div className="sec-title section-gap"><h3>资料索引</h3></div>
               <ul className="news-list">
                 <li><span className="t"><Link href="/about">学校基本情况与办学特色</Link></span></li>
-                <li><span className="t"><Link href="/culture">校史、校训与校园文化</Link></span></li>
+                <li><span className="t"><Link href="/history">校史沿革：从贝满女塾到一六六中学</Link></span></li>
+                <li><span className="t"><Link href="/culture">校训、校园文化与艺术团</Link></span></li>
                 <li><span className="t"><Link href="/policy">教育方针与课程政策</Link></span></li>
                 <li><span className="t"><Link href="/contact">本站说明与资料维护</Link></span></li>
               </ul>

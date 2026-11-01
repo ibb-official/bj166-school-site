@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import Link from 'next/link';
+import Link from '@/components/Link';
 import { getNews } from '@/data/news';
 
 const slides = [getNews(20)!, getNews(1)!, getNews(3)!, getNews(4)!];

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/Link';
 import PageLayout from '@/components/PageLayout';
 import { findNewsIdByArchiveTitle, sogouSearchUrl } from '@/data/archive-links';
 import {

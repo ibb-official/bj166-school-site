@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/Link';
 import { sortedNews, type NewsItem } from '@/data/news';
 
 export default function NewsLinks({ items = sortedNews.slice(0, 5) }: { items?: NewsItem[] }) {

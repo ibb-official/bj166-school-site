@@ -1,8 +1,9 @@
-import Link from 'next/link';
+import Link from '@/components/Link';
 import PageLayout from '@/components/PageLayout';
 import AccountUpdates from '@/components/AccountUpdates';
 import { contentCheckedAt, photosCheckedAt, reportPhotos, sortedNews } from '@/data/news';
 import { accountUpdates, policySources, schoolAccount, schoolMap } from '@/data/sources';
+import { historySources } from '@/data/history';
 
 export const metadata = {
   title: '资料来源 - 北京市第一六六中学（非正式网站）',
@@ -19,6 +20,12 @@ export default function SourcesPage() {
         <li><Link href="/news/12">东城区政府：学校2026年部门预算</Link><span>2026-02-12 · 单位职责、学校性质与机构情况。</span></li>
         <li><Link href="/news/13">东教印象：2026年“1+3”培养实验学校简介</Link><span>2026-07-20 · 创办年份、历史名称、校训及课程介绍。</span></li>
       </ul>
+
+      <h3 className="block-t" id="history">校史与艺术团资料</h3>
+      <ul className="source-directory">
+        {historySources.map((item) => <li key={item.key}>{item.url ? <a href={item.url} target="_blank" rel="noreferrer">{item.title} ↗</a> : <span>{item.title}</span>}<span>{item.publisher}{item.note ? ` · ${item.note}` : ''}</span></li>)}
+      </ul>
+      <p className="noindent small-note">整理结果见<Link href="/history">校史沿革</Link>与<Link href="/culture#arts">艺术团档案</Link>。</p>
 
       <h3 className="block-t" id="wechat">学校微信公众号</h3>
       <AccountUpdates />

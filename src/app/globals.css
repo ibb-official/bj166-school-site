@@ -1021,9 +1021,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   height: 5px;
   border-radius: 999px;
   vertical-align: 3px;
-  transition: width .28s var(--ui-ease), background-color var(--ui-fast);
+  transform-origin: left center;
+  transition: transform .28s var(--ui-ease), background-color var(--ui-fast);
 }
-.news-list li:hover .t::before { width: 12px; }
+/* 只用 transform 拉长圆点：不占排版空间，悬停时不会挤动文字或栏宽 */
+.news-list li:hover .t::before { transform: scaleX(2); }
 .news-list li .d, .account-date, .report-meta time, .topic-card time,
 .related-block time, .archive-entries time { font-variant-numeric: tabular-nums; }
 
@@ -1396,3 +1398,77 @@ a.archive-year:not([aria-current="page"]):hover,
   .nav li a { font-size: 13.5px; min-height: 42px; }
   .report-list h3 { font-size: 16px; }
 }
+
+/* ---------- 16. 校史页与艺术团档案（2026-11-01） ---------- */
+.history-era { margin: 6px 0 18px; }
+.history-era h4, .arts-group h4 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 14px 0 8px;
+  color: var(--school-blue-deep);
+  font-size: 16px;
+}
+.history-era h4 span {
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: var(--school-blue-pale);
+  color: var(--school-blue);
+  font-size: 12px;
+  font-weight: normal;
+  font-variant-numeric: tabular-nums;
+}
+.history-era .timeline, .arts-group .timeline { margin-top: 6px; }
+.timeline li strong { font-variant-numeric: tabular-nums; }
+.history-ref {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 0 7px;
+  border: 1px solid #d3e2ef;
+  border-radius: 999px;
+  color: #5d7a92;
+  font-size: 11px;
+  line-height: 1.7;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: 1px;
+}
+a.history-ref:hover { border-color: var(--school-blue); color: var(--school-blue); }
+.small-note .history-ref { margin-left: 2px; }
+.alumni-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px;
+  margin: 10px 0 18px;
+}
+.alumni-grid li {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--ui-radius-sm);
+  background: #fafcfe;
+  line-height: 1.6;
+}
+.alumni-grid strong { display: block; color: var(--school-blue-deep); font-size: 15px; }
+.alumni-grid span { color: #607b90; font-size: 12.5px; }
+.arts-group { margin: 8px 0 22px; padding-bottom: 6px; }
+.arts-group + .arts-group { border-top: 1px solid var(--line); padding-top: 4px; }
+.arts-group h4 .source-tag { font-size: 12px; }
+@media (max-width: 640px) {
+  .alumni-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .history-ref { margin-left: 4px; }
+}
+
+/* ---------- 17. 动态页载入占位（/news、/wechat） ---------- */
+.page-loading { display: grid; gap: 14px; min-height: 360px; align-content: start; }
+.page-loading i {
+  display: block;
+  height: 16px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #edf2f7 25%, #f6f9fc 50%, #edf2f7 75%) 0 0 / 200% 100%;
+  animation: ui-shimmer 1.2s linear infinite;
+}
+.page-loading i:nth-child(2) { width: 72%; }
+.page-loading i:nth-child(3) { width: 88%; }
+.page-loading i:nth-child(4) { width: 56%; }
+@keyframes ui-shimmer { to { background-position: -200% 0; } }

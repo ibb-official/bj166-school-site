@@ -177,17 +177,6 @@ ul, ol { list-style: none; }
   display: flex;
   gap: 6px;
 }
-.carousel .dots span {
-  width: 22px; height: 22px;
-  line-height: 22px;
-  text-align: center;
-  background: rgba(0,0,0,.55);
-  color: #fff;
-  font-size: 12px;
-  cursor: pointer;
-  border-radius: 2px;
-}
-.carousel .dots span.on { background: #155b96; }
 
 /* ---------- 头条新闻 ---------- */
 .headline {
@@ -592,7 +581,6 @@ a:hover { color: var(--school-blue); }
 .notice-bar marquee, .notice-bar marquee a { color: var(--school-blue-dark); }
 .notice-bar marquee a:hover { color: var(--school-blue); }
 .main { background: #eef3f7; }
-.carousel .dots span.on { background: var(--school-blue); }
 .headline { border-top-color: var(--school-blue); }
 .headline h2 { color: var(--school-blue); }
 .headline .sub a { color: var(--school-blue); }
@@ -833,33 +821,481 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 
 /* ==========================================================================
-   移动端适配与视觉打磨层（2026-11-01）
-   原则：不改变既有版式与配色，只做三件事——手机端更好读、更好点、更顺滑。
+   视觉与动效层（2026-11-01 流动性打磨，合并了此前的“移动端适配与视觉打磨层”）
+   原则：蓝白配色与版式不变，只动细节——
+     形：统一圆角、冷色细边框、轻阴影，去掉点线与硬边；
+     动：悬停、切换、进场都有过渡，统一一条缓动曲线；
+     读：正文改用系统黑体，手机端更好读、更好点。
    ========================================================================== */
 
 :root {
-  --ui-radius: 6px;
-  --ui-shadow: 0 2px 10px rgba(16, 54, 111, .08);
-  --ui-shadow-hover: 0 6px 18px rgba(16, 54, 111, .14);
+  --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑",
+    "Noto Sans SC", "Noto Sans CJK SC", "Source Han Sans SC", system-ui, sans-serif;
+  --line: #e4ebf2;
+  --panel-border: #dce5ee;
+  --ui-radius: 8px;
+  --ui-radius-sm: 6px;
+  --ui-shadow: 0 1px 2px rgba(16, 54, 111, .04), 0 4px 14px rgba(16, 54, 111, .05);
+  --ui-shadow-hover: 0 10px 26px rgba(16, 54, 111, .13);
+  --ui-ring: 0 0 0 4px rgba(32, 95, 193, .14);
   --ui-ease: cubic-bezier(.22, .61, .36, 1);
+  --ui-fast: .22s;
+  --nav-h: 54px;   /* 吸顶导航高度，用于锚点偏移 */
+  --cap-h: 75px;   /* 轮播标题栏高度 */
 }
 
-/* ---------- 1. 全局顺滑度 ---------- */
-html { scroll-behavior: smooth; }
-a, button, input, select, textarea,
-.report-list li, .topic-card, .side-box, .photo-archive-card,
-.nav li a, .year-index a, .archive-year-months a {
-  transition:
-    color .18s var(--ui-ease),
-    background-color .18s var(--ui-ease),
-    border-color .18s var(--ui-ease),
-    box-shadow .18s var(--ui-ease),
-    transform .18s var(--ui-ease);
+/* ---------- 1. 字体与全局手感 ---------- */
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.nav li a, .header .search input, .header .search button, .header .logo h1 span.badge,
+.notice-bar .label, .carousel .caption, .headline h2, .sec-title h3, .pic-news .txt h4,
+.side-box .hd, .quick-links a, .article h1, .report-list h3, .page-main h3.block-t,
+.page-main table.pub th, .timeline strong, .friendlinks strong {
+  font-family: var(--font-sans);
+}
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 12px); }
+[id] { scroll-margin-top: calc(var(--nav-h) + 12px); }
+::selection { background: rgba(32, 95, 193, .18); }
+
+/* 链接下划线淡入，而不是突然出现 */
+a {
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+a:hover { text-decoration-color: currentColor; }
+
+a, button, input, select, textarea, img,
+.topic-card, .photo-archive-card, .report-list > li, .article .pager p,
+.quick-links a::after, .sec-title .more, .read-link {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity, text-decoration-color;
+  transition-duration: var(--ui-fast);
+  transition-timing-function: var(--ui-ease);
 }
 a, button { -webkit-tap-highlight-color: transparent; }
-
-/* 图片占位底色，避免加载时的白闪与跳动 */
 img { background-color: #f2f6fa; }
+
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--school-blue);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ---------- 2. 站头：通栏白底，和导航连成一体 ---------- */
+.header-band {
+  background:
+    radial-gradient(900px 140px at 50% 0, rgba(32, 95, 193, .06), transparent 70%),
+    linear-gradient(180deg, #fff 0%, #f5f8fc 100%);
+}
+.header { background: none; border-bottom: 0; }
+.header .search {
+  border-radius: var(--ui-radius-sm);
+  transition: box-shadow var(--ui-fast) var(--ui-ease);
+}
+.header .search:focus-within { box-shadow: var(--ui-ring); }
+.header .search input {
+  height: 38px;
+  border: 1.5px solid #bcd0e5;
+  border-right: 0;
+  border-radius: var(--ui-radius-sm) 0 0 var(--ui-radius-sm);
+  background: #fff;
+}
+.header .search input:focus { border-color: var(--school-blue); }
+.header .search input:focus-visible { outline: none; }
+.header .search button {
+  height: 38px;
+  border-radius: 0 var(--ui-radius-sm) var(--ui-radius-sm) 0;
+  background: linear-gradient(180deg, #2b6bd1, var(--school-blue-dark));
+}
+.header .search button:hover { background: var(--school-blue-dark); }
+
+/* ---------- 3. 导航：吸顶，去竖线，白色指示条滑入 ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: linear-gradient(180deg, #2268b8 0%, var(--school-blue-dark) 100%);
+  box-shadow: 0 4px 16px rgba(16, 54, 111, .18);
+}
+.nav li a, .nav li:first-child a {
+  position: relative;
+  border: 0;
+  letter-spacing: 3px;
+  text-decoration: none;
+}
+.nav li a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 46%;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: #fff;
+  transform: translateX(-50%) scaleX(0);
+  transition: transform .3s var(--ui-ease);
+}
+.nav li a:hover { background: rgba(255, 255, 255, .09); }
+.nav li a:hover::after { transform: translateX(-50%) scaleX(.55); }
+.nav li.on a { background: rgba(6, 28, 66, .26); font-weight: 600; }
+.nav li.on a::after { transform: translateX(-50%) scaleX(1); }
+
+/* ---------- 4. 公告条 ---------- */
+.notice-bar {
+  background: linear-gradient(90deg, #e9f1fb 0%, #f5f9fd 60%);
+  border-bottom: 1px solid var(--line);
+}
+.notice-bar .label { border-radius: 0 999px 999px 0; padding: 0 18px 0 14px; letter-spacing: 1px; }
+.notice-links {
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, #000 88%, transparent);
+}
+.notice-links::-webkit-scrollbar { display: none; }
+.notice-links a { flex: 0 0 auto; }
+
+/* ---------- 5. 面板：统一圆角、细边、轻阴影 ---------- */
+.col, .headline, .side-box, .topic-section, .account-section, .pic-row,
+.friendlinks, .content-card, .page-main, .archive-intro {
+  border: 1px solid var(--panel-border);
+  border-radius: var(--ui-radius);
+  box-shadow: var(--ui-shadow);
+}
+.archive-intro { box-shadow: none; }
+.side-box { overflow: hidden; }
+.headline { box-shadow: inset 0 3px 0 var(--school-blue), var(--ui-shadow); }
+.headline h2 { border-bottom: 1px solid var(--line); }
+
+/* 栏目标题：蓝色标签保留，底线向右渐隐 */
+.sec-title {
+  border-bottom: 0;
+  padding-bottom: 2px;
+  margin-bottom: 12px;
+  background: linear-gradient(90deg, var(--school-blue) 0%, rgba(32, 95, 193, .25) 45%, rgba(32, 95, 193, 0) 100%)
+    left bottom / 100% 2px no-repeat;
+}
+.sec-title h3 {
+  border-radius: var(--ui-radius-sm) var(--ui-radius-sm) 0 0;
+  background: linear-gradient(180deg, #2b6bd1, var(--school-blue));
+  letter-spacing: 2px;
+}
+.sec-title .more { display: inline-block; color: #8b9eb0; text-decoration: none; }
+.sec-title .more:hover { color: var(--school-blue); transform: translateX(3px); }
+.side-box .hd {
+  background: linear-gradient(135deg, #2b6bd1 0%, var(--school-blue-dark) 100%);
+  letter-spacing: 2px;
+}
+
+/* 快速通道按钮：圆角 + 悬停时箭头滑入 */
+.quick-links a {
+  position: relative;
+  border-radius: var(--ui-radius-sm);
+  background: #f3f8fd;
+  border-color: #d6e4f1;
+  letter-spacing: 1px;
+}
+.quick-links a::after {
+  content: "→";
+  position: absolute;
+  right: 14px;
+  opacity: 0;
+  transform: translateX(-6px);
+}
+.quick-links a:hover { box-shadow: 0 6px 14px rgba(32, 95, 193, .22); }
+.quick-links a:hover::after { opacity: 1; transform: none; }
+
+/* ---------- 6. 列表：实线细分隔，圆点悬停拉长 ---------- */
+.news-list li, .account-list li, .topic-card li, .archive-entries li,
+.source-directory > li, .policy-list li, .related-block li {
+  border-bottom: 1px solid var(--line);
+}
+.topic-card li:last-child, .related-block li:last-child { border-bottom: 0; }
+.news-list li .t::before {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  vertical-align: 3px;
+  transition: width .28s var(--ui-ease), background-color var(--ui-fast);
+}
+.news-list li:hover .t::before { width: 12px; }
+.news-list li .d, .account-date, .report-meta time, .topic-card time,
+.related-block time, .archive-entries time { font-variant-numeric: tabular-nums; }
+
+/* ---------- 7. 轮播：模糊底图补白、缓慢推近、胶囊进度指示 ---------- */
+.carousel {
+  border: 0;
+  border-radius: var(--ui-radius);
+  box-shadow: var(--ui-shadow);
+  background: #1b3f6e;
+  isolation: isolate;
+  touch-action: pan-y;
+}
+.carousel .slide { bottom: var(--cap-h); transition: opacity .9s var(--ui-ease); }
+.carousel .slide a { position: relative; overflow: hidden; isolation: isolate; }
+.carousel .slide a::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  z-index: -1;
+  background: var(--slide-bg) center / cover no-repeat;
+  filter: blur(28px) saturate(1.15) brightness(.85);
+}
+.carousel .slide img {
+  background: transparent;
+  transform: scale(1);
+  transition: transform .9s var(--ui-ease);
+}
+.carousel .slide.on img {
+  transform: scale(1.035);
+  transition: transform var(--carousel-interval, 7s) linear;
+}
+.carousel .caption {
+  min-height: var(--cap-h);
+  background: linear-gradient(90deg, var(--school-blue-deep) 0%, #1c56a3 100%);
+}
+.carousel .caption a {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.carousel .caption-text { animation: ui-fade-up .6s var(--ui-ease) backwards; }
+.carousel .dots {
+  right: 14px;
+  bottom: calc(var(--cap-h) + 12px);
+  gap: 0;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(9, 30, 62, .38);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.carousel .dots button,
+.carousel .dots button.on {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  cursor: pointer;
+  transition: width .35s var(--ui-ease);
+}
+.carousel .dots button::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .55);
+  transition: width .35s var(--ui-ease), background-color var(--ui-fast);
+}
+.carousel .dots button:hover::before { background: #fff; }
+.carousel .dots button.on { width: 42px; }
+.carousel .dots button.on::before { width: 32px; background: rgba(255, 255, 255, .35); }
+.carousel .dots .progress {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  width: 32px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 999px;
+  background: #fff;
+  transform-origin: left center;
+  animation: ui-progress var(--carousel-interval, 7s) linear both;
+}
+.carousel.is-paused .dots .progress { animation-play-state: paused; }
+
+/* ---------- 8. 卡片与图片 ---------- */
+.topic-card { border-color: var(--panel-border); border-radius: var(--ui-radius); overflow: hidden; background: #fff; }
+.topic-card h4 { background: linear-gradient(180deg, #f4f8fd, #eaf2fb); border-bottom-color: var(--line); }
+.pic-news img { border-radius: var(--ui-radius-sm); border-color: var(--line); }
+.pic-row .item img { border: 1px solid var(--line); border-radius: var(--ui-radius-sm); }
+.pic-row .item a { text-decoration: none; }
+.report-photo img { border-color: var(--line); border-radius: var(--ui-radius-sm); }
+.photo-archive-card { border-color: var(--panel-border); border-radius: var(--ui-radius); overflow: hidden; }
+.photo-archive-image { overflow: hidden; }
+@media (hover: hover) {
+  .topic-card:hover { box-shadow: var(--ui-shadow-hover); transform: translateY(-2px); }
+  .pic-news > a:hover img,
+  .pic-row .item:hover img { transform: translateY(-3px); box-shadow: var(--ui-shadow-hover); }
+  .pic-row .item:hover p { color: var(--school-blue); }
+  .photo-archive-card:hover { box-shadow: var(--ui-shadow-hover); }
+  .photo-archive-card:hover .photo-archive-image img { transform: scale(1.03); }
+  .report-photo a:hover img { box-shadow: var(--ui-shadow-hover); }
+}
+
+/* ---------- 9. 内页 ---------- */
+.page-head { position: relative; overflow: hidden; }
+.page-head::before {
+  content: "";
+  position: absolute;
+  right: -6%;
+  top: -140%;
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, .16), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+.page-head .wrap { position: relative; }
+.crumb { background: none; border: 0; padding: 0 2px; margin-bottom: 12px; color: #7c90a3; }
+.page-main h3.block-t { position: relative; border-left: 0; padding-left: 14px; }
+.page-main h3.block-t::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .2em;
+  bottom: .2em;
+  width: 4px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #3b82e0, var(--school-blue-dark));
+}
+
+/* 筛选标签：胶囊形 */
+.year-index a, .archive-month-links a, .archive-year-months a, .archive-year, .photo-collection-links a {
+  border-radius: 999px;
+  text-decoration: none;
+}
+.year-index a:not([aria-current="page"]):hover,
+.archive-month-links a:not([aria-current="page"]):hover,
+.archive-year-months a:not([aria-current="page"]):hover,
+a.archive-year:not([aria-current="page"]):hover,
+.photo-collection-links a:hover {
+  background: var(--school-blue-pale);
+  border-color: var(--school-blue);
+  color: var(--school-blue);
+}
+
+/* 搜索表单 */
+.news-search input, .news-search select { border-radius: var(--ui-radius-sm); border-color: #c5d6e6; }
+.news-search input:focus, .news-search select:focus { border-color: var(--school-blue); box-shadow: var(--ui-ring); outline: none; }
+.news-search button { border-radius: var(--ui-radius-sm); }
+.news-search button:hover { background: var(--school-blue-dark); }
+
+/* 报道列表：整行悬停浅底，文字左缘与正文对齐 */
+.report-list > li {
+  position: relative;
+  padding: 18px 16px 20px;
+  margin: 0 -16px;
+  border-bottom: 0;
+  border-radius: var(--ui-radius);
+}
+/* 分隔线内缩，与文字左右对齐，不随圆角弯折 */
+.report-list > li + li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 16px;
+  height: 1px;
+  background: var(--line);
+}
+.source-tag { border-radius: 4px; }
+.read-link { display: inline-block; }
+@media (hover: hover) {
+  .report-list > li:hover { background: #f5f9fd; }
+  .report-list > li:hover .read-link { transform: translateX(3px); }
+}
+
+/* 文章页 */
+.article .meta { border-bottom-color: var(--line); }
+.article-source { border-radius: 0 var(--ui-radius) var(--ui-radius) 0; }
+.related-block { border-color: var(--line); border-radius: var(--ui-radius); }
+.source-note { border-radius: 0 var(--ui-radius-sm) var(--ui-radius-sm) 0; }
+.page-main p.school-motto { border-radius: var(--ui-radius); }
+/* 上一篇 / 下一篇：两张可点的卡片 */
+.article .pager {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  border-top-color: var(--line);
+}
+.article .pager p {
+  position: relative;
+  margin: 0;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--ui-radius);
+  background: #fafcfe;
+  color: #7a8fa1;
+  font-size: 12px;
+  line-height: 1.7;
+  white-space: normal;
+}
+.article .pager p a {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: 2px;
+  color: var(--school-ink);
+  font-size: 14px;
+  text-decoration: none;
+}
+.article .pager p a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.article .pager p:hover { border-color: #b9cfe6; background: #fff; box-shadow: var(--ui-shadow); }
+.article .pager p:hover a { color: var(--school-blue); }
+.article .pager p:last-child {
+  grid-column: 1 / -1;
+  justify-self: center;
+  padding: 4px 8px;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+.article .pager p:last-child a { font-size: 13px; color: var(--school-blue-dark); }
+
+/* ---------- 10. 页脚 ---------- */
+.friendlinks a { text-decoration: none; }
+.friendlinks a:hover { color: var(--school-blue); }
+.footer {
+  position: relative;
+  margin-top: 24px;
+  background: linear-gradient(180deg, #14448c 0%, var(--school-blue-deep) 100%);
+}
+.footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .35), transparent);
+}
+.footer a:hover { color: #fff; }
+
+/* ---------- 11. 进场与滚动浮现 ---------- */
+@keyframes ui-fade-up { from { opacity: 0; transform: translateY(10px); } }
+@keyframes ui-reveal { from { opacity: 0; transform: translateY(18px); } }
+@keyframes ui-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 页面切换时，首屏内容淡入上移；fill 用 backwards，结束后不残留 transform */
+  .page-head h2, .page-head p,
+  .main > .wrap > :nth-child(-n+2) { animation: ui-fade-up .55s var(--ui-ease) backwards; }
+  .page-head p { animation-delay: .06s; }
+  .main > .wrap > :nth-child(2) { animation-delay: .08s; }
+
+  /* 支持滚动驱动动画的浏览器：区块进入视口时逐个浮现；不支持则直接显示 */
+  @supports (animation-timeline: view()) {
+    .main > .wrap > :nth-child(n+3),
+    .report-list > li, .photo-archive-card, .archive-month, .topic-card {
+      animation: ui-reveal linear backwards;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -868,122 +1304,82 @@ img { background-color: #f2f6fa; }
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
+  .carousel .dots .progress { display: none; }
 }
 
-/* ---------- 2. 卡片与列表的视觉统一 ---------- */
-.report-list li,
-.topic-card,
-.side-box,
-.photo-archive-card,
-.archive-intro,
-.content-card,
-.page-main {
-  border-radius: var(--ui-radius);
-}
-.report-photo img,
-.photo-archive-image img {
-  border-radius: 4px;
-}
-@media (hover: hover) {
-  .report-list li:hover { box-shadow: var(--ui-shadow-hover); }
-  .topic-card:hover { box-shadow: var(--ui-shadow-hover); transform: translateY(-2px); }
-  .photo-archive-card:hover { box-shadow: var(--ui-shadow-hover); }
+/* 打印时不做任何动画，避免未滚到的区块保持透明 */
+@media print {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .nav { position: static; }
 }
 
-/* 焦点可见性（键盘与读屏用户） */
-a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
-  outline: 2px solid var(--school-blue);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-/* ---------- 3. 平板：1240px 以下的微调 ---------- */
+/* ---------- 12. 平板：1240px 以下 ---------- */
 @media (max-width: 1240px) {
   .carousel { height: auto; aspect-ratio: 16 / 10; }
-  .carousel .caption { white-space: normal; }
   .headline { height: auto; }
 }
 
-/* ---------- 4. 手机：640px 以下的主体改造 ---------- */
+/* ---------- 13. 手机：640px 以下 ---------- */
 @media (max-width: 640px) {
-  /* 4.1 字号与行高：正文从 14px 提到 15.5px，长文更好读 */
+  :root { --nav-h: 92px; --cap-h: 82px; }
+
+  /* 字号与行高：正文 15.5px，长文更好读 */
   body { font-size: 15.5px; line-height: 1.75; }
   .page-main p, .content-card p, .article .body p, .report-list p { line-height: 1.85; }
   .article h1, .report-list h3 { line-height: 1.45; }
 
-  /* 4.2 顶部工具条：隐藏日期，链接单行横向滚动，省一行高度 */
+  /* 顶部工具条：隐藏日期，链接单行横向滚动 */
   .topbar { height: 34px; line-height: 34px; font-size: 12px; }
-  .topbar .wrap {
-    flex-wrap: nowrap; justify-content: center;
-    overflow-x: auto; scrollbar-width: none;
-  }
+  .topbar .wrap { flex-wrap: nowrap; justify-content: center; overflow-x: auto; scrollbar-width: none; }
   .topbar .wrap::-webkit-scrollbar { display: none; }
   .topbar .wrap > span:first-child { display: none; }
   .topbar a { margin-left: 0; white-space: nowrap; }
 
-  /* 4.3 导航：吸顶 + 更大的触控面积 */
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 40;
-    box-shadow: 0 2px 12px rgba(16, 54, 111, .16);
-  }
+  /* 导航：更大的触控面积 */
   .nav li a {
     min-height: 46px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14.5px;
+    letter-spacing: 1px;
   }
+  .nav li a::after { width: 36%; }
 
-  /* 4.4 轮播：按比例自适应，标题不再被截成一行省略号 */
+  /* 轮播：按比例自适应，标题最多两行，指示器不再压住标题 */
   .carousel { height: auto; aspect-ratio: 4 / 3; }
-  .carousel .caption {
-    font-size: 13.5px;
-    line-height: 1.5;
-    padding: 8px 12px;
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-  .carousel .dots { right: 8px; bottom: 52px; gap: 8px; }
-  .carousel .dots span {
-    width: 30px; height: 30px; line-height: 30px;
-    border-radius: 4px; font-size: 12px;
-  }
+  .carousel .caption { height: var(--cap-h); font-size: 13.5px; line-height: 1.5; padding: 9px 12px; }
+  .carousel .dots { right: 10px; bottom: calc(var(--cap-h) + 10px); }
+  .carousel .dots button { width: 26px; height: 30px; }
+  .carousel .dots button.on { width: 46px; }
+  .carousel .dots .progress { left: 7px; }
 
-  /* 4.5 表单：输入框 16px 防 iOS 自动放大，按钮加大到可点 */
-  .header .search input,
-  .news-search input,
-  .news-search select { font-size: 16px; min-height: 42px; }
-  .header .search button,
-  .news-search button { min-height: 42px; padding: 0 18px; font-size: 15px; }
+  /* 表单：输入框 16px 防 iOS 自动放大 */
+  .header .search input, .news-search input, .news-search select { font-size: 16px; min-height: 42px; }
+  .header .search button, .news-search button { min-height: 42px; padding: 0 18px; font-size: 15px; }
   .news-search { gap: 10px; }
 
-  /* 4.6 表格：窄屏横向滚动，不挤压列宽 */
+  /* 表格：窄屏横向滚动 */
   .pub { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .pub tbody { display: table; width: 100%; min-width: 520px; }
   .pub th, .pub td { padding: 9px 10px; }
 
-  /* 4.7 列表与卡片：留白更舒展，点击区更大 */
-  .report-list li { padding: 16px 14px; }
-  .report-list .read-link { display: inline-block; padding: 6px 0; }
+  /* 列表与卡片：留白更舒展，点击区更大 */
+  .report-list > li { padding: 16px 12px; margin: 0 -12px; }
+  .report-list > li + li::before { left: 12px; right: 12px; }
+  .report-list .read-link { padding: 6px 0; }
   .archive-entries li { padding: 14px 4px; }
   .archive-entries a { padding: 4px 0; display: inline-block; }
   .year-index a { padding: 6px 11px; font-size: 13px; }
   .archive-year-months a { padding: 6px 10px; }
 
-  /* 4.8 文章页：图片不超出、页脚留出安全区 */
+  /* 文章页 */
   .article .body img { max-width: 100%; height: auto; }
   .report-photo figcaption { font-size: 12px; line-height: 1.7; }
-  .pager p { padding: 8px 0; }
-
-  /* 4.9 圆角与阴影收敛，避免小屏上显得零碎 */
-  .col, .side-box, .content-card, .page-main { border-radius: 8px; }
+  .article .pager { grid-template-columns: 1fr; }
 }
 
-/* ---------- 5. 刘海屏安全区 ---------- */
+/* ---------- 14. 刘海屏安全区 ---------- */
 @supports (padding: env(safe-area-inset-left)) {
   .topbar, .nav, .footer {
     padding-left: env(safe-area-inset-left);
@@ -991,8 +1387,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   }
 }
 
-/* ---------- 6. 超小屏（≤380px）进一步收紧 ---------- */
+/* ---------- 15. 超小屏（≤380px） ---------- */
 @media (max-width: 380px) {
+  :root { --nav-h: 126px; }
   body { font-size: 15px; }
   .header .logo h1 { font-size: clamp(17px, 5.2vw, 22px); }
   .nav li { flex: 0 0 33.3333%; }

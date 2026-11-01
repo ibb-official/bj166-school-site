@@ -24,6 +24,15 @@ export default async function NewsPage({ searchParams }: {
   return (
     <PageLayout title="新闻中心" english="NEWS CENTER">
       <p className="noindent small-note">按原文发布日期排序 · 共{sortedNews.length}条公开报道与文件 · 核对至{contentCheckedAt}</p>
+      <nav className="year-index" aria-label="按年份浏览报道">
+        <span className="year-index-label">按年份：</span>
+        <Link href="/news" aria-current={!activeYear ? 'page' : undefined}>全部</Link>
+        {years.map((year) => (
+          <Link key={year} href={`/news?year=${year}`} aria-current={activeYear === year ? 'page' : undefined}>
+            {year}年<em>{sortedNews.filter((item) => item.date.startsWith(year)).length}</em>
+          </Link>
+        ))}
+      </nav>
       <form className="news-search" action="/news" method="get">
         <label className="visually-hidden" htmlFor="news-query">关键词</label>
         <input id="news-query" name="q" defaultValue={query} placeholder="搜索标题、内容或来源" maxLength={100} type="search" />

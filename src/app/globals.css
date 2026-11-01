@@ -706,6 +706,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .archive-entries time { flex: 0 0 42px; font-size: 12px; color: #75899a; padding-top: 2px; }
 .archive-entries span { min-width: 0; }
 .account-note, .page-main p.account-note { text-indent: 0; color: #6b8295; font-size: 12px; line-height: 1.8; margin: 10px 0 0; }
+.year-index { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0 4px; }
+.year-index-label { font-size: 12px; color: #687f91; }
+.year-index a { padding: 3px 9px; border: 1px solid #cddfee; background: #f7faff; color: var(--school-blue-dark); font-size: 12px; }
+.year-index a em { font-style: normal; color: #90a6b8; margin-left: 5px; }
+.year-index a[aria-current="page"] { background: var(--school-blue); color: #fff; border-color: var(--school-blue); }
+.year-index a[aria-current="page"] em { color: #dbe8f4; }
+.year-index a:hover { border-color: var(--school-blue); }
 .news-search { display: flex; gap: 8px; margin: 18px 0 10px; }
 .news-search input, .news-search select { border: 1px solid #b8cddf; min-height: 36px; padding: 6px 9px; background: #fff; color: #24445d; min-width: 0; }
 .news-search input { flex: 1; }

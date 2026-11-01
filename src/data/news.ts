@@ -529,6 +529,7 @@ export const newsList: NewsItem[] = [
     "id": 22,
     "title": "原创话剧《百合花颂》将校史搬上舞台",
     "date": "2023-11-09",
+    "eventDate": "2023-11-08",
     "category": "校园文化",
     "source": "北京青年报客户端",
     "sourceUrl": "https://app.bjtitle.com/8816/newshow.php?did=867950049830928&mood=&newsid=6436696&typeid=68&uid=0",

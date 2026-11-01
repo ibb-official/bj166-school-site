@@ -22,7 +22,7 @@ export default function SourcesPage() {
 
       <h3 className="block-t" id="wechat">学校微信公众号</h3>
       <AccountUpdates />
-      <p className="noindent small-note">账号简介：{schoolAccount.introduction} 目录覆盖{schoolAccount.historyFrom.replace('-', '年')}至今，保留{accountUpdates.length}条历史推送标题。完整年份与月份目录见<Link href="/wechat">公众号档案</Link>。2026年条目据微信历史目录核对，历年条目标题与推送日期据公开索引补充；其中已核读正文的8篇推送整理为新闻中心编号26—33的条目。</p>
+      <p className="noindent small-note">账号简介：{schoolAccount.introduction} 目录覆盖{schoolAccount.historyFrom.replace('-', '年')}至今，保留{accountUpdates.length}条历史推送标题。完整年份与月份目录见<Link href="/wechat">公众号档案</Link>。2026年条目据微信历史目录核对，历年条目标题与推送日期据公开索引补充；其中已核读正文的推送整理为新闻中心条目。附属校尉胡同小学公众号另有13条标题目录，与本校账号分开维护。</p>
       <p className="noindent small-note">公众号原文为分享链接，可能随时间失效；失效时可按账号名称与推送标题在微信内检索。仅取到标题的推送不制作未经核验的文章链接或二维码。</p>
       <p className="noindent">另有可公开阅读的学校公众号转载：<Link href="/news/9">“美境行动”全国特等奖报道</Link>，可由转载页阅读相关信息。</p>
 

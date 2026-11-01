@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import PageLayout from '@/components/PageLayout';
-import { accountMonths, accountUpdates, accountYears, schoolAccount } from '@/data/sources';
+import {
+  accountMonths, accountUpdates, accountYears, schoolAccount,
+  attachedAccount, attachedMonths, attachedUpdates, attachedYears
+} from '@/data/sources';
 
 export const metadata = {
   title: '公众号档案 - 北京市第一六六中学（非正式网站）',
@@ -78,8 +81,36 @@ export default async function WechatArchivePage({ searchParams }: {
         );
       })}
       {entries.length === 0 && <div className="empty-results">没有匹配的标题，可调整年份、月份或关键词。</div>}
+
+      <h3 className="block-t" id="attached">{attachedAccount.name}<span>{attachedUpdates.length}条</span></h3>
+      <p className="noindent small-note">
+        认证主体：{attachedAccount.certifiedEntity}。附属校尉胡同小学与本校为不同发布主体，推送单独列出，不与本校条目混排。
+        下列标题与推送日期据公开索引整理（核对日期：{attachedAccount.checkedAt}），多数未核读正文。
+      </p>
+      <nav className="archive-year-groups" aria-label="附属小学按年份浏览">
+        {attachedYears.map((value) => (
+          <div className="archive-year-group" key={`att-${value}`}>
+            <span className="archive-year">{value}年</span>
+            <span className="archive-year-months">
+              <span className="small-note">{attachedMonths.filter((m) => m.startsWith(value)).length}个月·{attachedUpdates.filter((i) => i.date.startsWith(value)).length}条</span>
+            </span>
+          </div>
+        ))}
+      </nav>
+      {attachedYears.map((value) => {
+        const items = attachedUpdates.filter((item) => item.date.startsWith(value));
+        return (
+          <section className="archive-month" key={`att-sec-${value}`}>
+            <h3 className="block-t">{value}年<span>{items.length}条</span></h3>
+            <ul className="archive-entries">
+              {items.map((item) => <li key={item.date + item.title}><time dateTime={item.date}>{item.date.slice(5)}</time><span>{item.title}</span></li>)}
+            </ul>
+          </section>
+        );
+      })}
+
       <div className="source-note">
-        本页是历史推送标题目录，未逐篇核读完整正文（已在<Link href="/news">新闻中心</Link>整理的报道除外）。查阅原文可在微信中搜索“{schoolAccount.name}”，核对认证主体后按标题查找。
+        本页是历史推送标题目录，未逐篇核读完整正文（已在<Link href="/news">新闻中心</Link>整理的报道除外）。查阅原文可在微信中搜索“{schoolAccount.name}”或“{attachedAccount.name}”，核对认证主体后按标题查找。
         日期指推送日期，不等同于活动日期；本目录不代表该时段的全部推送。招生查询、招聘、个人介绍及与校园活动无关的转载不予收录。
       </div>
     </PageLayout>

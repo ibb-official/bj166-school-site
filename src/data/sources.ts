@@ -1,5 +1,6 @@
 import accountArchive from './wechat-2026.json';
 import accountArchiveHistory from './wechat-archive.json';
+import attachedArchive from './wechat-attached.json';
 
 export const schoolMap = {
   title: '北京市第一六六中学（灯市口校区）',
@@ -29,6 +30,18 @@ export const accountUpdates: AccountUpdate[] = [...accountArchive, ...accountArc
   .sort((a, b) => b.date.localeCompare(a.date));
 export const accountMonths = [...new Set(accountUpdates.map((item) => item.date.slice(0, 7)))].sort().reverse();
 export const accountYears = [...new Set(accountUpdates.map((item) => item.date.slice(0, 4)))].sort().reverse();
+
+// 附属校尉胡同小学公众号：与本校账号分开维护，仅整理标题与推送日期，未核读正文。
+export const attachedAccount = {
+  name: '北京第166中学附属校尉胡同小学',
+  certifiedEntity: '北京市第一六六中学附属校尉胡同小学',
+  checkedAt: '2026-11-01'
+};
+
+export const attachedUpdates: AccountUpdate[] = [...attachedArchive]
+  .sort((a, b) => b.date.localeCompare(a.date));
+export const attachedMonths = [...new Set(attachedUpdates.map((item) => item.date.slice(0, 7)))].sort().reverse();
+export const attachedYears = [...new Set(attachedUpdates.map((item) => item.date.slice(0, 4)))].sort().reverse();
 
 export const policySources = [
   {

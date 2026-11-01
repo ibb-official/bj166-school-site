@@ -35,6 +35,5 @@ next-env.d.ts
 
 # 本地抓取临时文件（勿入库）
 /_tmpimg/
-/a*.html
-/ddg*.html
+/*.html
 /bjsearch.html

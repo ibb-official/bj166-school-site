@@ -8,6 +8,8 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
+    networks:
+      - bj166-net
     read_only: true
     tmpfs:
       - /tmp
@@ -29,3 +31,12 @@ services:
       options:
         max-size: "20m"
         max-file: "5"
+
+networks:
+  bj166-net:
+    name: bj166-site_default
+    ipam:
+      config:
+        - subnet: 172.20.1.0/24
+          gateway: 172.20.1.1
+

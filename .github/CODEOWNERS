@@ -1,0 +1,9 @@
+# CODEOWNERS — 自动请求评审的人
+#
+# 作用：任何 PR 一开出来，GitHub 就会自动向下列所有人发评审请求（通知 + 邮件），
+# 谁先看完谁批准即可合并；其余人仍可评论、提「Suggested changes」、点 Request changes 否决。
+#
+# 注意：CODEOWNERS 里写的必须是「对该文件有写权限」的账号，团队也算；本仓库团队
+# website-maintainers 目前只有 pull 权限，写团队名会被忽略，所以这里逐个列出协作者。
+# 新增/移除协作者后请同步更新本文件（否则新人收不到评审请求）。
+* @huihiya @guaiqi1964-dev @IGNGserver @hxsx1016 @ljy111222

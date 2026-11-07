@@ -3,7 +3,7 @@
 // 规则：只写有出处的事实；教师（含历任校长、指导教师）不写姓名；未核实项不收录。
 // 资料核对：2026-11-01。
 
-export const historyCheckedAt = '2026-11-01';
+export const historyCheckedAt = '2026-11-07';
 
 export interface HistorySource {
   key: string;
@@ -20,7 +20,16 @@ export const historySources: HistorySource[] = [
   { key: 'commons', title: 'Beijing No.166 Middle School（3幅）', publisher: '维基共享资源 · 摄影 N509FZ', url: 'https://commons.wikimedia.org/wiki/File:Beijing_No.166_Middle_School_(20201211103954).jpg', note: 'CC BY-SA 4.0。' },
   { key: 'music-weekly', title: '北京市第一六六中学金帆管乐团委约新作《缤纷幻想曲》首演（标题含作曲者姓名，此处从略）', publisher: '音乐周报（微信公众号）· 2023-12-05', note: '管乐团成立年份、金帆首批、委约作品与附小管乐团。微信分享链接有时效，可按标题检索。' },
   { key: 'drama-2017', title: '预告∣一六六金帆话剧团，给你一个别样的“梦”', publisher: '北京市第166中学（微信公众号）· 2017-11-21', note: '年度专场传统与《仲夏夜之梦》改编。微信分享链接有时效，可按标题检索。' },
-  { key: 'liangxiang-2017', title: '我校干部师生参加北京市166中学金帆话剧团专场演出活动', publisher: '北京市房山区良乡第五中学（微信公众号）· 2017-11-28', note: '演出日期与剧场。' }
+  { key: 'liangxiang-2017', title: '我校干部师生参加北京市166中学金帆话剧团专场演出活动', publisher: '北京市房山区良乡第五中学（微信公众号）· 2017-11-28', note: '演出日期与剧场。' },
+  { key: 'drama-2018-lincoln', title: '“你好！2018”北京市学生金帆艺术团专场演出在林肯艺术中心上演', publisher: '京城教育圈（微信公众号）· 2018-02', note: '话剧团与六十五中、二中舞蹈团合作演出《红楼梦》片段。微信分享链接有时效，可按标题检索。' },
+  { key: 'drama-2018-chaguan', title: '年度大戏∣《茶馆》', publisher: '北京市第166中学（微信公众号）· 2018-11', note: '39位学生演员演绎46个角色；同文列出历年大戏剧目清单。' },
+  { key: 'drama-2019-chaguan', title: '致敬经典∣新版《茶馆》亮相东城区文化馆风尚剧场', publisher: '北京市第166中学（微信公众号）· 2019-11', note: '45位学生演员演绎50个角色，其中37名为戏剧“零起点”非特长生。' },
+  { key: 'drama-2022-laoshe', title: '《茶馆》入选第六届老舍戏剧节“戏剧之夜”', publisher: '北京市第166中学（微信公众号）· 2022-12', note: '网络直播，时长100分钟。' },
+  { key: 'drama-2023-baihua', title: '北京青年报·教育圆桌：一六六中金帆话剧团建团18周年', publisher: '北京青年报（微信公众号）· 2023-11-10', note: '话剧团2005年成立、2008年获评北京市第一个中学生金帆话剧团；与校方2017年“2007年”一说存在一年出入。' },
+  { key: 'dch-2023-zhonghua', title: '东城5校获“中华杯”示范乐团称号', publisher: '北京市东城区人民政府（区教委供稿）· 2023-05-08', url: 'https://www.bjdch.gov.cn/ywdt/bmdt/202305/t20230508_3090091.html', note: '学校为高中组示范乐团之一。' },
+  { key: 'school-2026-shendu', title: '慎独修身，涵养博雅——团校新学期第一课', publisher: '北京市第166中学（微信公众号）· 2026-03-09', note: '校方对“慎独石”的正式释义：表里如一、心口如一、始终如一。' },
+  { key: 'school-2018-guanyinbei', title: '加拿大普林斯顿中学代表团来访', publisher: '北京市第166中学（微信公众号）· 2018-11-15', note: '参观路线含冰心像、百草园、佟府观音碑、校史馆。' },
+  { key: 'bjnews-2023-postcard', title: '阳光明媚，爱满校园——手绘明信片活动', publisher: '新京报 · 2023-05-10', url: 'https://www.bjnews.com.cn/detail/168372773214474.html', note: '学生描绘的校园景物：慎独石、冰心像、玉兰花、教学楼、百草园。' }
 ];
 
 export interface HistoryEvent {
@@ -125,10 +134,11 @@ export const alumni: Alumnus[] = [
 export interface Landmark { name: string; text: string; newsId?: number; source?: string }
 
 export const landmarks: Landmark[] = [
-  { name: '冰心像', text: '校园内的冰心雕像，常见于学生写生与来访参观。', newsId: 43 },
-  { name: '百草园', text: '校园园地，2023年手绘明信片活动的题材之一。', newsId: 43 },
-  { name: '慎独石', text: '校园立石，同样出现在学生的明信片画作中。', newsId: 43 },
-  { name: '校史馆', text: '2024年校庆期间，返校活动安排了校史馆讲解。', newsId: 20 },
+  { name: '慎独石', text: '矗立在入校必经之路上的立石，石上刻“慎独”二字。学校在团校课程中把“慎独”概括为三个“如一”——表里如一、心口如一、始终如一，并联系王阳明的“知行合一”；课程以《慎独箴》收束，其中“养得浩然气，光明照大千”一句被用来概括修身目标。“慎独”与“博雅”并列为学校的育人追求。', newsId: 67, source: 'school-2026-shendu' },
+  { name: '冰心像', text: '校园内的冰心雕像，像旁植玉兰，常见于学生写生、明信片画作与来访参观路线。', newsId: 43 },
+  { name: '百草园', text: '校园园地，内有亭子，被学生称作最能体现校园春日美景的地方；2023年手绘明信片活动的题材之一。', newsId: 43 },
+  { name: '佟府观音碑', text: '校园景观之一，以“佟府”冠名，与校园原为佟国维府邸的沿革相衔接，已列入外事参观路线。立碑年代、碑文内容与文物身份未见公开说明。', source: 'school-2018-guanyinbei' },
+  { name: '校史馆', text: '新生入学教育的固定参观场所，讲解内容为学校一百多年的沿革；2024年校庆期间，返校活动也安排了校史馆讲解。', newsId: 20 },
   { name: '贝满女中建筑遗存', text: '位于灯市口大街55号，建于清朝晚期，2009年列为东城区文物保护单位。现存三栋楼：邵氏楼、贝氏楼与贝满中斋；贝满中斋中间为四层钟楼，南门上方有砖刻门额“贝满中斋”。', source: 'wiki' }
 ];
 

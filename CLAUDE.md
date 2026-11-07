@@ -122,7 +122,23 @@ src/
 **当前链路**：推 `main` → GitHub Actions 构建 Docker 镜像推 GHCR → SSH 到 sofia-vps →
 执行受控部署脚本 → 健康检查 200 → 上线。
 
-- 本机推送用 **SSH key**：`GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519_bj166" git push origin main`
+- **推送方式：强制合并（用户 2026-11-07 明确要求）**
+  PR #9 之后 `main` 已开启分支保护（提示 `Changes must be made through a pull request`）并加了 CODEOWNERS。
+  仓库所有者账号直推仍可绕过，GitHub 会打印 `Bypassed rule violations for refs/heads/main` ——
+  这是**预期行为，不是错误**。用户已确认继续用这种方式，**不需要开 PR、不需要等评审**。
+
+  标准命令（PowerShell；密钥路径要用 `Join-Path`，反斜杠会被 PowerShell 吃掉导致 `Permission denied`）：
+
+  ```powershell
+  $k = Join-Path $env:USERPROFILE ".ssh/id_ed25519_bj166"
+  $env:GIT_SSH_COMMAND = "ssh -i `"$k`""
+  git fetch origin
+  git rebase origin/main      # 远端可能有别人推的提交，先 rebase 再推
+  git push origin HEAD:main
+  ```
+
+  若报 `! [rejected] ... (fetch first)`，说明远端又前进了，重新 `fetch` + `rebase` 再推即可。
+  推送前仍须 `npm run build && npm run lint` 通过（注意本机 PowerShell 执行策略禁止 `npm.ps1`，要用 **`npm.cmd`**）。
 - 部署约 2—3 分钟，可用公开 API 查状态：
   `https://api.github.com/repos/ibb-official/bj166-school-site/actions/runs?per_page=1`
 - **协作者 IGNGserver 维护生产机**。他明确的边界（勿再提议）：
@@ -198,12 +214,14 @@ src/
 ## 十一、常用命令
 
 ```bash
-npm run dev                    # 开发
+npm run dev                    # 开发（PowerShell 下用 npm.cmd run dev）
 npm run build && npm run lint  # 提交前必跑
 npx next start -p 3000         # 本地预览
 
-# 推送
-GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519_bj166" git push origin main
+# 推送（强制合并，见第七节；PowerShell 用 Join-Path 拼密钥路径）
+$k = Join-Path $env:USERPROFILE ".ssh/id_ed25519_bj166"
+$env:GIT_SSH_COMMAND = "ssh -i `"$k`""
+git fetch origin && git rebase origin/main && git push origin HEAD:main
 
 # 查部署
 curl -s "https://api.github.com/repos/ibb-official/bj166-school-site/actions/runs?per_page=1"

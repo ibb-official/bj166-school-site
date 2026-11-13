@@ -13,7 +13,7 @@
 | --- | --- |
 | 线上 | https://bj166zx.cn |
 | 仓库 | https://github.com/ibb-official/bj166-school-site |
-| 本机工作目录 | `D:\DeepSeekHarness\ibb官网` |
+| 本机工作目录 | `/Users/huihui/Documents/deepseek-harness/166官网`（macOS，2026-11-13 迁入） |
 | 本地预览 | `npx next start -p 3000` → http://127.0.0.1:3000 |
 | 生产机 | `sofia-vps`（108.165.233.143，hostname `r-server89187-mls`），Docker + Caddy |
 
@@ -127,18 +127,19 @@ src/
   仓库所有者账号直推仍可绕过，GitHub 会打印 `Bypassed rule violations for refs/heads/main` ——
   这是**预期行为，不是错误**。用户已确认继续用这种方式，**不需要开 PR、不需要等评审**。
 
-  标准命令（PowerShell；密钥路径要用 `Join-Path`，反斜杠会被 PowerShell 吃掉导致 `Permission denied`）：
+  标准命令（macOS / bash；首次推送前先 `gh auth setup-git` 把已登录的 gh 接成 git 凭据，
+  或改用 SSH 密钥 `export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519_bj166"`）：
 
-  ```powershell
-  $k = Join-Path $env:USERPROFILE ".ssh/id_ed25519_bj166"
-  $env:GIT_SSH_COMMAND = "ssh -i `"$k`""
+  ```bash
+  gh auth setup-git          # 仅首次：HTTPS 走已登录的 gh 凭据
   git fetch origin
-  git rebase origin/main      # 远端可能有别人推的提交，先 rebase 再推
+  git rebase origin/main     # 远端可能有别人推的提交，先 rebase 再推
   git push origin HEAD:main
   ```
 
   若报 `! [rejected] ... (fetch first)`，说明远端又前进了，重新 `fetch` + `rebase` 再推即可。
-  推送前仍须 `npm run build && npm run lint` 通过（注意本机 PowerShell 执行策略禁止 `npm.ps1`，要用 **`npm.cmd`**）。
+  推送前仍须 `npm run build && npm run lint` 通过（本机 Node 26 / npm 11 可直接用；
+  `next start` 会提示 `"next start" does not work with "output: standalone"`，只是告警，本地预览不受影响）。
 - 部署约 2—3 分钟，可用公开 API 查状态：
   `https://api.github.com/repos/ibb-official/bj166-school-site/actions/runs?per_page=1`
 - **协作者 IGNGserver 维护生产机**。他明确的边界（勿再提议）：
@@ -214,13 +215,11 @@ src/
 ## 十一、常用命令
 
 ```bash
-npm run dev                    # 开发（PowerShell 下用 npm.cmd run dev）
+npm run dev                    # 开发，http://127.0.0.1:3000（热更新）
 npm run build && npm run lint  # 提交前必跑
-npx next start -p 3000         # 本地预览
+npx next start -p 3000         # 本地预览生产构建
 
-# 推送（强制合并，见第七节；PowerShell 用 Join-Path 拼密钥路径）
-$k = Join-Path $env:USERPROFILE ".ssh/id_ed25519_bj166"
-$env:GIT_SSH_COMMAND = "ssh -i `"$k`""
+# 推送（强制合并，见第七节；macOS 走 HTTPS，首次先 gh auth setup-git）
 git fetch origin && git rebase origin/main && git push origin HEAD:main
 
 # 查部署

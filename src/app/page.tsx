@@ -2,6 +2,7 @@ import Link from '@/components/Link';
 import Carousel from '@/components/Carousel';
 import NewsLinks from '@/components/NewsLinks';
 import AccountUpdates from '@/components/AccountUpdates';
+import EditorialNotes from '@/components/EditorialNotes';
 import { contentCheckedAt, getNews, photoNews, sortedNews } from '@/data/news';
 import { accountUpdates, schoolMap } from '@/data/sources';
 
@@ -69,6 +70,7 @@ export default function HomePage() {
                   <a className="small-note" href={schoolMap.url} target="_blank" rel="noreferrer">学校基本类型据政务地图（2025-06-12）</a>
                 </div>
               </div>
+              <EditorialNotes />
             </aside>
           </div>
 

@@ -29,6 +29,7 @@ export default function PageLayout({ title, english, children, sidebar }: {
                   <Link href="/photos">校园影像</Link>
                   <Link href="/wechat">学校公众号档案</Link>
                   <Link href="/disclosure">公开文件目录</Link>
+                  <Link href="/finance">财政数据</Link>
                   <Link href="/sources">报道来源清单</Link>
                 </div>
               </div>

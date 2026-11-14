@@ -2,6 +2,7 @@ import Link from '@/components/Link';
 import Carousel from '@/components/Carousel';
 import NewsLinks from '@/components/NewsLinks';
 import AccountUpdates from '@/components/AccountUpdates';
+import FinanceOverview from '@/components/FinanceOverview';
 import { contentCheckedAt, getNews, photoNews, sortedNews } from '@/data/news';
 import { accountUpdates, schoolMap } from '@/data/sources';
 
@@ -91,6 +92,8 @@ export default function HomePage() {
               ))}
             </div>
           </section>
+
+          <FinanceOverview />
 
           <section className="account-section" id="wechat">
             <div className="sec-title"><h3>公众号动态</h3><Link className="more" href="/wechat">按年份查阅{accountUpdates.length}条标题&gt;&gt;</Link></div>

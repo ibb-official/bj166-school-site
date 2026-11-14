@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/wechat', priority: 0.6, changeFrequency: 'weekly' as const },
     { path: '/policy', priority: 0.5, changeFrequency: 'monthly' as const },
     { path: '/disclosure', priority: 0.5, changeFrequency: 'monthly' as const },
+    { path: '/finance', priority: 0.6, changeFrequency: 'yearly' as const, checkedAt: '2026-11-14T00:00:00+08:00' },
     { path: '/sources', priority: 0.5, changeFrequency: 'monthly' as const },
     { path: '/contact', priority: 0.3, changeFrequency: 'yearly' as const }
   ];
@@ -22,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticRoutes.map((route) => ({
       url: `${BASE}${route.path}`,
-      lastModified: new Date(checkedAt),
+      lastModified: new Date(route.checkedAt ?? checkedAt),
       changeFrequency: route.changeFrequency,
       priority: route.priority
     })),

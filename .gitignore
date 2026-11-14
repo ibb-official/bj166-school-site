@@ -33,6 +33,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# 本地研究报告及原始证据（不公开、不参与构建）
+/reports/
+
 # 本地抓取临时文件（勿入库）
 /_tmpimg/
 /*.html

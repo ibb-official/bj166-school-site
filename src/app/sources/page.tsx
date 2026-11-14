@@ -21,6 +21,11 @@ export default function SourcesPage() {
         <li><Link href="/news/13">东教印象：2026年“1+3”培养实验学校简介</Link><span>2026-07-20 · 创办年份、历史名称、校训及课程介绍。</span></li>
       </ul>
 
+      <h3 className="block-t" id="finance">财政公开资料</h3>
+      <ul className="source-directory">
+        <li><Link href="/finance#sources">2022—2026年初预算与2021—2025年度决算原文索引</Link><span>资料核对：2026-11-14 · 10份主校文件，包含政府发布页、PDF直链及物理页码；附属小学未合并。</span></li>
+      </ul>
+
       <h3 className="block-t" id="history">校史与艺术团资料</h3>
       <ul className="source-directory">
         {historySources.map((item) => <li key={item.key}>{item.url ? <a href={item.url} target="_blank" rel="noreferrer">{item.title} ↗</a> : <span>{item.title}</span>}<span>{item.publisher}{item.note ? ` · ${item.note}` : ''}</span></li>)}

@@ -25,6 +25,9 @@ export default function DisclosurePage() {
         ))}
       </ul>
 
+      <h3 className="block-t">财政数据</h3>
+      <p>单独整理主校2022—2026年初预算、2021—2025年度决算和政府采购分类，按全口径与财政拨款分开列示，每年均附官方原表；附属小学未合并。<Link className="read-link" href="/finance">查看年度财政数据与原文 &gt;&gt;</Link></p>
+
       <h3 className="block-t">阅读说明</h3>
       <table className="pub">
         <tbody>

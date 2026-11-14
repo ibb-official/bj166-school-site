@@ -1,0 +1,464 @@
+{
+  "budgets": [
+    {
+      "year": 2022,
+      "sourceId": "B2022",
+      "total": "10627.77",
+      "income": "10127.77",
+      "carry": "500.00",
+      "fiscal_income": "10001.89",
+      "basic": "10456.96",
+      "project": "170.82",
+      "proc": "0.00",
+      "sangong": "5.40",
+      "fiscal_total": "10001.89",
+      "fiscal_basic": "9831.07",
+      "fiscal_project": "170.82",
+      "fiscal_page": 10,
+      "proc_page": 23,
+      "three_page": 14,
+      "total_page": 4,
+      "expend_page": 6
+    },
+    {
+      "year": 2023,
+      "sourceId": "B2023",
+      "total": "11334.14",
+      "income": "10925.23",
+      "carry": "408.91",
+      "fiscal_income": "10735.28",
+      "basic": "10994.73",
+      "project": "339.40",
+      "proc": "83.00",
+      "sangong": "5.40",
+      "fiscal_total": "10735.28",
+      "fiscal_basic": "10404.78",
+      "fiscal_project": "330.50",
+      "fiscal_page": 10,
+      "proc_page": 8,
+      "three_page": 14,
+      "total_page": 4,
+      "expend_page": 6
+    },
+    {
+      "year": 2024,
+      "sourceId": "B2024",
+      "total": "11637.62",
+      "income": "11261.26",
+      "carry": "376.36",
+      "fiscal_income": "11115.34",
+      "basic": "11198.06",
+      "project": "439.57",
+      "proc": "140.72",
+      "sangong": "5.40",
+      "fiscal_total": "11115.34",
+      "fiscal_basic": "10702.14",
+      "fiscal_project": "413.20",
+      "fiscal_page": 10,
+      "proc_page": 8,
+      "three_page": 14,
+      "total_page": 4,
+      "expend_page": 6
+    },
+    {
+      "year": 2025,
+      "sourceId": "B2025",
+      "total": "11991.97",
+      "income": "11308.05",
+      "carry": "683.92",
+      "fiscal_income": "11143.01",
+      "basic": "11582.45",
+      "project": "409.52",
+      "proc": "132.00",
+      "sangong": "5.40",
+      "fiscal_total": "11216.93",
+      "fiscal_basic": "10807.41",
+      "fiscal_project": "409.52",
+      "fiscal_page": 10,
+      "proc_page": 8,
+      "three_page": 14,
+      "total_page": 4,
+      "expend_page": 6
+    },
+    {
+      "year": 2026,
+      "sourceId": "B2026",
+      "total": "12041.54",
+      "income": "11431.54",
+      "carry": "610.00",
+      "fiscal_income": "11268.42",
+      "basic": "12005.33",
+      "project": "36.21",
+      "proc": "3.24",
+      "sangong": "5.40",
+      "fiscal_total": "11268.42",
+      "fiscal_basic": "11232.21",
+      "fiscal_project": "36.21",
+      "fiscal_page": 9,
+      "proc_page": 7,
+      "three_page": 13,
+      "total_page": 4,
+      "expend_page": 6
+    }
+  ],
+  "finals": [
+    {
+      "year": 2021,
+      "sourceId": "D2021",
+      "total": "12518.00",
+      "income": "11628.21",
+      "expend": "12261.37",
+      "basic": "10902.75",
+      "project": "1358.62",
+      "fiscal_income": "11494.50",
+      "fiscal_expend": "12018.22",
+      "fiscal_basic": "10681.40",
+      "fiscal_project": "1336.81",
+      "proc": "286.79",
+      "goods": "286.79",
+      "works": "0.00",
+      "services": "0.00",
+      "sangong": "1.28",
+      "total_page": 7,
+      "income_page": 8,
+      "expend_page": 9,
+      "fiscal_page": 11,
+      "proc_page": 17,
+      "three_page": 15
+    },
+    {
+      "year": 2022,
+      "sourceId": "D2022",
+      "total": "13600.75",
+      "income": "12641.67",
+      "expend": "12755.69",
+      "basic": "12055.73",
+      "project": "699.96",
+      "fiscal_income": "12453.05",
+      "fiscal_expend": "12561.13",
+      "fiscal_basic": "11861.17",
+      "fiscal_project": "699.96",
+      "proc": "208.74",
+      "goods": "208.74",
+      "works": "0.00",
+      "services": "0.00",
+      "sangong": "0.64",
+      "total_page": 7,
+      "income_page": 8,
+      "expend_page": 9,
+      "fiscal_page": 11,
+      "proc_page": 17,
+      "three_page": 15
+    },
+    {
+      "year": 2023,
+      "sourceId": "D2023",
+      "total": "13385.17",
+      "income": "12252.20",
+      "expend": "12352.28",
+      "basic": "11200.43",
+      "project": "1151.86",
+      "fiscal_income": "12099.57",
+      "fiscal_expend": "12099.57",
+      "fiscal_basic": "11029.62",
+      "fiscal_project": "1069.95",
+      "proc": "202.57",
+      "goods": "55.14",
+      "works": "0.00",
+      "services": "147.43",
+      "sangong": "0.70",
+      "total_page": 4,
+      "income_page": 5,
+      "expend_page": 6,
+      "fiscal_page": 9,
+      "proc_page": 15,
+      "three_page": 14
+    },
+    {
+      "year": 2024,
+      "sourceId": "D2024",
+      "total": "14005.080603",
+      "income": "13316.751695",
+      "expend": "13442.497038",
+      "basic": "11776.990062",
+      "project": "1665.506976",
+      "fiscal_income": "12532.081154",
+      "fiscal_expend": "12532.081154",
+      "fiscal_basic": "11376.421730",
+      "fiscal_project": "1155.659424",
+      "proc": "319.358628",
+      "goods": "168.784300",
+      "works": "0.000000",
+      "services": "150.574328",
+      "sangong": "1.265810",
+      "total_page": 4,
+      "income_page": 5,
+      "expend_page": 6,
+      "fiscal_page": 9,
+      "proc_page": 15,
+      "three_page": 14
+    },
+    {
+      "year": 2025,
+      "sourceId": "D2025",
+      "total": "13846.817816",
+      "income": "13284.234251",
+      "expend": "13362.636782",
+      "basic": "11842.143420",
+      "project": "1520.493362",
+      "fiscal_income": "13053.825623",
+      "fiscal_expend": "13053.825623",
+      "fiscal_basic": "11735.125261",
+      "fiscal_project": "1318.700362",
+      "proc": "2507.132257",
+      "goods": "939.806300",
+      "works": "606.704253",
+      "services": "960.621704",
+      "sangong": "1.419872",
+      "total_page": 4,
+      "income_page": 5,
+      "expend_page": 6,
+      "fiscal_page": 8,
+      "proc_page": 14,
+      "three_page": 13
+    }
+  ],
+  "notes": [
+    {
+      "id": "Q01",
+      "kind": "公开文本不一致",
+      "title": "2022财政基本支出：专表与说明冲突",
+      "side_a": "D2022 p11：总支出12561.13、基本11861.17、项目699.96；p12：人员10871.46、公用989.70",
+      "side_b": "D2022 p21–22文字：基本12561.13、人员10876.04、公用1685.09",
+      "assessment": "采用专表基本11861.17；文字基本恰好等于总支出。p12分项加总11861.16比总表少0.01，为万元舍入级尾差；文字差699.96并非尾差。",
+      "needed": "原始决算电子表、勘误说明；不能以文字金额替代基本支出专表。",
+      "refs": [
+        {
+          "source_id": "D2022",
+          "physical_page": 11
+        },
+        {
+          "source_id": "D2022",
+          "physical_page": 12
+        },
+        {
+          "source_id": "D2022",
+          "physical_page": 21
+        },
+        {
+          "source_id": "D2022",
+          "physical_page": 22
+        }
+      ]
+    },
+    {
+      "id": "Q02",
+      "kind": "公开文本不一致",
+      "title": "2023三公预算出现三套数",
+      "side_a": "B2023 p14年初预算5.40万元；p21文字54000元",
+      "side_b": "D2023 p14“2023年预算”0.70万元；p24文字年初2.70、车辆年初5.40；决算均0.70",
+      "assessment": "预算序列采用独立年初预算文件5.40；决算支出0.70。保留冲突；调整预算文件未取得，不能擅把0.70称为已批准调整预算。",
+      "needed": "预算变更批准文件及决算专表勘误。",
+      "refs": [
+        {
+          "source_id": "B2023",
+          "physical_page": 14
+        },
+        {
+          "source_id": "B2023",
+          "physical_page": 21
+        },
+        {
+          "source_id": "D2023",
+          "physical_page": 14
+        },
+        {
+          "source_id": "D2023",
+          "physical_page": 24
+        }
+      ]
+    },
+    {
+      "id": "Q03",
+      "kind": "公开文本不一致",
+      "title": "2023采购表有数，表注却称无数据",
+      "side_a": "D2023 p15：采购合计202.57、货物55.14、服务147.43",
+      "side_b": "同页注：“本单位未安排政府采购支出，故本表无数据”；p25说明采购202.57",
+      "assessment": "表注与表格及正文不一致，采用有数表格并由正文交叉支持，不能据错误表注记为0。",
+      "needed": "原表说明/勘误；非资金流失结论。",
+      "refs": [
+        {
+          "source_id": "D2023",
+          "physical_page": 15
+        },
+        {
+          "source_id": "D2023",
+          "physical_page": 25
+        }
+      ]
+    },
+    {
+      "id": "Q04",
+      "kind": "公开文本不一致",
+      "title": "2024三公文字混用预算和上年决算",
+      "side_a": "D2024 p14：预算5.400000、决算1.265810；D2023决算0.70",
+      "side_b": "D2024 p25开头“其中…5.4”；车辆段称2023决算5.4，但同页另两处写2023为0.7",
+      "assessment": "标准实际数取专表1.265810，2023同比基数取0.70。不能把5.4视为额外支出。",
+      "needed": "勘误说明。",
+      "refs": [
+        {
+          "source_id": "D2024",
+          "physical_page": 14
+        },
+        {
+          "source_id": "D2024",
+          "physical_page": 25
+        },
+        {
+          "source_id": "D2023",
+          "physical_page": 14
+        }
+      ]
+    },
+    {
+      "id": "Q05",
+      "kind": "公开文本不一致",
+      "title": "2025三公说明的“其中5.40”",
+      "side_a": "D2025 p13：预算5.400000、实际1.419872",
+      "side_b": "D2025 p22：决算1.42，其中一般公共预算三公5.40；后文又明确年初预算5.40",
+      "assessment": "表格与后续说明支持1.419872为实际支出，前句存在文字口径冲突。",
+      "needed": "文字勘误，不能将1.42与5.40相加。",
+      "refs": [
+        {
+          "source_id": "D2025",
+          "physical_page": 13
+        },
+        {
+          "source_id": "D2025",
+          "physical_page": 22
+        }
+      ]
+    },
+    {
+      "id": "Q06",
+      "kind": "预算依据待澄清",
+      "title": "2026后勤项目金额与人数标准的关系",
+      "side_a": "B2026 p15：15元×185天×261人；人数指标为≤261人",
+      "side_b": "同页项目/财政资金36.21375万元；满261人算式72.4275万元；成本上限362137.49元",
+      "assessment": "满员算式是表额两倍；因人数为上限，或存在分担/分段，不能认定必然少列或造假。财政资金列已视觉核实，无资金来源冲突。成本1分差单列为微小精度差。",
+      "needed": "计费人数、财政分担比例、覆盖学期和预算测算表。",
+      "refs": [
+        {
+          "source_id": "B2026",
+          "physical_page": 15
+        },
+        {
+          "source_id": "B2026",
+          "physical_page": 9
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "B2022",
+      "year": 2022,
+      "kind": "budget",
+      "title": "北京市第一六六中学2022年单位预算公开信息",
+      "publishedAt": "2022-01-20",
+      "publicationUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmysgkzl/2022nys/qzf2022ys/202201/t20220120_2976539.html",
+      "pdfUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmysgkzl/2022nys/qzf2022ys/202201/P020230405392851633848.pdf",
+      "pages": 24
+    },
+    {
+      "id": "B2023",
+      "year": 2023,
+      "kind": "budget",
+      "title": "北京市第一六六中学2023年单位预算公开信息",
+      "publishedAt": "2023-02-14",
+      "publicationUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmysgkzl/2023nys/qzf2023ys/202302/t20230214_2976417.html",
+      "pdfUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmysgkzl/2023nys/qzf2023ys/202302/P020230405387361238825.pdf",
+      "pages": 23
+    },
+    {
+      "id": "B2024",
+      "year": 2024,
+      "kind": "budget",
+      "title": "北京市第一六六中学2024年单位预算公开信息",
+      "publishedAt": "2024-02-19",
+      "publicationUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmysgkzl/2024nys/qzf2024ys/202402/t20240219_3565296.html",
+      "pdfUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmysgkzl/2024nys/qzf2024ys/202402/P020240219535345179096.pdf",
+      "pages": 28
+    },
+    {
+      "id": "B2025",
+      "year": 2025,
+      "kind": "budget",
+      "title": "21.北京市第一六六中学2025年预算公开信息",
+      "publishedAt": "2025-02-18",
+      "publicationUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmysgkzl/2025nys/qzf2025ys/202502/t20250218_4013919.html",
+      "pdfUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmysgkzl/2025nys/qzf2025ys/202502/P020250218525502521306.pdf",
+      "pages": 27
+    },
+    {
+      "id": "B2026",
+      "year": 2026,
+      "kind": "budget",
+      "title": "北京市第一六六中学2026年预算公开信息",
+      "publishedAt": "2026-02-12",
+      "publicationUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmysgkzl/2026nys/qzf2026ys/202602/t20260212_4511006.html",
+      "pdfUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmysgkzl/2026nys/qzf2026ys/202602/P020260212531396248504.pdf",
+      "pages": 19
+    },
+    {
+      "id": "D2021",
+      "year": 2021,
+      "kind": "final",
+      "title": "北京市第一六六中学2021年度决算信息",
+      "publishedAt": "2022-08-01",
+      "publicationUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmjsgkzl/2021njs/qzf2021js/202208/t20220801_2977010.html",
+      "pdfUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmjsgkzl/2021njs/qzf2021js/202208/P020241219733109292527.pdf",
+      "pages": 30
+    },
+    {
+      "id": "D2022",
+      "year": 2022,
+      "kind": "final",
+      "title": "2022年度北京市第一六六中学决算信息",
+      "publishedAt": "2023-07-17",
+      "publicationUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmjsgkzl/2022njs/qzf2022js/202307/t20230718_3164519.html",
+      "pdfUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmjsgkzl/2022njs/qzf2022js/202307/P020230719376194504270.pdf",
+      "pages": 29
+    },
+    {
+      "id": "D2023",
+      "year": 2023,
+      "kind": "final",
+      "title": "2023年度北京市第一六六中学决算信息",
+      "publishedAt": "2024-08-02",
+      "publicationUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmjsgkzl/2023njs/qzf2023js/202408/t20240802_3765531.html",
+      "pdfUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmjsgkzl/2023njs/qzf2023js/202408/P020240802385893243763.pdf",
+      "pages": 28
+    },
+    {
+      "id": "D2024",
+      "year": 2024,
+      "kind": "final",
+      "title": "2024年度北京市第一六六中学决算信息",
+      "publishedAt": "2025-07-28",
+      "publicationUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmjsgkzl/2024njs/qzf2024js/202507/t20250723_4156158.html",
+      "pdfUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmjsgkzl/2024njs/qzf2024js/202507/P020250724571914169011.pdf",
+      "pages": 29
+    },
+    {
+      "id": "D2025",
+      "year": 2025,
+      "kind": "final",
+      "title": "2025年度北京市第一六六中学决算信息",
+      "publishedAt": "2026-07-20",
+      "publicationUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmjsgkzl/2025njs/qzf2025js/202607/t20260720_4771911.html",
+      "pdfUrl": "https://www.bjdch.gov.cn/ztzl/bmyjsgkzl/bmjsgkzl/2025njs/qzf2025js/202607/P020260720546808816987.pdf",
+      "pages": 26
+    }
+  ]
+}

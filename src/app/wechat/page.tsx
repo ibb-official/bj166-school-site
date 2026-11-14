@@ -7,7 +7,7 @@ import {
 } from '@/data/sources';
 
 export const metadata = {
-  title: '公众号档案 - 北京市第一六六中学（非正式网站）',
+  title: '公众号档案',
   description: '从学校认证公众号历史目录整理的推送标题，覆盖2016年至今，可按年份、月份查阅与搜索。'
 };
 

@@ -3,7 +3,7 @@ import PageLayout from '@/components/PageLayout';
 import { alumni, bingxin, getHistorySource, historyCheckedAt, historyEras, historyPhotoCredit, historyPhotoLicense, historyPhotos, historySources, landmarks, tongfu } from '@/data/history';
 
 export const metadata = {
-  title: '校史沿革 - 北京市第一六六中学（非正式网站）',
+  title: '校史沿革',
   description: '从1864年的贝满女塾到北京市第一六六中学：沿革时间线、佟府与同福夹道、知名校友与校园地标，均附出处。'
 };
 
@@ -88,7 +88,7 @@ export default function HistoryPage() {
           </li>
         ))}
       </ul>
-      <p className="source-note">资料核对：{historyCheckedAt}。本页不写历任校长与教师姓名；仅有网络传闻、无可靠出处的说法（如胡同轶事、校园昵称）不收录。艺术团档案见<Link href="/culture#arts">校园文化</Link>。本站为同学共建的非正式网站。</p>
+      <p className="source-note">资料核对：{historyCheckedAt}。本页不写历任校长与教师姓名；仅有网络传闻、无可靠出处的说法（如胡同轶事、校园昵称）不收录。艺术团档案见<Link href="/culture#arts">校园文化</Link>。本页为同学共建的公开资料整理。</p>
     </PageLayout>
   );
 }

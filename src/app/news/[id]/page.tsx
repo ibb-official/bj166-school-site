@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props) {
   if (!article) return { title: '报道未找到' };
   const image = article.image?.src ?? '/images/school-emblem.jpg';
   return {
-    title: `${article.title} - 北京市第一六六中学（非正式网站）`,
+    title: article.title,
     description: article.summary,
     alternates: { canonical: `/news/${article.id}` },
     openGraph: {
@@ -75,7 +75,7 @@ export default async function NewsDetailPage({ params }: Props) {
               )}
               <span>{article.source} · {article.date}</span>
               {article.relatedSources?.map((source) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer">相关资料：{source.title} ↗</a>)}
-              <p>本文为有出处的事实摘要，由同学维护的非正式网站整理；核对日期：{contentCheckedAt}。</p>
+              <p>本文为有出处的事实摘要；资料核对：{contentCheckedAt}。</p>
             </div>
             <nav className="pager" aria-label="相邻报道">
               {newer && <p>较新报道：<Link href={`/news/${newer.id}`}>{newer.title}</Link></p>}

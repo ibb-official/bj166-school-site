@@ -6,7 +6,7 @@ import { artsGroups } from '@/data/arts';
 import { getHistorySource } from '@/data/history';
 
 export const metadata = {
-  title: '校园文化 - 北京市第一六六中学（非正式网站）',
+  title: '校园文化',
   description: '从有出处的报道中了解学校阅读、书法活动，以及金帆管乐团、金帆话剧团与合唱团档案。'
 };
 

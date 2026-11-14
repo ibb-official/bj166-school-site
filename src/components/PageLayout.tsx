@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import Link from '@/components/Link';
 import NewsLinks from '@/components/NewsLinks';
-import EditorialNotes from '@/components/EditorialNotes';
 
 export default function PageLayout({ title, english, children, sidebar }: {
   title: string;
@@ -33,7 +32,6 @@ export default function PageLayout({ title, english, children, sidebar }: {
                   <Link href="/sources">报道来源清单</Link>
                 </div>
               </div>
-              <EditorialNotes />
             </aside>
           </div>
         </div>

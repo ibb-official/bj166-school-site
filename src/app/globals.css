@@ -302,23 +302,6 @@ ul, ol { list-style: none; }
   letter-spacing: 2px;
 }
 .quick-links a:hover { background: #155b96; color: #fff; text-decoration: none; border-color: #155b96; }
-.rule-list { margin: 0 0 6px; padding: 0; }
-.rule-list li {
-  position: relative;
-  padding-left: 12px;
-  font-size: 12.5px;
-  color: #555;
-  line-height: 1.75;
-  margin-bottom: 5px;
-}
-.rule-list li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: #155b96;
-}
-.side-box .small-note { margin-top: 0; }
 .contact-info p { font-size: 13px; color: #555; margin-bottom: 6px; line-height: 1.8; }
 .contact-info strong { color: #155b96; }
 

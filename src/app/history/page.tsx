@@ -88,7 +88,7 @@ export default function HistoryPage() {
           </li>
         ))}
       </ul>
-      <p className="source-note">资料核对：{historyCheckedAt}。本页不写历任校长与教师姓名；仅有网络传闻、无可靠出处的说法（如胡同轶事、校园昵称）不收录。艺术团档案见<Link href="/culture#arts">校园文化</Link>。本页为同学共建的公开资料整理。</p>
+      <p className="source-note">资料核对：{historyCheckedAt}。本页内容据公开资料整理，出处见上。艺术团档案见<Link href="/culture#arts">校园文化</Link>。本页为同学共建的公开资料整理。</p>
     </PageLayout>
   );
 }

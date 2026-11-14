@@ -41,7 +41,7 @@ export default function FinanceOverview() {
           </ul>
         </div>
       </div>
-      <p className="small-note">单位：{financeUnit}；展示保留两位小数，原值见详情。预算与决算分年、分口径列示，采购不与本年支出重复相加。资料核对：{financeCheckedAt}。本站为非正式资料整理站。</p>
+      <p className="small-note">单位：{financeUnit}；展示保留两位小数，原值见详情。预算与决算分年、分口径列示，采购不与本年支出重复相加。资料核对：{financeCheckedAt}。</p>
     </section>
   );
 }

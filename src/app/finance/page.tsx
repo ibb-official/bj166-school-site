@@ -4,7 +4,7 @@ import PageLayout from '@/components/PageLayout';
 import { financeBudgetUnit, financeBudgets, financeCheckedAt, financeEntity, financeFinals, financeNotes, financePdfUrl, financePortal, financeSources, financeUnit, formatFinanceAmount } from '@/data/finance';
 
 export const metadata: Metadata = {
-  title: '财政数据 - 北京市第一六六中学（非正式网站）',
+  title: '财政数据',
   description: '北京市第一六六中学2022—2026年初预算、2021—2025年度决算与政府采购分类数据，保留原值、口径及政府公开原文入口。',
   alternates: { canonical: '/finance' }
 };

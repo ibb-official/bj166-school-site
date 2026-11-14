@@ -3,7 +3,7 @@ import PageLayout from '@/components/PageLayout';
 import { policySources } from '@/data/sources';
 
 export const metadata = {
-  title: '教育方针 - 北京市第一六六中学（非正式网站）',
+  title: '教育方针',
   description: '教育强国、课程标准和科学教育政策原文入口，以及学校育人实践的公开报道。'
 };
 

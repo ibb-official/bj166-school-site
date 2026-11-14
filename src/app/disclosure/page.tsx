@@ -4,7 +4,7 @@ import { sortedNews } from '@/data/news';
 import { schoolAccount } from '@/data/sources';
 
 export const metadata = {
-  title: '信息公示 - 北京市第一六六中学（非正式网站）',
+  title: '信息公示',
   description: '学校部门预算、招生资格、培养实验等公开文件与公开说明的原文索引。'
 };
 
@@ -42,7 +42,7 @@ export default function DisclosurePage() {
         <li><a href="https://www.bjdch.gov.cn/" target="_blank" rel="noreferrer">东城区人民政府 ↗</a><span>区级政务公开、部门预算与决算。</span></li>
       </ul>
       <p>学校公众号名称为“{schoolAccount.name}”，认证主体为“{schoolAccount.certifiedEntity}”。在微信搜索账号后核对主体，可查看学校近期推送。<Link href="/sources#wechat">查看已核对的账号资料</Link></p>
-      <div className="source-note">本站为非正式资料整理页，不代学校办理报名、收费或信息登记。</div>
+      <div className="source-note">本页为公开资料整理，不代学校办理报名、收费或信息登记。</div>
     </PageLayout>
   );
 }

@@ -3,7 +3,7 @@ import PageLayout from '@/components/PageLayout';
 import { contentCheckedAt, newsCategories, sortedNews } from '@/data/news';
 
 export const metadata = {
-  title: '新闻中心 - 北京市第一六六中学（非正式网站）',
+  title: '新闻中心',
   description: '科学教育、校园文化、思政实践、集团动态及政府公开文件的有来源摘要。'
 };
 

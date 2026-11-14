@@ -2,7 +2,7 @@ import Link from '@/components/Link';
 import PageLayout from '@/components/PageLayout';
 
 export const metadata = {
-  title: '页面未找到 - 北京市第一六六中学（非正式网站）'
+  title: '页面未找到'
 };
 
 export default function NotFound() {
@@ -16,7 +16,7 @@ export default function NotFound() {
         <li><span className="t"><Link href="/sources">资料来源：每条报道的原文入口与核验说明</Link></span></li>
         <li><span className="t"><Link href="/contact">关于本站：站点性质与资料维护说明</Link></span></li>
       </ul>
-      <p className="source-note">本站为同学维护的非正式资料站，不代表学校官方发布。</p>
+      <p className="source-note">本站为同学维护的资料整理站，内容以公开来源为准。</p>
     </PageLayout>
   );
 }

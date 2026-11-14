@@ -2,7 +2,7 @@ import Link from '@/components/Link';
 import PageLayout from '@/components/PageLayout';
 
 export const metadata = {
-  title: '关于本站 - 北京市第一六六中学（非正式网站）',
+  title: '关于本站',
   description: '同学共建的学校公开报道资料站，介绍资料收录和维护方式。'
 };
 
@@ -10,7 +10,7 @@ export default function SiteInfoPage() {
   return (
     <PageLayout title="关于本站" english="ABOUT THIS WEBSITE">
       <h3 className="block-t">同学共建的公开资料站</h3>
-      <p>本站由同学协作建设，整理与北京市第一六六中学有关的公开报道、校园文化和教育资料。页面保留“非正式网站”标识，方便读者识别资料整理页与学校正式发布的区别。</p>
+      <p>本站由同学协作建设，整理与北京市第一六六中学有关的公开报道、校园文化和教育资料；每条内容均标注公开来源与核对日期。</p>
       <h3 className="block-t">资料如何收录</h3>
       <p>优先使用政府、教育科研机构及新闻媒体的公开原文，记录发布者、原文标题和报道日期。页面用简要摘要介绍事实，并提供原文入口；历史活动按当时的年度归档。</p>
       <p>仅核对到标题的公众号推送，单独保留在标题索引中。找不到可靠依据的描述会直接移除，不补写人物评价、活动细节或学校承诺。</p>

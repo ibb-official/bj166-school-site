@@ -5,7 +5,7 @@ import { getNews } from '@/data/news';
 import { schoolMap } from '@/data/sources';
 
 export const metadata = {
-  title: '学校概况 - 北京市第一六六中学（非正式网站）',
+  title: '学校概况',
   description: '据政务地图、学校部门预算与东城教育公开资料整理的学校概况。'
 };
 

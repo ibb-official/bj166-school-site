@@ -3,7 +3,7 @@ import PageLayout from '@/components/PageLayout';
 import { photosCheckedAt, reportPhotos } from '@/data/news';
 
 export const metadata = {
-  title: '校园影像 - 北京市第一六六中学（非正式网站）',
+  title: '校园影像',
   description: '学校公众号公开转载及媒体报道中的校园、课程与艺术活动照片，附年份、图注与原文出处。'
 };
 
@@ -43,7 +43,7 @@ export default function PhotosPage() {
           </div>
         </section>
       ))}
-      <p className="source-note">图片保留原始画幅与水印，点击可查看大图。日期按原报道标注；历史活动与设计模型分别说明。完整出处见<Link href="/sources">资料来源</Link>。本站为同学共建的非正式网站。</p>
+      <p className="source-note">图片保留原始画幅与水印，点击可查看大图。日期按原报道标注；历史活动与设计模型分别说明。完整出处见<Link href="/sources">资料来源</Link>。本页图片均标注原始报道出处。</p>
     </PageLayout>
   );
 }

@@ -6,7 +6,7 @@ import { accountUpdates, policySources, schoolAccount, schoolMap } from '@/data/
 import { historySources } from '@/data/history';
 
 export const metadata = {
-  title: '资料来源 - 北京市第一六六中学（非正式网站）',
+  title: '资料来源',
   description: '公开报道原文、政府文件、真实配图出处及学校认证公众号近期推送标题。'
 };
 
@@ -56,7 +56,7 @@ export default function SourcesPage() {
       <ul className="source-directory">
         {reportPhotos.map(({ article, photo }) => <li key={photo.src}><Link href={`/news/${article.id}`}>{photo.caption}</Link><span>{photo.credit}</span><a className="read-link" href={photo.originalUrl} target="_blank" rel="noreferrer">原始图片或刊载文件 ↗</a></li>)}
       </ul>
-      <p className="noindent small-note">校徽使用既有项目图片，仅用于学校资料识别。本站为非正式网站，不代表学校授权发布；报道及图片版权归相应权利人。</p>
+      <p className="noindent small-note">校徽使用既有项目图片，仅用于学校资料识别；报道及图片版权归相应权利人。</p>
     </PageLayout>
   );
 }

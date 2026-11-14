@@ -30,8 +30,11 @@ export default function Header() {
       <div className="header-band">
         <header className="header wrap">
           <div className="logo">
-            <h1><Link href="/">北京市第一六六中学</Link><span className="badge">非正式网站</span></h1>
-            <p>BEIJING NO.166 HIGH SCHOOL · 敬业 乐群 求实 进取</p>
+            <h1>
+              <Link href="/">北京市第一六六中学</Link>
+              <span className="unofficial" lang="en" title="unofficial archive">unofficial</span>
+            </h1>
+            <p>BEIJING NO.166 HIGH SCHOOL · 养成教育为本，让成长发芽</p>
           </div>
           <form className="search" action="/news" method="get" role="search">
             <label className="visually-hidden" htmlFor="site-search">搜索公开报道</label>
